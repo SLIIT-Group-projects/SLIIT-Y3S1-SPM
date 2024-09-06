@@ -2,22 +2,34 @@ import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { useReactToPrint } from "react-to-print";
+import "../css/yeildCss.css";
+import "../css/main.css";
 
 // Modal component to display image popup
 const ImageModal = ({ isModalOpen, selectedImage, closeModal }) => {
   if (!isModalOpen) return null;
 
   return (
-    <div className="modal-overlay" onClick={closeModal}>
+    <div
+      className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50"
+      onClick={closeModal}
+    >
       <div
-        className="modal-content"
+        className="bg-white p-4 rounded-lg relative"
         onClick={(e) => {
           // Prevents the modal from closing when clicking inside the content
           e.stopPropagation();
         }}
       >
-        <img src={selectedImage} alt="yeild" className="modal-image" />
-        <button className="modal-close-button" onClick={closeModal}>
+        <img
+          src={selectedImage}
+          alt="yield"
+          className="w-full h-auto object-cover rounded"
+        />
+        <button
+          className="absolute top-2 right-2 text-black text-2xl"
+          onClick={closeModal}
+        >
           &times;
         </button>
       </div>
@@ -49,21 +61,16 @@ const AllBuyerCards = () => {
   // Handle product deletion
   const handleDelete = async (buyer_card_ID) => {
     try {
-      await axios.delete(`http://localhost:8070/yeildCard/delete/${buyer_card_ID}`);
+      await axios.delete(
+        `http://localhost:8070/yeildCard/delete/${buyer_card_ID}`
+      );
       setYeilds(yeilds.filter((yeild) => yeild._id !== buyer_card_ID));
-      alert("yeild deleted successfully");
+      alert("yield deleted successfully");
     } catch (err) {
       console.error("Error deleting product:", err);
-      alert("Error deleting yeild");
+      alert("Error deleting yield");
     }
   };
-
-  // // Handle report download
-  // const handlePrint = useReactToPrint({
-  //   content: () => ComponentsRef.current,
-  //   documentTitle: "Product Report",
-  //   onAfterPrint: () => alert("Product Report successfully downloaded!"),
-  // });
 
   // Handle product search
   const handleSearch = (e) => {
@@ -91,112 +98,106 @@ const AllBuyerCards = () => {
   };
 
   return (
-    <div ref={ComponentsRef} className="">
-
-      {/* Search Bar */}
-      <div className="">
-        <form
-          className=""
-          onSubmit={handleSearch}
-        >
-          <input
-            onChange={(e) => setSearchQuery(e.target.value)}
-            value={searchQuery}
-            className=""
-            type="search"
-            placeholder="Search products"
-            aria-label="Search"
-          />
-          <button
-            className=""
-            type="submit"
-          >
-            Search
-          </button>
-        </form>
+    <div ref={ComponentsRef} className="yeild-AllCard mx-auto p-4">
+      <div className="pti-text-dark pti-text-h1 pti-bolder">
+        Buyer's Crop Dashboard
       </div>
-
-      <div className="">
-        <div className="">PRODUCTS</div>
-        <div className="">
-          <button className="">
-            <Link className="" to="/yeildCard/add">
-              Add a Card
+      <div className="yeild-AllCard-search-box">
+        <div className="yeild-AllCard-search-box2">
+          <form className="flex" onSubmit={handleSearch}>
+            <input
+              onChange={(e) => setSearchQuery(e.target.value)}
+              value={searchQuery}
+              className="yeild-AllCard-search-input border border-gray-300 p-2 rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              type="search"
+              placeholder="Search . . ."
+              aria-label="Search"
+            />
+            <button
+              className="yeild-AllCard-search-btn pti-bg-dark-green pti-text-light pti-bold text-white p-2 rounded-r-md"
+              type="submit"
+            >
+              Search
+            </button>
+          </form>
+        </div>
+        <div className="yeild-AllCard-btn-box">
+          <button className="yeild-AllCard-add-btn pti-bolder">
+            <Link to="/yeildCard/add" className="yeild-AllCard-add-link">
+              Add Yeilds
             </Link>
           </button>
+
           <button
-            className=""
+            className="yeild-AllCard-download-btn  pti-bolder"
             // onClick={handlePrint}
           >
             Download Report
           </button>
         </div>
       </div>
-
-      {/* Product Table */}
-      <div ref={ComponentsRef}>
-        <table border={0} className="">
-          <thead>
-            <tr className="">
-              <th className="">card ID</th>
-              <th>card Image</th>
-              <th>Title</th>
-              <th>Description</th>
-              <th>Quantity</th>
-              <th>buyer id</th>
-              <th>buyer name</th>
-              <th>Rate</th>
-              <th>Edit</th>
-              <th>Delete</th>
-            </tr>
-          </thead>
-          <tbody>
-            {noResult ? (
-              <tr>
-                <td colSpan="10" className="">
-                  No products found
-                </td>
-              </tr>
-            ) : (
-              yeilds.map((yeild) => (
-                <tr key={yeild._id} className="">
-                  <td className="">
+      <div className="yeild-AllCard-section2-box grid grid-cols-1 md:grid-cols-2">
+        {noResult ? (
+          <div className="col-span-full text-center text-red-500">
+            No products found
+          </div>
+        ) : (
+          yeilds.map((yeild) => (
+            <div
+              key={yeild._id}
+              className="card bg-red-500 border border-gray-300 rounded-lg shadow-lg overflow-hidden"
+            >
+              <img
+                src={yeild.image}
+                alt="Product"
+                className="yeild-AllCard-section2-img h-48 object-cover cursor-pointer"
+                onClick={() => openModal(yeild.image)}
+              />
+              <div className="p-4">
+                <div className="yeild-AllCard-section2-title-box">
+                  <div className="pti-text-h2 pti-bolder ">{yeild.b_title}</div>
+                  <div className="yeild-AllCard-section2-id text-sm text-gray-200">
                     {yeild.buyer_card_ID}
-                  </td>
-                  <td onClick={() => openModal(yeild.image)} style={{ cursor: "pointer" }}>
-                    <img
-                      src={yeild.image}
-                      width={"200px"}
-                      height={"180px"}
-                      alt="Product"
-                    />
-                  </td>
-                  <td>{yeild.b_title}</td>
-                  <td>{yeild.b_description}</td>
-                  <td>{yeild.buying_quantity}</td>
-                  <td>{yeild.buyer_id}</td>
-                  <td>{yeild.buyer_name}</td>
-                  <td>{yeild.buying_rate}</td>
-                  <td>
+                  </div>
+                </div>
+                <div className="yeild-AllCard-section2-para text-gray-200 mb-2">
+                  {yeild.b_description}
+                </div>
+                <div className="yeild-AllCard-section2-rate-box">
+                  <div className="yeild-AllCard-section2-rate text-gray-200">
+                    Rate: {yeild.buying_rate}
+                  </div>
+                  <div className="yeild-AllCard-section2-rate text-gray-200">
+                    Qty: {yeild.buying_quantity}
+                  </div>
+                </div>
+                <div className="yeild-AllCard-section2-bottom-box">
+                  <div className="yeild-AllCard-section2-bottom-buyer">
+                    <div className="text-gray-200 mb-2 pti-text-h3 pti-bold">
+                      Buyer ID: {yeild.buyer_id}
+                    </div>
+                    <div className=" text-gray-200 mb-4 pti-text-h3 pti-bold">
+                      Buyer Name: {yeild.buyer_name}
+                    </div>
+                  </div>
+                  <div className="yeild-AllCard-section2-bottom-icon-box flex justify-between items-center">
                     <Link to={`/yeildCard/${yeild._id}`}>
-                      <button className="">
+                      <button className="yeild-AllCard-section2-bottom-icon yeild-AllCard-section2-bottom-icon1 bg-blue-500 text-white px-4 py-2 rounded-md">
                         <i className="fa-solid fa-pen-to-square"></i>
                       </button>
                     </Link>
-                  </td>
-                  <td className="">
                     <button
-                      className=""
+                      className="yeild-AllCard-section2-bottom-icon yeild-AllCard-section2-bottom-icon2 bg-red-700 text-white px-4 py-2 rounded-md"
                       onClick={() => handleDelete(yeild._id)}
                     >
                       <i className="fa-solid fa-trash"></i>
                     </button>
-                  </td>
-                </tr>
-              ))
-            )}
-          </tbody>
-        </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))
+        )}
       </div>
 
       {/* Include ImageModal component */}
@@ -207,6 +208,6 @@ const AllBuyerCards = () => {
       />
     </div>
   );
-}
+};
 
 export default AllBuyerCards;
