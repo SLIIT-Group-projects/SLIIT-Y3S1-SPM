@@ -4,7 +4,8 @@ const bodyParser= require("body-parser");
 const cors=require("cors");
 const dotenv=require("dotenv");
 require("dotenv").config();
-const plantRoutes = require("./src/routes/plants.route")
+const plantRoutes = require("./src/routes/plants.route");
+const plantHistoryRoute = require("./src/routes/plantHistory.route");
 
 const app = express();
 app.use(express.json());
@@ -33,3 +34,4 @@ app.listen(port, () => {
 
 // siluni
 app.use("/plant", plantRoutes)
+app.use("/planthistory", plantHistoryRoute)
