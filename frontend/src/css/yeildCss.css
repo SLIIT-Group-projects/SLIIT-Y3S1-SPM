@@ -208,6 +208,15 @@
     transform: scale(1.03);
 }
 
+/* update */
+.yeild-updateCard-form-img{
+    width: 400px;
+    height: 700px;
+    border-radius: 5px;
+    background-image: url(../resources/yeild/update.jpg);
+    background-size: cover;
+}
+
 
   @media (min-width: 768px) {
     .yeild-AllCard-section2-box {

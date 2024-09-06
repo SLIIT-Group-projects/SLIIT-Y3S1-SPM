@@ -187,7 +187,7 @@ function UpdateProducts() {
           </div>
         </div>
         <div>
-          <div className="yeild-addCard-form-img"></div>
+          <div className="yeild-updateCard-form-img"></div>
         </div>
       </div>
       </form>
