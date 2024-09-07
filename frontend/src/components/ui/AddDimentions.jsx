@@ -11,10 +11,9 @@ function AddDimensions() {
   const [errorMessage, setErrorMessage] = useState("");
 
   const handleSubmit = (e) => {
-    e.preventDefault(); // Fix typo
+    e.preventDefault();
 
-    // Assuming fertilizers are input as a comma-separated string
-    const fertilizersArray = fertilizers.split(",").map(f => f.trim());
+    const fertilizersArray = fertilizers.split(",").map((f) => f.trim());
 
     const newPlant = {
       plantName,
@@ -25,30 +24,35 @@ function AddDimensions() {
     axios.post("http://localhost:3000/plant/add", newPlant)
       .then((res) => {
         setSuccessMessage("New plant dimensions added successfully.");
-        setErrorMessage(""); // Clear error message if successful
+        setErrorMessage("");
       })
       .catch((err) => {
         setErrorMessage("Error creating new plant log: " + err.message);
-        setSuccessMessage(""); // Clear success message if error occurs
+        setSuccessMessage("");
       });
   };
 
   return (
     <div className="">
       <PlantNavBar />
-      <AdminHeader/>
-      <div className="my-20 mx-20">
+      <AdminHeader />
+      <div className="flex justify-center items-center h-16">
+        <div className="text-[#27302d] text-2xl font-bold">
+          Add plant dimensions and fertilizers
+        </div>
+      </div>
+      <div className="my-10 mx-20">
         {/* Form Start */}
         <div>
-          <form onSubmit={handleSubmit} className="max-w-sm mx-auto">
+          <form onSubmit={handleSubmit} className="max-w-md mx-auto bg-white p-8 shadow-lg rounded-lg">
             <div className="mb-5">
-              <label htmlFor="plantName" className="block mb-2 text-sm font-medium">
+              <label htmlFor="plantName" className="block mb-2 text-sm font-medium text-[#27302d]">
                 Enter Plant Name
               </label>
               <input
                 type="text"
                 id="plantName"
-                className="border text-gray-900 text-sm rounded-lg block w-full p-2.5"
+                className="border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 focus:outline-none focus:ring-2 focus:ring-[#6A9C89]"
                 placeholder="Plant name"
                 value={plantName}
                 onChange={(e) => setPlantName(e.target.value)}
@@ -57,16 +61,13 @@ function AddDimensions() {
             </div>
 
             <div className="mb-5">
-              <label
-                htmlFor="requiredDimension"
-                className="block mb-2 text-sm font-medium text-gray-900"
-              >
+              <label htmlFor="requiredDimension" className="block mb-2 text-sm font-medium text-[#27302d]">
                 Enter Required Dimension
               </label>
               <input
                 type="text"
                 id="requiredDimension"
-                className="border text-gray-900 text-sm rounded-lg block w-full p-2.5"
+                className="border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 focus:outline-none focus:ring-2 focus:ring-[#6A9C89]"
                 placeholder="Dimension in meters"
                 value={requiredDimension}
                 onChange={(e) => setRequiredDimension(e.target.value)}
@@ -75,16 +76,13 @@ function AddDimensions() {
             </div>
 
             <div className="mb-5">
-              <label
-                htmlFor="fertilizers"
-                className="block mb-2 text-sm font-medium text-gray-900"
-              >
+              <label htmlFor="fertilizers" className="block mb-2 text-sm font-medium text-[#27302d]">
                 Enter Fertilizers that can be used
               </label>
               <input
                 type="text"
                 id="fertilizers"
-                className="border text-gray-900 text-sm rounded-lg block w-full p-2.5"
+                className="border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 focus:outline-none focus:ring-2 focus:ring-[#6A9C89]"
                 placeholder="Fertilizers that can be used (comma separated)"
                 value={fertilizers}
                 onChange={(e) => setFertilizers(e.target.value)}
@@ -94,7 +92,7 @@ function AddDimensions() {
 
             <button
               type="submit"
-              className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              className="text-white bg-[#6A9C89] hover:bg-green-800 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center transition-colors duration-300"
             >
               Submit
             </button>

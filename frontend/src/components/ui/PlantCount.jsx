@@ -110,13 +110,14 @@ function PlantCount() {
           CALCULATE PLANT COUNT
         </div>
       </div>
+      
       <div className="flex justify-between ">
         {/* Form Start */}
         <div>
           <form onSubmit={calculateArea} className="w-full mx-auto ml-20">
             <div className="mb-5">
               <label htmlFor="width" className="block mb-2 text-sm font-medium">
-                Enter the width
+                Enter the width (m)
               </label>
               <input
                 type="text"
@@ -131,7 +132,7 @@ function PlantCount() {
 
             <div className="mb-5">
               <label htmlFor="length" className="block mb-2 text-sm font-medium text-gray-900">
-                Enter the length
+                Enter the length (m)
               </label>
               <input
                 type="text"
@@ -146,7 +147,7 @@ function PlantCount() {
 
             <div className="mb-5">
               <label htmlFor="plantSelect" className="block mb-2 text-sm font-medium">
-                Choose the plant
+                Choose the plant 
               </label>
               <select
                 className="border text-sm rounded-lg block w-full p-2.5"
@@ -165,7 +166,7 @@ function PlantCount() {
 
             <button
               type="submit"
-              className="text-white bg-[#6A9C89] hover:[#C4DAD2] focus:ring-4 focus:outline-none font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+              className="text-white bg-[#6A9C89] hover:bg-green-800 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
             >
               Submit
             </button>
@@ -184,7 +185,7 @@ function PlantCount() {
 
           {/* Save to history button */}
           <button
-            className="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 mt-5 ml-20"
+            className="text-white bg-[#6A9C89] hover:bg-green-800 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 mt-5 ml-20"
             onClick={saveToHistory}
           >
             Save to History

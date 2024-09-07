@@ -1,8 +1,8 @@
 function PlantNavBar() {
   return (
     <>
-      <nav className="border-gray-200 bg-[#C4DAD2]">
-        <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+      <nav className="border-gray-200 bg-[#16423C] ">
+        <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-20 p-4">
           <a
             href="/"
             className="flex items-center space-x-3 rtl:space-x-reverse"
@@ -37,11 +37,11 @@ function PlantNavBar() {
           </button>
           <div className="hidden w-full md:block md:w-auto" id="navbar-default">
             <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border rounded-lg md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0">
+             
               <li>
                 <a
                   href="/PlantCount"
-                  className="block py-2 px-3 text-white rounded md:bg-transparent md:p-0 dark:text-white md:dark:text-blue-500"
-                  aria-current="page"
+                  className="block py-2 px-3 text-white md:dark:hover:text-green-600  rounded md:hover:bg-transparent md:border-0 md:p-0  md:dark:hover:bg-transparent"
                 >
                   Plant Count
                 </a>
@@ -49,7 +49,7 @@ function PlantNavBar() {
               <li>
                 <a
                   href="#"
-                  className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                  className="block py-2 px-3 text-white md:dark:hover:text-green-600 md:hover:bg-transparent md:border-0  md:p-0 dark:text-white  dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
                 >
                   Fertilizers
                 </a>
@@ -57,25 +57,26 @@ function PlantNavBar() {
               <li>
                 <a
                   href="#"
-                  className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                  className="block py-2 px-3text-white text-white md:dark:hover:text-green-600 md:hover:bg-transparent md:border-0  md:p-0 dark:text-white   dark:hover:text-white md:dark:hover:bg-transparent"
                 >
                   equipments
+                </a>
+              </li>
+              
+              <li>
+                <a
+                  href="/HistoryPlantCount"
+                  className="block py-2 px-3 text-white md:dark:hover:text-green-600 md:hover:bg-transparent md:border-0  md:p-0 dark:text-white  dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                >
+                  history
                 </a>
               </li>
               <li>
                 <a
                   href="/admin/addDimentions"
-                  className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                  className="block py-2 px-3 text-white md:dark:hover:text-green-600 md:hover:bg-transparent md:border-0  md:p-0 dark:text-white  dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
                 >
                   Admin
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/HistoryPlantCount"
-                  className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                >
-                  history
                 </a>
               </li>
             </ul>
