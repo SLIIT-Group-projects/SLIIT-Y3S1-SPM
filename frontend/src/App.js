@@ -1,13 +1,14 @@
 import BuyerCardAdd from "./components/buyerCardAdd";
 import AllBuyerCards from "./components/allBuyerCards";
 import UpdatebuyerCard from "./components/updatebuyerCard";
-
+import Navbar from "./components/Navbar";
 
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 function App() {
   return (
     <Router>
+      <Navbar />
       <div className="App">
         <Routes>
           <Route path="/yeildCard/add" exact element={<BuyerCardAdd />} />

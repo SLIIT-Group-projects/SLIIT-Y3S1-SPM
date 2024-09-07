@@ -108,7 +108,7 @@ const AllBuyerCards = () => {
             <input
               onChange={(e) => setSearchQuery(e.target.value)}
               value={searchQuery}
-              className="yeild-AllCard-search-input border border-gray-300 p-2 rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="yeild-AllCard-search-input border border-gray-300 p-3 rounded-l-md focus:outline-none focus:ring-2"
               type="search"
               placeholder="Search . . ."
               aria-label="Search"
@@ -156,27 +156,27 @@ const AllBuyerCards = () => {
               <div className="p-4">
                 <div className="yeild-AllCard-section2-title-box">
                   <div className="pti-text-h2 pti-bolder ">{yeild.b_title}</div>
-                  <div className="yeild-AllCard-section2-id text-sm text-gray-200">
+                  <div className="yeild-AllCard-section2-id text-s">
                     {yeild.buyer_card_ID}
                   </div>
                 </div>
-                <div className="yeild-AllCard-section2-para text-gray-200 mb-2">
+                <div className="yeild-AllCard-section2-para mb-2">
                   {yeild.b_description}
                 </div>
                 <div className="yeild-AllCard-section2-rate-box">
-                  <div className="yeild-AllCard-section2-rate text-gray-200">
+                  <div className="yeild-AllCard-section2-rate">
                     Rate: {yeild.buying_rate}
                   </div>
-                  <div className="yeild-AllCard-section2-rate text-gray-200">
+                  <div className="yeild-AllCard-section2-rate">
                     Qty: {yeild.buying_quantity}
                   </div>
                 </div>
                 <div className="yeild-AllCard-section2-bottom-box">
                   <div className="yeild-AllCard-section2-bottom-buyer">
-                    <div className="text-gray-200 mb-2 pti-text-h3 pti-bold">
+                    <div className=" mb-2 pti-text-h3 pti-bold">
                       Buyer ID: {yeild.buyer_id}
                     </div>
-                    <div className=" text-gray-200 mb-4 pti-text-h3 pti-bold">
+                    <div className="  mb-4 pti-text-h3 pti-bold">
                       Buyer Name: {yeild.buyer_name}
                     </div>
                   </div>
