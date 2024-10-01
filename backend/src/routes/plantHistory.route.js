@@ -2,8 +2,6 @@ const express = require("express");
 const router = express.Router();
 const History = require("../models/plantHistory");
 
-
-
 router.route("/").get((req,res)=>{
     History.find().then((plantHistory)=>{
         res.json(plantHistory)

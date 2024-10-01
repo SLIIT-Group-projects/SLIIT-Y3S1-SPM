@@ -6,6 +6,8 @@ import Home from "./components/ui/Home";
 import PlantCount from "./components/ui/PlantCount"
 import AddDimentions from "./components/ui/AddDimentions";
 import HistoryPlantCount from "./components/ui/HistoryPlantCount";
+import Login from "./components/login/Login";
+import SignUp from "./components/login/SignUp";
 function App() {
   
   return (
@@ -13,6 +15,8 @@ function App() {
     <BrowserRouter>
     <Routes>
       <Route path= "/" element = {<Home/>}/>
+      <Route path="/login" element={<Login/>}/>
+      <Route path="/signup" element={<SignUp/>}/>
 
       <Route path= "/PlantCount" element = {<PlantCount/>}/>
       <Route path= "/HistoryPlantCount" element = {<HistoryPlantCount/>}/>

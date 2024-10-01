@@ -79,6 +79,14 @@ function PlantNavBar() {
                   Admin
                 </a>
               </li>
+              <li>
+                <a
+                  href="/login"
+                  className="block py-2 px-3 text-white md:dark:hover:text-green-600 md:hover:bg-transparent md:border-0  md:p-0 dark:text-white  dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                >
+                  Login
+                </a>
+              </li>
             </ul>
           </div>
         </div>
