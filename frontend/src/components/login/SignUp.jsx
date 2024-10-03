@@ -1,60 +1,52 @@
 // SignUp.jsx
 import React, { useState } from "react";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth, db } from "../firebase"; // Ensure these paths are correct
-import { setDoc, doc } from "firebase/firestore";
-import { toast } from "react-toastify";
 import PlantNavBar from "../shared/PlantNavBar"; // Ensure this path is correct
+import { useNavigate } from "react-router-dom";
 
 function SignUp() {
-  // State variables for form fields
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [address, setAddress] = useState("");
-  const [role, setRole] = useState("customer"); // Default role
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+    phoneNumber: "",
+    address: "",
+  });
+  const [successMessage, setSuccessMessage] = useState(""); // State for success message
 
-  // Handle form submission
-  const handleRegister = async (e) => {
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Create user with email and password using Firebase Authentication
-      const userCredential = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-      const user = userCredential.user;
-
-      if (user) {
-        // Store additional user details in Firestore
-        await setDoc(doc(db, "Users", user.uid), {
-          name,
-          email: user.email,
-          phoneNumber,
-          address,
-          role,
-        });
-      }
-
-      // Success feedback
-      toast.success("User Registered Successfully!", {
-        position: "top-center",
+      const response = await fetch("http://localhost:3000/user/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
       });
-
-      // Optional: Reset form fields after successful registration
-      setName("");
-      setEmail("");
-      setPassword("");
-      setPhoneNumber("");
-      setAddress("");
-      setRole("customer");
+      const result = await response.json();
+      console.log(result);
+      setSuccessMessage("Registration successful! Redirecting to login..."); // Set success message
+      setTimeout(() => {
+        navigate("/login"); // Navigate to login after 2 seconds
+      }, 5000);
     } catch (error) {
-      // Error feedback
-      console.error("Registration Error: ", error.message);
-      toast.error(error.message, {
-        position: "bottom-center",
+      console.error(error.message);
+    } finally {
+      setFormData({
+        name: "",
+        email: "",
+        password: "",
+        phoneNumber: "",
+        address: "",
       });
     }
   };
@@ -67,12 +59,19 @@ function SignUp() {
       {/* Registration Form Container */}
       <div className="flex justify-center items-center min-h-screen bg-gradient-to-b from-green-200 via-green-300 to-green-400">
         <form
-          onSubmit={handleRegister}
+          onSubmit={handleSubmit}
           className="bg-white p-8 rounded-lg shadow-md w-full max-w-md"
         >
           <h3 className="text-2xl font-bold mb-6 text-green-700 text-center">
             Sign Up
           </h3>
+
+          {/* Success Message */}
+          {successMessage && (
+            <div className="mb-4 p-4 bg-green-100 text-green-700 rounded">
+              {successMessage}
+            </div>
+          )}
 
           {/* Name */}
           <div className="mb-4">
@@ -81,10 +80,11 @@ function SignUp() {
             </label>
             <input
               type="text"
+              name="name"
               className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
               placeholder="Enter your full name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+              value={formData.name}
+              onChange={handleInputChange}
               required
             />
           </div>
@@ -96,10 +96,11 @@ function SignUp() {
             </label>
             <input
               type="email"
+              name="email"
               className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
               placeholder="Enter your email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={formData.email}
+              onChange={handleInputChange}
               required
             />
           </div>
@@ -111,10 +112,11 @@ function SignUp() {
             </label>
             <input
               type="password"
+              name="password"
               className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
               placeholder="Enter your password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              value={formData.password}
+              onChange={handleInputChange}
               required
             />
           </div>
@@ -126,11 +128,12 @@ function SignUp() {
             </label>
             <input
               type="tel"
-              pattern="[0-9]{10}" // Basic pattern for 10-digit numbers
+              name="phoneNumber"
+              pattern="[0-9]{10}"
               className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
               placeholder="Enter your phone number"
-              value={phoneNumber}
-              onChange={(e) => setPhoneNumber(e.target.value)}
+              value={formData.phoneNumber}
+              onChange={handleInputChange}
               required
             />
             <small className="text-gray-500">Format: 1234567890</small>
@@ -143,27 +146,13 @@ function SignUp() {
             </label>
             <input
               type="text"
+              name="address"
               className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
               placeholder="Enter your address"
-              value={address}
-              onChange={(e) => setAddress(e.target.value)}
+              value={formData.address}
+              onChange={handleInputChange}
               required
             />
-          </div>
-
-          {/* Role */}
-          <div className="mb-6">
-            <label className="block text-gray-700 font-medium mb-2">
-              Role
-            </label>
-            <select
-              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-              value={role}
-              onChange={(e) => setRole(e.target.value)}
-            >
-              <option value="customer">Customer</option>
-              <option value="admin">Admin</option>
-            </select>
           </div>
 
           {/* Submit Button */}
