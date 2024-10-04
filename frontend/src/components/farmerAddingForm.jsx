@@ -110,6 +110,7 @@ function UpdateProducts() {
                   className="add-product-input form-control"
                   value={yeild.b_title}
                   onChange={handleInputChange}
+                  readOnly
                 />
               </div>
             </div>
@@ -122,6 +123,8 @@ function UpdateProducts() {
                   name="b_description"
                   value={yeild.b_description}
                   onChange={handleInputChange}
+
+                  readOnly
                 />
               </div>
             </div>
@@ -135,6 +138,7 @@ function UpdateProducts() {
                   name="buying_quantity"
                   value={yeild.buying_quantity}
                   onChange={handleInputChange}
+                  readOnly
                 />
               </div>
             </div>
@@ -149,6 +153,7 @@ function UpdateProducts() {
                   name="buying_rate"
                   value={yeild.buying_rate}
                   onChange={handleInputChange}
+                  readOnly
                 />
               </div>
             </div>
@@ -161,6 +166,7 @@ function UpdateProducts() {
                   name="buyer_id"
                   value={yeild.buyer_id}
                   onChange={handleInputChange}
+                  readOnly
                 />
               </div>
             </div>
@@ -173,6 +179,7 @@ function UpdateProducts() {
                   name="buyer_name"
                   value={yeild.buyer_name}
                   onChange={handleInputChange}
+                  readOnly
                 />
               </div>
             </div>

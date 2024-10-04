@@ -118,7 +118,6 @@ const AllBuyerCards = () => {
             </button>
           </form>
         </div>
-   
       </div>
       <div className="yeild-AllCard-section2-box grid grid-cols-1 md:grid-cols-2">
         {noResult ? (
@@ -155,8 +154,23 @@ const AllBuyerCards = () => {
                     Qty: {yeild.buying_quantity}
                   </div>
                   <Link to={`/yeildCard/FarmersView/${yeild._id}`}>
-                    <div className="yeild-AllCard-section2-rate-add bg-blue-500">
-                      <button>Add</button>
+                    <div
+                      className={`bg-blue-500 yeild-AllCard-section2-rate-add text-white p-2 rounded ${
+                        yeild.buying_quantity === 0
+                          ? "bg-gray-400 cursor-not-allowed"
+                          : ""
+                      }`}
+                    >
+                      <button
+                        disabled={yeild.buying_quantity === 0}
+                        className={`bg-blue-500 text-white p-2 rounded ${
+                          yeild.buying_quantity === 0
+                            ? "bg-gray-400 cursor-not-allowed"
+                            : ""
+                        }`}
+                      >
+                        Add
+                      </button>
                     </div>
                   </Link>
                 </div>
