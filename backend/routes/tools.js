@@ -1,5 +1,5 @@
 const express = require("express");
-const ToolModel = require("../model/tools"); // Adjust the path as necessary
+const ToolModel = require("../model/tools");
 const multer = require("multer");
 const fs = require("fs");
 const path = require("path");
@@ -13,18 +13,15 @@ const router = express.Router();
 const photosMiddleware = multer({ dest: "uploads/" });
 
 // Route to upload an image by link
-
 router.post("/upload-by-link", async (req, res) => {
   const { link } = req.body;
   const newName = "photo" + Date.now() + ".jpg";
-
-  // Use path.join to ensure the correct path to the uploads directory
   const uploadPath = path.join(__dirname, "../uploads", newName);
 
   try {
     await imageDownloader.image({
       url: link,
-      dest: uploadPath, // Ensure it resolves to the correct path
+      dest: uploadPath,
     });
     res.json(newName);
   } catch (error) {
@@ -73,6 +70,21 @@ router.post("/tools", async (req, res) => {
   }
 });
 
+// Route to fetch a specific tool by ID
+router.get("/tools/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const tool = await ToolModel.findById(id);
+    if (!tool) {
+      return res.status(404).json({ message: "Tool not found" });
+    }
+    res.json(tool);
+  } catch (error) {
+    console.error("Error fetching tool:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
 // Route to fetch all tools
 router.get("/tools", async (req, res) => {
   try {
@@ -84,45 +96,55 @@ router.get("/tools", async (req, res) => {
   }
 });
 
-router.post("/booking", (req, res) => {
+// Route to create a new booking
+router.post("/booking", async (req, res) => {
   const { tool, rentFrom, rentTo, rentName, rentMobile, rentPrice } = req.body;
-  booking
-    .create({
+  try {
+    const newBooking = await BookingModel.create({
       tool,
       rentFrom,
       rentTo,
       rentName,
       rentMobile,
       rentPrice,
-    })
-    .then((doc) => {
-      res.json(doc);
-    })
-    .catch(() => {
-      throw err;
     });
-});
-
-router.get("/booking", async (req, res) => {
-  try {
-    const booking = await BookingModel.find().populate("tool");
-    res.status(200).json(booking);
+    res.status(201).json(newBooking);
   } catch (error) {
-    console.error("Error fetching bookings", error);
+    console.error("Error creating booking:", error);
     res.status(500).json({ message: "Internal Server Error" });
   }
 });
 
-// Route to fetch a tool by ID
-router.get("/tools/:id", async (req, res) => {
+// Route to fetch a specific booking by ID
+router.get("/booking/:id", async (req, res) => {
   const { id } = req.params;
-  res.json(await ToolModel.findById(id));
+  try {
+    const booking = await BookingModel.findById(id).populate("tool");
+    if (!booking) {
+      return res.status(404).json({ message: "Booking not found" });
+    }
+    res.json(booking);
+  } catch (error) {
+    console.error("Error fetching booking:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+// Route to fetch all bookings
+router.get("/booking", async (req, res) => {
+  try {
+    const bookings = await BookingModel.find().populate("tool");
+    res.status(200).json(bookings);
+  } catch (error) {
+    console.error("Error fetching bookings:", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
 });
 
 // Route to update a tool
 router.put("/tools/:id", async (req, res) => {
+  const { id } = req.params;
   try {
-    const { id } = req.params;
     const {
       tool_title,
       tool_photos,
