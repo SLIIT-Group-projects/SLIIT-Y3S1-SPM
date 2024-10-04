@@ -2,9 +2,11 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import AppNavbar from "../components/NavBar";
+import SearchBar from "../components/SearchBar";
 
 const Index_page = () => {
   const [tools, setTools] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     axios.get("http://localhost:8070/tools").then((res) => {
@@ -12,12 +14,18 @@ const Index_page = () => {
     });
   }, []);
 
+  // Filter tools based on search query
+  const filteredTools = tools.filter((tool) =>
+    tool.tool_title.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
     <>
       <AppNavbar />
+      <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
       <div className="m-4 mt-8 grid grid-cols-1 md:grid-cols-4 gap-6">
-        {tools.length > 0 &&
-          tools.map((tool) => (
+        {filteredTools.length > 0 ? (
+          filteredTools.map((tool) => (
             <Link
               to={"/tools_home/" + tool._id}
               key={tool._id}
@@ -50,15 +58,15 @@ const Index_page = () => {
                     </span>
                   ))}
                 </div>
-                {/* <p className="text-md text-[#6A9C89] mt-2 ">
-                  {tool.tool_description}
-                </p> */}
                 <h2 className="text-xl font-semibold text-[#16423C] text-right">
                   {"Rs. " + tool.tool_price + " per day"}
                 </h2>
               </div>
             </Link>
-          ))}
+          ))
+        ) : (
+          <p className="text-center text-[#16423C]">No tools found.</p>
+        )}
       </div>
     </>
   );

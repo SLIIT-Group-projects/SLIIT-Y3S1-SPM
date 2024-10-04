@@ -85,6 +85,16 @@ router.get("/tools/:id", async (req, res) => {
   }
 });
 
+router.delete("/tools/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    await ToolModel.findByIdAndDelete(id);
+    res.status(200).json({ message: "Booking deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ message: "Error deleting booking" });
+  }
+});
+
 // Route to fetch all tools
 router.get("/tools", async (req, res) => {
   try {
@@ -127,6 +137,16 @@ router.get("/booking/:id", async (req, res) => {
   } catch (error) {
     console.error("Error fetching booking:", error);
     res.status(500).json({ message: "Server error" });
+  }
+});
+
+router.delete("/booking/:id", async (req, res) => {
+  try {
+    const bookingId = req.params.id;
+    await BookingModel.findByIdAndDelete(bookingId);
+    res.status(200).json({ message: "Booking deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ message: "Error deleting booking" });
   }
 });
 

@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { differenceInCalendarDays } from "date-fns";
 import { Link, useNavigate } from "react-router-dom";
+import AppNavbar from "../components/NavBar";
 
 const Tool_bookings = () => {
   const [bookings, setBookings] = useState([]);
@@ -17,31 +18,50 @@ const Tool_bookings = () => {
   //   navigate(`/booking/${bookingId}`);
   // };
 
+  const handleDelete = (bookingId) => {
+    if (window.confirm("Are you sure you want to cancel this booking?")) {
+      axios
+        .delete(`http://localhost:8070/booking/${bookingId}`)
+        .then((res) => {
+          setBookings((prev) =>
+            prev.filter((booking) => booking._id !== bookingId)
+          );
+        })
+        .catch((error) => {
+          console.error("Error deleting booking:", error);
+        });
+    }
+  };
+
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      {bookings.length > 0 &&
-        bookings.map((booking) => (
-          <Link
-            to={"/booking/" + booking._id}
-            key={booking._id}
-            className="flex flex-col cursor-pointer bg-[#E9EFEC] p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300"
-          >
+    <>
+      <AppNavbar />
+      <h2 className="m-8 text-3xl font-bold">My Rentals</h2>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mx-8 my-4">
+        {bookings.length > 0 &&
+          bookings.map((booking) => (
             <div
               key={booking._id}
-              className="bg-white shadow-md rounded-lg overflow-hidden flex gap-5 border mx-8 my-4 p-4 cursor-pointer"
+              className="bg-background shadow-md rounded-lg overflow-hidden flex gap-5 border mx-8 my-4 p-4 cursor-pointer"
             >
               {/* Tool Image */}
               <div className="w-40 h-40 text-lg">
                 {booking.tool.tool_photos.length > 0 ? (
-                  <img
-                    src={
-                      "http://localhost:8070/uploads/" +
-                      booking.tool.tool_photos[0]
-                    }
-                    alt={booking.tool.tool_title}
-                    className="object-cover w-full h-full rounded"
-                    style={{ objectFit: "cover", aspectRatio: "1/1" }}
-                  />
+                  <Link
+                    to={"/booking/" + booking._id}
+                    key={booking._id}
+                    className="flex flex-col cursor-pointer p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300"
+                  >
+                    <img
+                      src={
+                        "http://localhost:8070/uploads/" +
+                        booking.tool.tool_photos[0]
+                      }
+                      alt={booking.tool.tool_title}
+                      className="object-cover w-full h-full rounded"
+                      style={{ objectFit: "cover", aspectRatio: "1/1" }}
+                    />
+                  </Link>
                 ) : (
                   <p className="text-[#16423C] text-sm">No Image</p>
                 )}
@@ -113,11 +133,31 @@ const Tool_bookings = () => {
                   </svg>
                   Total Price(Rs.) : {booking.rentPrice}.00
                 </div>
+                <button
+                  onClick={() => handleDelete(booking._id)}
+                  className="flex  gap-2 bg-red-500 rounded text-white p-2 ml-auto my-2"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="size-6"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M6 18 18 6M6 6l12 12"
+                    />
+                  </svg>
+                  cancel booking
+                </button>
               </div>
             </div>
-          </Link>
-        ))}
-    </div>
+          ))}
+      </div>
+    </>
   );
 };
 

@@ -10,6 +10,8 @@ const BookingWidget = ({ tool }) => {
   const [rentMobile, setRentMobile] = useState("");
   const [redirect, setRedirect] = useState("");
   let numberOfDays = 0;
+
+  // Calculate number of days only if both dates are selected
   if (rentFrom && rentTo) {
     numberOfDays = differenceInCalendarDays(
       new Date(rentTo),
@@ -55,31 +57,44 @@ const BookingWidget = ({ tool }) => {
         </div>
       </div>
       <div>
-        {numberOfDays > 0 && (
-          <div className="my-4 text-lg">
-            <div className="m-2">
-              <label htmlFor="">Name :</label>
-              <input
-                type="text"
-                value={rentName}
-                onChange={(e) => setRentName(e.target.value)}
-                className="border p-1 mx-2 rounded-lg"
-              />
-            </div>
-            <div className="m-2">
-              <label htmlFor="">Mobile no :</label>
-              <input
-                type="text"
-                value={rentMobile}
-                onChange={(e) => setRentMobile(e.target.value)}
-                className="border p-1 mx-2 rounded-lg"
-              />
-            </div>
-            <div className="text-2xl text-right">
-              Total(Rs.) : {numberOfDays * tool.tool_price}.00
-            </div>
-          </div>
-        )}
+        {/* Show total price and renter details only if numberOfDays is positive */}
+        {numberOfDays > 0 ? (
+          <>
+            {tool.tool_maxDays > numberOfDays ? (
+              <div className="my-4 text-lg">
+                <div className="m-2">
+                  <label htmlFor="">Name :</label>
+                  <input
+                    type="text"
+                    value={rentName}
+                    onChange={(e) => setRentName(e.target.value)}
+                    className="border p-1 mx-2 rounded-lg"
+                  />
+                </div>
+                <div className="m-2">
+                  <label htmlFor="">Mobile no :</label>
+                  <input
+                    type="text"
+                    value={rentMobile}
+                    onChange={(e) => setRentMobile(e.target.value)}
+                    className="border p-1 mx-2 rounded-lg"
+                  />
+                </div>
+                <div className="text-2xl text-right">
+                  Total(Rs.) : {numberOfDays * tool.tool_price}.00
+                </div>
+              </div>
+            ) : (
+              <div className="text-red-500 my-4">
+                <p>
+                  Sorry, you cannot rent this tool for more than{" "}
+                  {tool.tool_maxDays} days.
+                </p>
+              </div>
+            )}
+          </>
+        ) : null}{" "}
+        {/* Do not show error message when numberOfDays is zero */}
       </div>
 
       <button

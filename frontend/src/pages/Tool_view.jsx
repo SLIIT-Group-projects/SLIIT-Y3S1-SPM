@@ -70,7 +70,7 @@ const Tool_view = () => {
     <>
       <AppNavbar />
       <div className="mt-4 bg-background mx-8 px-8 py-8 rounded-2xl">
-        <h1 className="text-2xl">{tool.tool_title}</h1>
+        <h1 className="text-3xl font-bold">{tool.tool_title}</h1>
 
         {/* Custom Grid Container for Images */}
         <div className="relative">
@@ -136,13 +136,28 @@ const Tool_view = () => {
               <p className="text-lg mt-2">{tool.tool_description}</p>
             </div>
             <div className="mt-4">
-              Max number of Rent Days : {tool.tool_maxDays}
+              <h2 className="mt-2 font-semibold text-2xl">Tool Perks</h2>
+              <div className="flex flex-wrap gap-2 mt-2">
+                {tool.tool_perks &&
+                  tool.tool_perks.map((perk, index) => (
+                    <button
+                      key={index}
+                      className="bg-primary text-white rounded-full px-4 py-2  transition duration-200"
+                    >
+                      {perk}
+                    </button>
+                  ))}
+              </div>
+            </div>
+
+            <div className="mt-4 font-semibold text-2xl">
+              Max number of Rent Days: {tool.tool_maxDays}
             </div>
           </div>
           <div className="py-4">
             <div className="bg-white p-4 rounded-2xl shadow">
               <div className="text-center text-2xl font-semibold">
-                Price : Rs.{tool.tool_price} / Per day
+                Price: Rs.{tool.tool_price} / Per day
               </div>
               <BookingWidget tool={tool} />
             </div>
