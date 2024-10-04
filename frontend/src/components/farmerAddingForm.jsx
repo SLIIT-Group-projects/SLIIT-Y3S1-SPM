@@ -72,7 +72,7 @@ function UpdateProducts() {
       });
 
       alert("Product updated and added successfully");
-      navigate("/yieldCard/");
+      navigate("/yeildCard/FarmersView");
     } catch (error) {
       console.error("Error updating or adding product:", error);
       alert("Error updating or adding product");
@@ -85,7 +85,7 @@ function UpdateProducts() {
         Sell Your Crops
       </div>
       <form onSubmit={handleSubmit}>
-        <div className="yeild-addCard-form-box">
+        <div className="yeild-addCard-form-box2">
           <div>
             <div>
               <div className="yeild-addCard-form-label">Card ID</div>
@@ -220,7 +220,7 @@ function UpdateProducts() {
             </div>
           </div>
           <div>
-            <div className="yeild-updateCard-form-img"></div>
+            <div className="yeild-updateCard-form-img2"></div>
           </div>
         </div>
       </form>

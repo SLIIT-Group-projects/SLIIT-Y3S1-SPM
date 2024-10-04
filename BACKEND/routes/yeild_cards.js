@@ -101,6 +101,24 @@ router.route("/crop_selling/").get((req, res) => {
             res.status(500).send({ status: "Error fetching crop details", error: err.message });
         });
 });
+
+router.route("/crop_selling/get/:id").get(async (req, res) => {
+    let yeildId = req.params.id;
+
+    try {
+        const yeild = await Yeild_farmer.findById(yeildId);
+        if (!yeild) {
+            res.status(404).send({ status: "Yield card not found" });
+        } else {
+            res.status(200).send({ status: "Yield card fetched", yeild });
+        }
+    } catch (err) {
+        res.status(500).send({ status: "Error with getting yield card", error: err.message });
+    }
+});
+
+
+
 // Get all selling details for one buyer
 router.route("/crop_selling/get/:id").get(async (req, res) => {
     let yeildId = req.params.id;

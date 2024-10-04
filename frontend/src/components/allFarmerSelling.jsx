@@ -36,7 +36,7 @@ const CropSellingTable = () => {
       ) : (
         <div className="overflow-x-auto">
           <table className="min-w-full border border-gray-300 mt-4">
-            <thead className="bg-green-800 text-white">
+            <thead className="bg-[#065f46] text-white">
               <tr>
                 <th className="border border-gray-300 p-3">Buyer Card ID</th>
                 <th className="border border-gray-300 p-3">Title</th>
@@ -54,8 +54,8 @@ const CropSellingTable = () => {
                 <tr
                   key={crop._id}
                   className={`border-b border-gray-300 ${
-                    index % 2 === 0 ? "" : "bg-green-100"
-                  } hover:bg-green-100 transition-colors duration-200`}
+                    index % 2 === 0 ? "" : "bg-[#dcfce7]"
+                  } hover:bg-[#dcfce7] transition-colors duration-200`}
                 >
                   <td className="border border-gray-300 p-2">{crop.buyer_card_ID}</td>
                   <td className="border border-gray-300 p-2">{crop.b_title}</td>

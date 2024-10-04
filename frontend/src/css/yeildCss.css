@@ -121,9 +121,8 @@
     font-weight: 700;
 }
 .yeild-AllCard-section2-rate-add{
-  width: 60px;
+  width: 80px;
   height: 40px;
-  background-color: var(--dark-green);
   color: white;
   display: flex;
   justify-content: center;
@@ -171,8 +170,18 @@
 }
 .yeild-addCard-form-box{
     width: 900px;
-    height: 1000px;
-    background-color: var(--light-green);
+    height: 770px;
+    background-color: var(--lighter-green);
+    margin-top: 60px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+}
+.yeild-addCard-form-box2{
+    width: 900px;
+    height: 940px;
+    background-color: var(--lighter-green);
     margin-top: 60px;
     border-radius: 10px;
     display: flex;
@@ -181,29 +190,38 @@
 }
 .yeild-addCard-form-img{
     width: 400px;
-    height: 700px;
+    height: 740px;
     border-radius: 5px;
     background-image: url(../resources/yeild/addForm.jpg);
     background-size: cover;
 
 }
+.yeild-updateCard-form-img2{
+  width: 400px;
+    height: 915px;
+    border-radius: 5px;
+    background-image: url(../resources/yeild/addForm.jpg);
+    background-size: cover;
+}
 .add-product-input{
     width: 400px;
     height: 35px;
-    border: none;
-    border-radius: 6px;
+    /* border: none; */
+    border-radius: 4px;
     margin-left: 20px;
     margin-bottom: 25px;
     padding: 5px;
+    border-width: 1px;
+    border-color: var(--dark-green);
 }
 .yeild-addCard-form-label{
     display: flex;
     justify-content: start;
-    margin-left: 35px;
+    margin-left: 28px;
     font-weight: 600;
     margin-bottom: 5px;
     font-size: 15px;
-    
+    color: var(--dark-green);
 }
 
 .yeild-addCard-form-btn{

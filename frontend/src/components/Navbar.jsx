@@ -46,16 +46,16 @@ const AppNavbar = () => {
           </div>
           <div className="hidden sm:flex space-x-4 items-center">
             <a
-              href="#home"
+              href="/yeildCard/farmersView"
               className="text-[#C4DAD2] hover:text-white font-medium px-3 py-2 text-lg"
             >
-              Home
+              farmer card
             </a>
             <a
-              href="#tools"
+              href="/yeildCard/allFarmerSelling"
               className="text-[#C4DAD2] hover:text-white font-medium px-3 py-2 text-lg"
             >
-              Tools
+              Selling_Details
             </a>
             <a
               href="/yeildCard/"
@@ -64,10 +64,10 @@ const AppNavbar = () => {
               Buyer Card
             </a>
             <a
-              href="#contact"
+              href="/yeildCard/allBuyerBuying"
               className="text-[#C4DAD2] hover:text-white font-medium px-3 py-2 text-lg"
             >
-              Contact
+              Buying_Details
             </a>
           </div>
         </div>

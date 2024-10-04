@@ -99,10 +99,7 @@ const AllBuyerCards = () => {
 
   return (
     <div ref={ComponentsRef} className="yeild-AllCard mx-auto p-4">
-      <div className="pti-text-dark pti-text-h1 pti-bolder">
-        Buyer's Crop Dashboard
-      </div>
-      <div className="yeild-AllCard-search-box">
+      <div className="yeild-AllCard-search-box ">
         <div className="yeild-AllCard-search-box2">
           <form className="flex" onSubmit={handleSearch}>
             <input
@@ -121,20 +118,7 @@ const AllBuyerCards = () => {
             </button>
           </form>
         </div>
-        <div className="yeild-AllCard-btn-box">
-          <button className="yeild-AllCard-add-btn pti-bolder">
-            <Link to="/yeildCard/add" className="yeild-AllCard-add-link">
-              Add Yeilds
-            </Link>
-          </button>
-
-          <button
-            className="yeild-AllCard-download-btn  pti-bolder"
-            // onClick={handlePrint}
-          >
-            Download Report
-          </button>
-        </div>
+   
       </div>
       <div className="yeild-AllCard-section2-box grid grid-cols-1 md:grid-cols-2">
         {noResult ? (
@@ -171,7 +155,7 @@ const AllBuyerCards = () => {
                     Qty: {yeild.buying_quantity}
                   </div>
                   <Link to={`/yeildCard/FarmersView/${yeild._id}`}>
-                    <div className="yeild-AllCard-section2-rate-add">
+                    <div className="yeild-AllCard-section2-rate-add bg-blue-500">
                       <button>Add</button>
                     </div>
                   </Link>
