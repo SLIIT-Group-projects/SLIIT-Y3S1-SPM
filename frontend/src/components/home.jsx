@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import "../css/home.css";
 import { initializeSwiper } from "../js/home.js";
-
+import FarmersView from "../components/farmersView";
 const Home = () => {
   useEffect(() => {
     initializeSwiper(); // Call the function to initialize Swiper
@@ -52,7 +52,7 @@ const Home = () => {
         </div>
       </section>
       <section className="hp-s3 flex flex-row justify-around items-center">
-        <div className="flex flex-row gap-5"> 
+        <div className="flex flex-row gap-5">
           <div>
             <div className="hp-s3-head pti-bold">56K</div>
             <div className="hp-s3-para">following</div>
@@ -63,8 +63,11 @@ const Home = () => {
           </div>
         </div>
         <div className="hp-s3-right">
-            Transforming Agricultural, one Farm at a time
+          Transforming Agricultural, one Farm at a time
         </div>
+      </section>
+      <section className="pb-5">
+          <FarmersView />
       </section>
     </div>
   );

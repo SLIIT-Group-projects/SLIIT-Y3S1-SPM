@@ -99,7 +99,7 @@ const AllBuyerCards = () => {
 
   return (
     <div ref={ComponentsRef} className="yeild-AllCard mx-auto p-4">
-      <div className="yeild-AllCard-search-box ">
+      {/* <div className="yeild-AllCard-search-box ">
         <div className="yeild-AllCard-search-box2">
           <form className="flex" onSubmit={handleSearch}>
             <input
@@ -118,7 +118,8 @@ const AllBuyerCards = () => {
             </button>
           </form>
         </div>
-      </div>
+      </div> */}
+      <div className="pti-text-h1 pti-bold text-center pti-text-dark">Add Your Crops</div>
       <div className="yeild-AllCard-section2-box grid grid-cols-1 md:grid-cols-2">
         {noResult ? (
           <div className="col-span-full text-center text-red-500">

@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import "../css/home.css";
 import { initializeSwiper } from "../js/home.js";
 
+
 const Footer = () => {
   useEffect(() => {
     initializeSwiper(); // Call the function to initialize Swiper
@@ -39,7 +40,7 @@ const Footer = () => {
         </div>
       </div>
       <hr className="pt-3" />
-      <div className="text-center pt-2">@copyright 2024 powered by farmtech</div>
+      <div className="text-center footer-bottom pt-2">@copyright 2024 powered by farmtech</div>
     </div>
   );
 };
