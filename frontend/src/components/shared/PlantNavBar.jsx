@@ -1,98 +1,195 @@
-function PlantNavBar() {
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+const AppNavbar = () => {
+  const token = localStorage.getItem("token");
+  const [isOpen, setIsOpen] = useState(false);
+  const [profileOpen, setProfileOpen] = useState(false); // State for profile dropdown
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem("token"); // Clear the token from localStorage
+    setProfileOpen(false); // Close the profile dropdown
+    navigate("/login"); // Redirect to login page
+  };
+
+  const handleHistoryClick = () => {
+    navigate("/HistoryPlantCount"); // Navigate to the history page
+  };
+
   return (
-    <>
-      <nav className="border-gray-200 bg-[#16423C] ">
-        <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-20 p-4">
-          <a
-            href="/"
-            className="flex items-center space-x-3 rtl:space-x-reverse"
-          >
-            <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
-              FarmTech
-            </span>
-          </a>
-          <button
-            data-collapse-toggle="navbar-default"
-            type="button"
-            className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-            aria-controls="navbar-default"
-            aria-expanded="false"
-          >
-            <span className="sr-only">Open main menu</span>
-            <svg
-              className="w-5 h-5"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 17 14"
+    <nav className="bg-[#16423C]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between h-16">
+          <div className="flex-shrink-0 flex items-center">
+            <a href="/" className="text-[#E9EFEC] font-bold text-2xl">
+              FarmTec
+            </a>
+          </div>
+          <div className="flex items-center">
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              type="button"
+              className="inline-flex items-center justify-center p-2 rounded-md text-[#C4DAD2] hover:text-white hover:bg-[#6A9C89] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white sm:hidden"
             >
-              <path
+              <svg
+                className="h-6 w-6"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
                 stroke="currentColor"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M1 1h15M1 7h15M1 13h15"
-              />
-            </svg>
-          </button>
-          <div className="hidden w-full md:block md:w-auto" id="navbar-default">
-            <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border rounded-lg md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0">
-             
-              <li>
+                aria-hidden="true"
+              >
+                {isOpen ? (
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                ) : (
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M4 6h16M4 12h16m-7 6h7"
+                  />
+                )}
+              </svg>
+            </button>
+          </div>
+
+          <div className="hidden sm:flex space-x-4 items-center">
+            <a
+              href="#home"
+              className="text-[#C4DAD2] hover:text-white font-medium px-3 py-2 text-lg"
+            >
+              Home
+            </a>
+            <a
+              href="/PlantCount"
+              className="text-[#C4DAD2] hover:text-white font-medium px-3 py-2 text-lg"
+            >
+              Plant Count
+            </a>
+            {/* Add History Button */}
+            {token && ( // Only show this button if the user is logged in
+              <button
+                onClick={handleHistoryClick}
+                className="text-[#C4DAD2] hover:text-white font-medium px-3 py-2 text-lg"
+              >
+                History
+              </button>
+            )}
+
+            {/* Conditionally render based on token */}
+            {token ? (
+              <>
+                {/* Profile icon */}
+                <div className="relative">
+                  <button
+                    onClick={() => setProfileOpen(!profileOpen)}
+                    className="relative z-10 w-10 h-10 bg-[#C4DAD2] text-white rounded-full focus:outline-none"
+                  >
+                    {/* Profile Image or Default Avatar */}
+                    <img
+                      className="w-10 h-10 rounded-full"
+                      src="/path-to-default-avatar.png"
+                      alt="Profile"
+                    />
+                  </button>
+
+                  {/* Dropdown Menu */}
+                  {profileOpen && (
+                    <div className="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                      <div
+                        className="py-1"
+                        role="menu"
+                        aria-orientation="vertical"
+                        aria-labelledby="options-menu"
+                      >
+                        <button
+                          onClick={handleLogout}
+                          className="w-full text-left block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                        >
+                          Log Out
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </>
+            ) : (
+              <>
                 <a
-                  href="/PlantCount"
-                  className="block py-2 px-3 text-white md:dark:hover:text-green-600  rounded md:hover:bg-transparent md:border-0 md:p-0  md:dark:hover:bg-transparent"
+                  href="/signup"
+                  className="text-[#C4DAD2] hover:text-white font-medium px-3 py-2 text-lg"
                 >
-                  Plant Count
+                  SignUp
                 </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="block py-2 px-3 text-white md:dark:hover:text-green-600 md:hover:bg-transparent md:border-0  md:p-0 dark:text-white  dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                >
-                  Fertilizers
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="block py-2 px-3text-white text-white md:dark:hover:text-green-600 md:hover:bg-transparent md:border-0  md:p-0 dark:text-white   dark:hover:text-white md:dark:hover:bg-transparent"
-                >
-                  equipments
-                </a>
-              </li>
-              
-              <li>
-                <a
-                  href="/HistoryPlantCount"
-                  className="block py-2 px-3 text-white md:dark:hover:text-green-600 md:hover:bg-transparent md:border-0  md:p-0 dark:text-white  dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                >
-                  history
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/admin/addDimentions"
-                  className="block py-2 px-3 text-white md:dark:hover:text-green-600 md:hover:bg-transparent md:border-0  md:p-0 dark:text-white  dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                >
-                  Admin
-                </a>
-              </li>
-              <li>
                 <a
                   href="/login"
-                  className="block py-2 px-3 text-white md:dark:hover:text-green-600 md:hover:bg-transparent md:border-0  md:p-0 dark:text-white  dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                  className="text-[#C4DAD2] hover:text-white font-medium px-3 py-2 text-lg"
                 >
-                  Login
+                  LogIn
                 </a>
-              </li>
-            </ul>
+              </>
+            )}
           </div>
         </div>
-      </nav>
-    </>
-  );
-}
+      </div>
 
-export default PlantNavBar;
+      {/* Mobile Menu */}
+      {isOpen && (
+        <div className="sm:hidden px-2 pt-2 pb-3 space-y-1">
+          <a
+            href="#home"
+            className="text-[#C4DAD2] hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+          >
+            Home
+          </a>
+          <a
+            href="#tools"
+            className="text-[#C4DAD2] hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+          >
+            Tools
+          </a>
+
+          {token ? (
+            <>
+              <button
+                onClick={handleHistoryClick}
+                className="text-[#C4DAD2] hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+              >
+                History
+              </button>
+              <button
+                onClick={handleLogout}
+                className="text-[#C4DAD2] hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+              >
+                Log Out
+              </button>
+            </>
+          ) : (
+            <>
+              <a
+                href="/signup"
+                className="text-[#C4DAD2] hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+              >
+                SignUp
+              </a>
+              <a
+                href="/login"
+                className="text-[#C4DAD2] hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+              >
+                LogIn
+              </a>
+            </>
+          )}
+        </div>
+      )}
+    </nav>
+  );
+};
+
+export default AppNavbar;

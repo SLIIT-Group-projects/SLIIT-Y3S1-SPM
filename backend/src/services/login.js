@@ -8,7 +8,8 @@ async function login(email,password) {
         if(!existingUser){
             throw new Error ("User not found")
         }
-        const isPasswordValid= bcrypt.compare(password, existingUser.password);
+
+        const isPasswordValid= await bcrypt.compare(password, existingUser.password);
         if(!isPasswordValid){
             throw new Error ("Incorrect Password!")
         }
@@ -17,7 +18,6 @@ async function login(email,password) {
     } catch (error) {
         console.log("Error during login:", error);
         throw new Error ("Invalid Credentials");
-
     }
 }
 module.exports={login}

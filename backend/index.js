@@ -9,6 +9,7 @@ const plantHistoryRoute = require("./src/routes/plantHistory.route");
 const signupRoute = require("./src/routes/signup");
 const createAdminAccount= require("./src/scripts/admin")
 const loginRouter= require("./src/routes/login")
+const userRoute = require("./src/routes/users")
 const app = express();
 app.use(express.json());
 app.use(cors());
@@ -41,3 +42,4 @@ app.use("/plant", plantRoutes)
 app.use("/planthistory", plantHistoryRoute)
 app.use("/user", signupRoute)
 app.use("/auth", loginRouter)
+app.use("/api", userRoute)

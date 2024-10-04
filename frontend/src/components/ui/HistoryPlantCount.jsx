@@ -6,18 +6,33 @@ function HistoryPlantCount() {
   const [plantHistories, setPlantHistories] = useState([]);
 
   useEffect(() => {
+    // Get the token from local storage
+    const token = localStorage.getItem("token");
+
+    // Ensure the token is available
+    if (!token) {
+      alert("No token found!");
+      return;
+    }
+
+    // Fetch the plant history
     axios
-      .get("http://localhost:3000/planthistory/")
+      .get("http://localhost:3000/planthistory", {
+        headers: {
+          Authorization: `Bearer ${token}`, // Include token in headers
+        },
+      })
       .then((res) => {
         setPlantHistories(res.data);
       })
       .catch((err) => {
+        console.log(err);
         alert(err.message);
       });
   }, []);
 
   return (
-    <div className="">
+    <div>
       <PlantNavBar />
       <div className="flex justify-center items-center h-16">
         <div className="text-[#6A9C89] text-3xl font-bold">
