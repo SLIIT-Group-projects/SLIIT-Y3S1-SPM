@@ -1,19 +1,51 @@
-// Rent_home.js
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import AppNavbar from "../components/NavBar";
 import ToolUploadButton from "../components/ToolUploadButton";
 import SearchBar from "../components/SearchBar"; // Import the SearchBar component
+import { jsPDF } from "jspdf";
+import "jspdf-autotable"; // Import the autotable module
 
 const Rent_home = () => {
   const [tools, setTools] = useState([]);
   const [searchQuery, setSearchQuery] = useState(""); // Add state for search query
+  const [bookings, setBookings] = useState({}); // State to hold bookings for tools
+  const [loading, setLoading] = useState(true); // Loading state
+  const [error, setError] = useState(null); // Error state
 
   useEffect(() => {
-    axios.get("http://localhost:8070/tools").then(({ data }) => {
-      setTools(data);
-    });
+    // Fetch tools and corresponding bookings
+    const fetchToolsAndBookings = async () => {
+      try {
+        setLoading(true);
+        const toolsResponse = await axios.get("http://localhost:8070/tools");
+        setTools(toolsResponse.data);
+
+        // Fetch bookings for each tool
+        const bookingPromises = toolsResponse.data.map((tool) =>
+          axios.get(`http://localhost:8070/tools/${tool._id}/bookings`)
+        );
+
+        const bookingsResponses = await Promise.all(bookingPromises);
+        const bookingData = {};
+
+        // Map bookings to the corresponding tool IDs
+        bookingsResponses.forEach((response, index) => {
+          const toolId = toolsResponse.data[index]._id;
+          bookingData[toolId] = response.data.bookings; // Set bookings by tool ID
+        });
+
+        setBookings(bookingData);
+        console.log(bookingData); // Log the categorized bookings
+      } catch (err) {
+        setError("Error fetching data. Please try again.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchToolsAndBookings();
   }, []);
 
   const handleDelete = (id) => {
@@ -34,6 +66,66 @@ const Rent_home = () => {
     tool.tool_title.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
+  const downloadPDF = () => {
+    const pdf = new jsPDF();
+
+    // Define columns for the PDF table, including toolId and bookingIds
+    const columns = [
+      { header: "Tool ID", dataKey: "toolId" },
+      { header: "Title", dataKey: "title" },
+      { header: "Price per Day", dataKey: "price" },
+      { header: "Booking Details", dataKey: "bookingDetails" },
+    ];
+
+    // Prepare data for the table
+    const rows = filteredTools.map((tool) => {
+      const toolBookings = bookings[tool._id] || [];
+
+      // Create a detailed booking summary with each booking on a new line
+      const bookingDetails =
+        toolBookings.length > 0
+          ? toolBookings
+              .map(
+                (booking) =>
+                  `- Booking ID: ${booking._id}, From: ${new Date(
+                    booking.rentFrom
+                  ).toLocaleDateString()} - To: ${new Date(
+                    booking.rentTo
+                  ).toLocaleDateString()}, Name: ${booking.rentName}, Mobile: ${
+                    booking.rentMobile
+                  }`
+              )
+              .join("\n" + "\n")
+          : "No Bookings";
+
+      return {
+        toolId: tool._id, // Add toolId
+        title: tool.tool_title,
+        price: tool.tool_price, // Adjusted key to reflect price
+        bookingDetails: bookingDetails,
+      };
+    });
+
+    // Create the table in the PDF
+    pdf.autoTable({
+      head: [columns.map((col) => col.header)],
+      body: rows.map((row) => columns.map((col) => row[col.dataKey])),
+      styles: { cellPadding: 4, fontSize: 10 }, // Adjust padding and font size for better layout
+      columnStyles: {
+        toolId: { cellWidth: "auto" }, // Allow toolId column to adjust width automatically
+        bookingDetails: { cellWidth: "auto" }, // Allow bookingDetails column to adjust width automatically
+      },
+      theme: "grid", // Use grid theme for better presentation
+    });
+
+    // Save the PDF
+    pdf.save("tools_and_bookings.pdf");
+  };
+
+  // Loading and error states
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>{error}</p>;
+
   return (
     <>
       <AppNavbar />
@@ -44,6 +136,28 @@ const Rent_home = () => {
             searchQuery={searchQuery}
             setSearchQuery={setSearchQuery}
           />
+          <div className="ml-auto">
+            <button
+              onClick={downloadPDF}
+              className="mr-4 flex gap-3 bg-secondary text-white p-3 rounded hover:bg- transition"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="size-6"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3"
+                />
+              </svg>
+              Download all Booking Details as PDF
+            </button>
+          </div>
         </div>
       </div>
 
@@ -76,6 +190,26 @@ const Rent_home = () => {
                   {tool.tool_description}
                 </p>
               </div>
+              <Link
+                to={`/tools/${tool._id}/bookings`}
+                className="flex gap-2 bg-secondary rounded text-white p-2 ml-auto my-2"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="size-6"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M5.25 12.75l6 6m0 0l6-6m-6 6V3"
+                  />
+                </svg>
+                View Bookings
+              </Link>
               <button
                 onClick={() => handleDelete(tool._id)}
                 className="flex gap-2 bg-red-500 rounded text-white p-2 ml-auto my-2"
@@ -91,15 +225,15 @@ const Rent_home = () => {
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
-                    d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"
+                    d="M6 18L18 6M6 6l12 12"
                   />
                 </svg>
-                Remove Item
+                Delete
               </button>
             </div>
           ))
         ) : (
-          <p>No tools found.</p>
+          <p>No tools found</p>
         )}
       </div>
     </>

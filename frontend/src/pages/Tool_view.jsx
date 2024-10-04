@@ -150,7 +150,7 @@ const Tool_view = () => {
               </div>
             </div>
 
-            <div className="mt-4 font-semibold text-2xl">
+            <div className="mt-4 font-semibold text-xl">
               Max number of Rent Days: {tool.tool_maxDays}
             </div>
           </div>

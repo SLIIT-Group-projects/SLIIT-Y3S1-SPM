@@ -46,22 +46,22 @@ const AppNavbar = () => {
           </div>
           <div className="hidden sm:flex space-x-4 items-center">
             <a
-              href="#home"
+              href="/"
               className="text-[#C4DAD2] hover:text-white font-medium px-3 py-2 text-lg"
             >
               Home
             </a>
             <a
-              href="#tools"
+              href="/booking"
               className="text-[#C4DAD2] hover:text-white font-medium px-3 py-2 text-lg"
             >
-              Tools
+              Booking
             </a>
             <a
-              href="#about"
+              href="/rent_admin_home"
               className="text-[#C4DAD2] hover:text-white font-medium px-3 py-2 text-lg"
             >
-              About
+              Admin
             </a>
             <a
               href="#contact"

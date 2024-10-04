@@ -95,6 +95,22 @@ router.delete("/tools/:id", async (req, res) => {
   }
 });
 
+// Backend API endpoint to get a tool and its bookings
+router.get("/tools/:toolId/bookings", async (req, res) => {
+  try {
+    const tool = await ToolModel.findById(req.params.toolId).populate(
+      "bookings"
+    ); // Populate if you have the bookings array in Tool
+    if (!tool) {
+      return res.status(404).json({ message: "Tool not found" });
+    }
+    const bookings = await BookingModel.find({ tool: tool._id }); // This will give you bookings for that tool
+    res.json({ tool, bookings });
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching tool details", error });
+  }
+});
+
 // Route to fetch all tools
 router.get("/tools", async (req, res) => {
   try {
