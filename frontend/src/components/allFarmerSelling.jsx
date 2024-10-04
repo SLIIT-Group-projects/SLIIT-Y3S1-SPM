@@ -116,6 +116,11 @@ const CropSellingTable = () => {
               ))}
             </tbody>
           </table>
+          <div className="only-print pt-3 pl-3">
+            <div>Thank for choosing us</div>
+            <div>Contact Us : farmtechsupport@gmail.com</div>
+            <div></div>
+          </div>
         </div>
       )}
     </div>
