@@ -41,7 +41,7 @@ function Login() {
         // Redirect to the home page after 2 seconds
         setTimeout(() => {
           navigate("/");
-        }, 2000);
+        }, 1500);
         
       } else {
         const errorResult = await response.json();

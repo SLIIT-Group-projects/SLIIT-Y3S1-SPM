@@ -1,13 +1,14 @@
 // src/components/PlantCount.js
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { jwtDecode } from "jwt-decode"; // Correct default import
+import {jwtDecode} from "jwt-decode"; // Correct default import
 import PlantNavBar from "../shared/PlantNavBar";
 import draw1 from "../../assets/draw1.png";
 import draw2 from "../../assets/draw2.png";
 import draw3 from "../../assets/draw3.png";
 import image1 from "../../assets/image1.png";
-import "flowbite"; // Ensure Flowbite is imported
+import "flowbite"; 
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 
 function PlantCount() {
   const [width, setWidth] = useState("");
@@ -23,6 +24,7 @@ function PlantCount() {
   const [userId, setUserId] = useState(null);
 
   const slides = [image1, draw1, draw2, draw3];
+  const navigate = useNavigate(); // Initialize navigate
 
   useEffect(() => {
     // Get user ID from token
@@ -44,7 +46,7 @@ function PlantCount() {
 
     // Fetch plants from API
     axios
-      .get("http://localhost:3000/plant") // Ensure the API endpoint is correct
+      .get("http://localhost:3000/plant") // Updated port
       .then((res) => {
         setPlants(res.data);
       })
@@ -119,13 +121,20 @@ function PlantCount() {
     const token = localStorage.getItem("token");
 
     axios
-      .post("http://localhost:3000/planthistory/add", historyData, {
+      .post("http://localhost:3000/planthistory/add", historyData, { // Updated port
         headers: {
           Authorization: `Bearer ${token}`, // Add this line
         },
       })
       .then((res) => {
         alert("Data saved to history successfully!");
+        // Optionally, reset the form
+        setWidth("");
+        setLength("");
+        setArea(null);
+        setPlantCount(null);
+        setSelectedPlant(null);
+        setPlantDimension(null);
       })
       .catch((err) => {
         console.error("Error saving to history:", err.message);
@@ -141,6 +150,14 @@ function PlantCount() {
     setCurrentSlide(
       (prevSlide) => (prevSlide - 1 + slides.length) % slides.length
     );
+  };
+
+  const handleViewShops = () => {
+    if (!selectedPlant) {
+      alert("Please select a plant first.");
+      return;
+    }
+    navigate(`/plantShopList/${selectedPlant.plantName}`); 
   };
 
   return (
@@ -160,7 +177,8 @@ function PlantCount() {
                 Enter the width (m)
               </label>
               <input
-                type="text"
+                type="number" // Changed to number for validation
+                step="0.01"
                 id="width"
                 className="border text-gray-900 text-sm rounded-lg block w-full p-2.5"
                 placeholder="Width"
@@ -178,7 +196,8 @@ function PlantCount() {
                 Enter the length (m)
               </label>
               <input
-                type="text"
+                type="number" // Changed to number for validation
+                step="0.01"
                 id="length"
                 className="border text-gray-900 text-sm rounded-lg block w-full p-2.5"
                 placeholder="Length"
@@ -199,6 +218,7 @@ function PlantCount() {
                 className="border text-sm rounded-lg block w-full p-2.5"
                 id="plantSelect"
                 onChange={handlePlantSelection}
+                value={selectedPlant ? selectedPlant._id : ""}
                 required
               >
                 <option value="">Choose...</option>
@@ -224,9 +244,15 @@ function PlantCount() {
             </div>
           )}
           {plantCount !== null && (
-            <div className="alert alert-info mt-3 ml-20">
-              You can plant approximately {plantCount}{" "}
-              {selectedPlant?.plantName}(s) in the given area.
+            <div
+              className="alert alert-info mt-3 ml-20 bg-blue-100 border border-blue-400 text-blue-700 px-4 py-3 rounded relative"
+              role="alert"
+            >
+              <strong className="font-bold">Info:</strong>
+              <span className="block sm:inline">
+                You can plant approximately {plantCount}{" "}
+                {selectedPlant?.plantName}(s) in the given area.
+              </span>
             </div>
           )}
 
@@ -236,6 +262,16 @@ function PlantCount() {
           >
             Save to History
           </button>
+
+          {/* Add View Shops Button */}
+          {plantCount !== null && (
+            <button
+              className="text-white bg-blue-500 hover:bg-blue-700 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 mt-3 ml-20"
+              onClick={handleViewShops}
+            >
+              View Shops with {selectedPlant?.plantName}
+            </button>
+          )}
         </div>
 
         <div className="w-1/2 mr-20">
