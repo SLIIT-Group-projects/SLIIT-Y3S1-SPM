@@ -128,12 +128,7 @@ const AllBuyerCards = () => {
             </Link>
           </button>
 
-          <button
-            className="yeild-AllCard-download-btn  pti-bolder"
-            // onClick={handlePrint}
-          >
-            Download Report
-          </button>
+          
         </div>
       </div>
       <div className="yeild-AllCard-section2-box grid grid-cols-1 md:grid-cols-2">

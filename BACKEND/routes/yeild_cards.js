@@ -93,13 +93,28 @@ router.route("/get/:id").get(async (req, res) => {
 
 // buyer buying details of farmer
  // View all 
-router.route("/crop_selling/").get((req, res) => {
-    Yeild_farmer.find()
-        .then((yeilds) => res.json(yeilds))
-        .catch((err) => {
-            console.log(err);
-            res.status(500).send({ status: "Error fetching crop details", error: err.message });
-        });
+// router.route("/crop_selling/").get((req, res) => {
+//     Yeild_farmer.find()
+//         .then((yeilds) => res.json(yeilds))
+//         .catch((err) => {
+//             console.log(err);
+//             res.status(500).send({ status: "Error fetching crop details", error: err.message });
+//         });
+// });
+router.route("/crop_selling").get(async (req, res) => {
+    const buyerId = req.query.buyer_id;
+
+    try {
+        let query = {};
+        if (buyerId) {
+            query = { buyer_id: buyerId };
+        }
+
+        const yeilds = await Yeild_farmer.find(query);
+        res.status(200).send(yeilds);
+    } catch (err) {
+        res.status(500).send({ status: "Error with getting yield cards", error: err.message });
+    }
 });
 
 router.route("/crop_selling/get/:id").get(async (req, res) => {

@@ -1,4 +1,14 @@
-  
+  /* More specific style to ensure print-only content is hidden in the UI */
+.only-print {
+  display: none !important;
+}
+
+@media print {
+  .only-print {
+    display: block !important;
+  }
+}
+
   .yeild-AllCard {
     padding: 30px;
   }
@@ -241,7 +251,7 @@
 /* update */
 .yeild-updateCard-form-img{
     width: 400px;
-    height: 700px;
+    height: 740px;
     border-radius: 5px;
     background-image: url(../resources/yeild/update.jpg);
     background-size: cover;
