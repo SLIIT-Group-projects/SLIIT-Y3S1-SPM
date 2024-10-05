@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import PlantNavBar from "../shared/PlantNavBar";
 import { useNavigate } from "react-router-dom";
 
 function Login() {
@@ -57,7 +56,6 @@ function Login() {
 
   return (
     <>
-      <PlantNavBar />
       <div className="flex justify-center items-center min-h-screen bg-gradient-to-b">
         <form
           onSubmit={handleSubmit}
