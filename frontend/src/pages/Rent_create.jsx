@@ -4,7 +4,7 @@ import axios from "axios";
 import PhotosUploder from "../components/PhotosUploder";
 import ToolPerks from "../components/ToolPerks";
 import AdminHeader from "../components/shared/AdminHeader";
-
+import PlantNavBar from "../components/shared/PlantNavBar"
 const ToolForm = () => {
   const { id } = useParams();
   const [title, setTitle] = useState("");
@@ -72,6 +72,7 @@ const ToolForm = () => {
 
   return (
     <>
+    <PlantNavBar/>
     <AdminHeader/>
     <div className="min-h-screen flex items-center justify-center p-4">
       
