@@ -13,7 +13,7 @@ const AllShops = () => {
     setLoading(true);
 
     try {
-      const response = await axios.get('http://localhost:3000/plantShop', {
+      const response = await axios.get('http://localhost:8070/plantShop', {
         headers: {
           Authorization: `Bearer ${token}`, // Send token for authentication
         },

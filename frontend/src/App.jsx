@@ -19,6 +19,7 @@ import ToolForm from "./pages/Rent_create";
 import Tool_bookings from "./pages/Tool_bookings";
 import Tool_booking from "./pages/Tool_booking";
 import Rent_bookings from "./pages/Rent_bookings";
+import AllShops from "./components/ui/AllShops";
 
 function App() {
   return (
@@ -33,6 +34,8 @@ function App() {
           <Route path="/admin/addDimentions" element={<AddDimentions />} />
           <Route path="/admin/addShopsAdmin" element={<AdminAddPlantShop />} />
           <Route path="/plantShopList/:plantName" element={<PlantShopList />} />
+          <Route path="/AllShops" element={<AllShops />} />
+
 
           {/* //daham */}
           <Route path="/rent" element={<Index_page />} />
