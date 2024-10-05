@@ -237,6 +237,12 @@ const AppNavbar = () => {
           >
             Plant Count
           </Link>
+          <Link
+            to="/PlantCount"
+            className="text-[#C4DAD2] hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+          >
+            Plant Count
+          </Link>
 
           {/* History Dropdown in Mobile */}
           {token && (

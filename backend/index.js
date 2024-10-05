@@ -43,9 +43,13 @@ app.use("/plant", plantRoutes)
 app.use("/planthistory", plantHistoryRoute)
 app.use("/user", signupRoute)
 app.use("/auth", loginRouter)
-app.use("/api", userRoute)
+//app.use("/api", userRoute)
 app.use("/plantShop", plantShopRoute)
 
 // Use the routes sajitha
 const toolsRoutes = require("./routes/tools");
 app.use(toolsRoutes);
+
+//vihara
+const route= require("./routes/FertilizerRoutes.js")
+app.use('/api', route);
