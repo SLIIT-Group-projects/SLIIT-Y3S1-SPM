@@ -7,9 +7,9 @@ const AppNavbar = () => {
     <nav className="bg-[#16423C]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
-          <div className="flex-shrink-0 flex items-center">
+          <div className="flex-shrink-0  flex items-center">
             <a href="/" className="text-[#E9EFEC] font-bold text-2xl">
-              FarmTec
+              FarmTech
             </a>
           </div>
           <div className="flex items-center">
@@ -46,33 +46,34 @@ const AppNavbar = () => {
           </div>
           <div className="hidden sm:flex space-x-4 items-center">
             <a
-              href="/"
+              href="/yeildCard/farmersView"
               className="text-[#C4DAD2] hover:text-white font-medium px-3 py-2 text-lg"
             >
-              Home
+              farmer card
             </a>
             <a
-              href="/booking"
+              href="/yeildCard/allFarmerSelling"
               className="text-[#C4DAD2] hover:text-white font-medium px-3 py-2 text-lg"
             >
-              Booking
+              Selling_Details
             </a>
             <a
-              href="/rent_admin_home"
+              href="/yeildCard/"
               className="text-[#C4DAD2] hover:text-white font-medium px-3 py-2 text-lg"
             >
-              Admin
+              Buyer Card
             </a>
             <a
-              href="#contact"
+              href="/yeildCard/allBuyerBuying"
               className="text-[#C4DAD2] hover:text-white font-medium px-3 py-2 text-lg"
             >
-              Contact
+              Buying_Details
             </a>
           </div>
         </div>
       </div>
 
+      {/* Mobile Menu */}
       {isOpen && (
         <div className="sm:hidden px-2 pt-2 pb-3 space-y-1">
           <a
