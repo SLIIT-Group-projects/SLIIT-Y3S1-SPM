@@ -116,18 +116,24 @@ const Header = ({ cartItems, onRemove, totalCost, onUpdateQuantity }) => {
           >
             Order Fertilizer
           </Link>
+          <Link
+            className="text-[#ffffff] text-sm font-medium leading-normal"
+            to="/rent"
+          >
+            Rent Equipment
+          </Link>
           <a
             className="text-[#ffffff] text-sm font-medium leading-normal"
             href="#"
           >
             Yield Distribution
           </a>
-          <a
+          <Link
             className="text-[#ffffff] text-sm font-medium leading-normal"
-            href="#"
+            to="/PlantCount"
           >
             Land Optimization
-          </a>
+          </Link>
         </nav>
         <div className="flex gap-2">
           <button className="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 bg-[#f2f4f0] text-[#141811] gap-2 text-sm font-bold leading-normal tracking-[0.015em] min-w-0 px-2.5">
