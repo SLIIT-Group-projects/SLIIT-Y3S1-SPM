@@ -75,7 +75,7 @@ const CropSellingTable = () => {
                 <th className="border border-gray-300 p-3">Buyer Name</th>
                 <th className="border border-gray-300 p-3">Buying Rate</th>
                 <th className="border border-gray-300 p-3">Selling Quantity</th>
-                <th className="border border-gray-300 p-3">Farmer ID</th>
+                <th className="border border-gray-300 p-3">Farmer Email</th>
                 <th className="border border-gray-300 p-3">Farmer Name</th>
               </tr>
             </thead>

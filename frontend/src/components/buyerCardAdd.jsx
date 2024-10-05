@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 function AddBuyerCard() {
@@ -15,6 +14,27 @@ function AddBuyerCard() {
   const [buying_rate, setRate] = useState("");
   const [buying_quantity, setQuantity] = useState("");
 
+  const auth = 'silunirupasinghe@gmail.com';
+  const secret = 'siluni';
+
+  // Array of possible card IDs
+  const cardIdArray = ["C004", "C005", "C006", "C007", "C008"];
+
+  // Function to get a random card ID from the array
+  const getRandomCardId = () => {
+    const randomIndex = Math.floor(Math.random() * cardIdArray.length);
+    return cardIdArray[randomIndex];
+  };
+
+  useEffect(() => {
+    // Set random card ID on component mount
+    setID(getRandomCardId());
+
+    // Set buyer details
+    setBuyerId(auth);
+    setBuyerName(secret);
+  }, []);
+
   const imagebase64 = async (file) => {
     const reader = new FileReader();
     await reader.readAsDataURL(file);
@@ -26,14 +46,12 @@ function AddBuyerCard() {
 
   const handleUploadImage = (e) => {
     const file = e.target.files[0];
-    const maxSize = 2 * 1024 * 1024; // 5 MB (adjust this value as needed)
+    const maxSize = 2 * 1024 * 1024; // 2 MB
 
     if (file && file.size <= maxSize) {
       setImg(file);
     } else {
-      // Notify the user if the file exceeds the size limit
       alert("Please select an image file smaller than 2 MB.");
-      // Clear the input field to allow the user to select a new file
       e.target.value = null;
     }
   };
@@ -49,7 +67,7 @@ function AddBuyerCard() {
 
     const newBuyerCard = {
       buyer_card_ID,
-      image: imageBase64, // Include base64 image data in product data
+      image: imageBase64,
       b_title,
       b_description,
       buyer_id,
@@ -84,9 +102,8 @@ function AddBuyerCard() {
                 <input
                   type="text"
                   className="add-product-input form-control"
-                  onChange={(e) => {
-                    setID(e.target.value);
-                  }}
+                  value={buyer_card_ID}
+                  readOnly
                 />
               </div>
             </div>
@@ -161,15 +178,13 @@ function AddBuyerCard() {
               </div>
             </div>
             <div>
-              <div className="yeild-addCard-form-label">Buyer ID</div>
+              <div className="yeild-addCard-form-label">Buyer Email</div>
               <div>
                 <input
                   type="text"
-                  min="0"
+                  value={buyer_id}
                   className="add-product-input form-control"
-                  onChange={(e) => {
-                    setBuyerId(e.target.value);
-                  }}
+                  readOnly
                 />
               </div>
             </div>
@@ -178,12 +193,9 @@ function AddBuyerCard() {
               <div>
                 <input
                   type="text"
-                  min="0"
-                  step="0.01"
+                  value={buyer_name}
                   className="add-product-input form-control"
-                  onChange={(e) => {
-                    setBuyerName(e.target.value);
-                  }}
+                  readOnly
                 />
               </div>
             </div>

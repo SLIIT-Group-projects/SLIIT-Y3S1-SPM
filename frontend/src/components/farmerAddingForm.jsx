@@ -19,6 +19,8 @@ function UpdateProducts() {
   const [farmerId, setFarmerId] = useState("");
   const [farmerName, setFarmerName] = useState("");
 
+
+
   useEffect(() => {
     const fetchProductData = async () => {
       try {
@@ -33,7 +35,15 @@ function UpdateProducts() {
     };
     fetchProductData();
   }, [id]);
-
+  const auth = 'silunirupasinghe@gmail.com';
+  const secret = 'siluni';
+  useEffect(() => {
+    setFarmerId(auth);
+  }, [auth]);
+  
+  useEffect(() => {
+    setFarmerName(secret);
+  }, [secret]);
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     // Ensure buying_quantity remains a number
@@ -202,7 +212,6 @@ function UpdateProducts() {
                   type="text"
                   className="add-product-input form-control"
                   value={farmerId}
-                  onChange={(e) => setFarmerId(e.target.value)}
                 />
               </div>
             </div>
@@ -213,7 +222,6 @@ function UpdateProducts() {
                   type="text"
                   className="add-product-input form-control"
                   value={farmerName}
-                  onChange={(e) => setFarmerName(e.target.value)}
                 />
               </div>
             </div>

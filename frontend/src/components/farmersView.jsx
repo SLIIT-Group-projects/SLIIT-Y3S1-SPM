@@ -178,7 +178,7 @@ const AllBuyerCards = () => {
                 <div className="yeild-AllCard-section2-bottom-box">
                   <div className="yeild-AllCard-section2-bottom-buyer">
                     <div className=" mb-2 pti-text-h3 pti-bold">
-                      Buyer ID: {yeild.buyer_id}
+                      Buyer Email: {yeild.buyer_id}
                     </div>
                     <div className="  mb-4 pti-text-h3 pti-bold">
                       Buyer Name: {yeild.buyer_name}

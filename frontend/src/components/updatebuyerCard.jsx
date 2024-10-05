@@ -157,7 +157,7 @@ function UpdateProducts() {
             </div>
           </div>
           <div>
-            <div className="yeild-addCard-form-label">Buyer ID</div>
+            <div className="yeild-addCard-form-label">Buyer Email</div>
             <div>
               <input
                 type="text"
