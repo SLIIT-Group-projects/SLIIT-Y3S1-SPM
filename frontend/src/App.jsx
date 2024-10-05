@@ -11,7 +11,6 @@ import SignUp from "./components/login/SignUp";
 import PlantShopList from "./components/ui/PlantShopList";
 import AdminAddPlantShop from "./components/ui/AddShopsAdmin";
 function App() {
-  
   return (
     <>
     <BrowserRouter>
@@ -19,15 +18,12 @@ function App() {
       <Route path= "/" element = {<Home/>}/>
       <Route path="/login" element={<Login/>}/>
       <Route path="/signup" element={<SignUp/>}/>
-
       <Route path= "/PlantCount" element = {<PlantCount/>}/>
       <Route path= "/HistoryPlantCount" element = {<HistoryPlantCount/>}/>
       <Route path= "/admin/addDimentions" element = {<AddDimentions/>}/>
       <Route path= "/admin/addShopsAdmin" element = {<AdminAddPlantShop/>}/>
       <Route path="/plantShopList/:plantName" element={<PlantShopList/>} />
     </Routes>
-    
-
     </BrowserRouter>
     </>
       
