@@ -9,6 +9,7 @@ import HistoryPlantCount from "./components/ui/HistoryPlantCount";
 import Login from "./components/login/Login";
 import SignUp from "./components/login/SignUp";
 import PlantShopList from "./components/ui/PlantShopList";
+import AdminAddPlantShop from "./components/ui/AddShopsAdmin";
 function App() {
   
   return (
@@ -22,6 +23,7 @@ function App() {
       <Route path= "/PlantCount" element = {<PlantCount/>}/>
       <Route path= "/HistoryPlantCount" element = {<HistoryPlantCount/>}/>
       <Route path= "/admin/addDimentions" element = {<AddDimentions/>}/>
+      <Route path= "/admin/addShopsAdmin" element = {<AdminAddPlantShop/>}/>
       <Route path="/plantShopList/:plantName" element={<PlantShopList/>} />
     </Routes>
     
