@@ -4,7 +4,6 @@ import FertilizerOrderPage from "./pages/FertilizerOrderPage";
 import DeleteFertilizerPage from "./pages/DeleteFertilizerPage";
 import AdminFertilizerPage from "./pages/AdminFertilizerPage";
 import UpdateFertilizerPage from "./pages/UpdateFertilizerPage";
-import AdminFertilizer from "./pages/AdminFertilizer";
 import CreateFertilizer from "./pages/CreateFertilizer";
 
 const App = () => {
@@ -12,7 +11,6 @@ const App = () => {
     <Router>
       <Routes>
         <Route path="/order" element={<FertilizerOrderPage />} />
-        <Route path="/adminfertilizer" element={<AdminFertilizer />} />
         <Route path="/delete/:id" element={<DeleteFertilizerPage />} />
         <Route path="/adminfer" element={<AdminFertilizerPage />} />
         <Route path="/update/:id" element={<UpdateFertilizerPage />} />
