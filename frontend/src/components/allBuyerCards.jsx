@@ -99,7 +99,7 @@ const AllBuyerCards = () => {
 
   return (
     <div ref={ComponentsRef} className="yeild-AllCard mx-auto p-4">
-      <div className="pti-text-dark pti-text-h1 pti-bolder">
+      <div className="pti-text-dark pti-text-h1 text-center pti-bolder">
         Buyer's Crop Dashboard
       </div>
       <div className="yeild-AllCard-search-box">
@@ -177,12 +177,12 @@ const AllBuyerCards = () => {
                   </div>
                   <div className="yeild-AllCard-section2-bottom-icon-box flex justify-between items-center">
                     <Link to={`/yeildCard/${yeild._id}`}>
-                      <button className="yeild-AllCard-section2-bottom-icon yeild-AllCard-section2-bottom-icon1 bg-blue-500 text-white px-4 py-2 rounded-md">
+                      <button className="yeild-AllCard-section2-bottom-icon pti-bg-darker-green yeild-AllCard-section2-bottom-icon1 bg-blue-500 text-white px-4 py-2 rounded-md">
                         <i className="fa-solid fa-pen-to-square"></i>
                       </button>
                     </Link>
                     <button
-                      className="yeild-AllCard-section2-bottom-icon yeild-AllCard-section2-bottom-icon2 bg-red-700 text-white px-4 py-2 rounded-md"
+                      className="yeild-AllCard-section2-bottom-icon pti-bg-darker-green yeild-AllCard-section2-bottom-icon2 bg-red-700 text-white px-4 py-2 rounded-md"
                       onClick={() => handleDelete(yeild._id)}
                     >
                       <i className="fa-solid fa-trash"></i>

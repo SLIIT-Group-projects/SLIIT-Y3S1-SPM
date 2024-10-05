@@ -154,6 +154,7 @@
 }
 .yeild-AllCard-section2-bottom-icon-box{
     display: flex;
+    
     gap: 7px;
 }
 .yeild-AllCard-section2-bottom-icon1:hover{
@@ -166,10 +167,13 @@
     width: 50px;
     height: 50px;
     color: white;
-    border-radius: 100px;
+    border-radius: 10px;
     background-color: var(--dark-green);
     border: none;
     font-size: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 /* yeild card adding */

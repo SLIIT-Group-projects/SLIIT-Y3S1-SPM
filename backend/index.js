@@ -53,3 +53,8 @@ app.use(toolsRoutes);
 //vihara
 const route= require("./routes/FertilizerRoutes.js")
 app.use('/api', route);
+
+// daham
+
+const yeildCardRouter = require("./routes/yeild_cards.js");
+app.use("/yeildCard", yeildCardRouter);
