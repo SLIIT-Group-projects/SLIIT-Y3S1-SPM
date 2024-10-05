@@ -6,7 +6,7 @@ const dotenv = require("dotenv");
 const app = express();
 
 // Import the routes
-const toolsRoutes = require("./routes/tools");
+
 
 dotenv.config();
 
@@ -26,6 +26,7 @@ connection.once("open", () => {
 });
 
 // Use the routes
+const toolsRoutes = require("./routes/tools");
 app.use(toolsRoutes);
 
 app.listen(PORT, () => {
