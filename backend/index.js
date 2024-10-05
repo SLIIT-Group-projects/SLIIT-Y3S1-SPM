@@ -1,8 +1,8 @@
 const express=require("express");
 const mongoose= require("mongoose");
 const bodyParser= require("body-parser");
-const cors=require("cors");
 const dotenv=require("dotenv");
+const cors = require('cors');
 const { json } = require ('express');
 require("dotenv").config();
 const plantRoutes = require("./src/routes/plants.route");
