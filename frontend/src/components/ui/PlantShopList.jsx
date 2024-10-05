@@ -22,7 +22,7 @@ const PlantShopList = () => {
 
     try {
       const response = await axios.get(
-        `http://localhost:3000/plantShop/plant/${plantName}`,
+        `http://localhost:8070/plantShop/plant/${plantName}`,
         {
           headers: {
             Authorization: `Bearer ${token}`, // Include token in headers

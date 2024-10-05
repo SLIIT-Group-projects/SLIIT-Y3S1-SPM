@@ -46,7 +46,7 @@ function PlantCount() {
 
     // Fetch plants from API
     axios
-      .get("http://localhost:3000/plant") // Updated port
+      .get("http://localhost:8070/plant") // Updated port
       .then((res) => {
         setPlants(res.data);
       })
@@ -121,7 +121,7 @@ function PlantCount() {
     const token = localStorage.getItem("token");
 
     axios
-      .post("http://localhost:3000/planthistory/add", historyData, { // Updated port
+      .post("http://localhost:8070/planthistory/add", historyData, { // Updated port
         headers: {
           Authorization: `Bearer ${token}`, // Add this line
         },

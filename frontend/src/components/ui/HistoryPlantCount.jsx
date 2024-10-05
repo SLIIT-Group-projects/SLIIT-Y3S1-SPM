@@ -17,7 +17,7 @@ function HistoryPlantCount() {
 
     // Fetch the plant history
     axios
-      .get("http://localhost:3000/planthistory", {
+      .get("http://localhost:8070/planthistory", {
         headers: {
           Authorization: `Bearer ${token}`, // Include token in headers
         },

@@ -21,7 +21,7 @@ function AddDimensions() {
       fertilizers: fertilizersArray,
     };
 
-    axios.post("http://localhost:3000/plant/add", newPlant)
+    axios.post("http://localhost:8070/plant/add", newPlant)
       .then((res) => {
         setSuccessMessage("New plant dimensions added successfully.");
         setErrorMessage("");

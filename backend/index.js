@@ -14,7 +14,7 @@ const plantShopRoute = require("./src/routes/plantShopRoute");
 const app = express();
 app.use(express.json());
 app.use(cors());
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 8070;
 
  const connectDB = async () => {
     try {
