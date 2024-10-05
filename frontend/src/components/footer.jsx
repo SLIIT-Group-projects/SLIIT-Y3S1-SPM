@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import "../css/home.css";
-import { initializeSwiper } from "../js/home.js";
-
+//import { initializeSwiper } from "../js/home.js";
 
 const Footer = () => {
   useEffect(() => {

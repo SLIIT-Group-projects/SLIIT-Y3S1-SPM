@@ -21,9 +21,9 @@ function AdminHeader() {
             Manage Shops
           </button>
         </Link>
-        <Link to="/manage-plants">
+        <Link to="/rent_create">
           <button className="bg-[#6A9C89] text-white px-4 py-2 rounded hover:bg-[#558270]">
-            Manage Plants
+            Manage Tools
           </button>
         </Link>
         <Link to="/view-orders">
