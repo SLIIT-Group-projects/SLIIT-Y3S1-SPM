@@ -29,6 +29,20 @@ import UpdateFertilizerPage from "./pages/UpdateFertilizerPage";
 import AdminFertilizer from "./pages/AdminFertilizer";
 import CreateFertilizer from "./pages/CreateFertilizer";
 
+// daham
+import BuyerCardAdd from "./components/buyerCardAdd";
+import AllBuyerCards from "./components/allBuyerCards";
+import UpdatebuyerCard from "./components/updatebuyerCard";
+import AllBuyerBuying from "./components/allBuyerBuying";
+
+import Navbar from "./components/Navbar";
+// import Home from "./components/home";
+import Footer from "./components/footer";
+
+import FarmersView from "./components/farmersView";
+import FarmerAddingForm from "./components/farmerAddingForm";
+import AllFarmerSelling from "./components/allFarmerSelling";
+
 function App() {
   return (
     <>
@@ -61,6 +75,15 @@ function App() {
           <Route path="/adminfer" element={<AdminFertilizerPage />} />
           <Route path="/update/:id" element={<UpdateFertilizerPage />} />
           <Route path="/add-fer" element={<CreateFertilizer />} />
+
+          {/* daham */}
+          <Route path="/yeildCard/add" exact element={<BuyerCardAdd />} />
+          <Route path="/yeildCard/" exact element={<AllBuyerCards />} />
+          <Route path="/yeildCard/:id" exact element={<UpdatebuyerCard />} />
+          <Route path="/yeildCard/allBuyerBuying" exact element={<AllBuyerBuying />} />
+          <Route path="/yeildCard/FarmersView" exact element={<FarmersView />} />
+          <Route path="/yeildCard/FarmersView/:id" exact element={<FarmerAddingForm />} />
+          <Route path="/yeildCard/allFarmerSelling" exact element={<AllFarmerSelling />} />
         </Routes>
       </BrowserRouter>
     </>

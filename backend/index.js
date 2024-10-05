@@ -56,3 +56,8 @@ const route= require("./routes/FertilizerRoutes.js")
 app.use('/api', route);
 app.use(json());
 app.use('/uploads', express.static('uploads')); // to serve uploaded images
+
+// daham
+
+const yeildCardRouter = require("./routes/yeild_cards.js");
+app.use("/yeildCard", yeildCardRouter);
