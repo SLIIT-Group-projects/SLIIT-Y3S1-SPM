@@ -168,20 +168,20 @@ const Rent_home = () => {
               key={tool._id}
               className="flex flex-col cursor-pointer bg-[#E9EFEC] p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300"
             >
-              <div className="relative w-full h-64 bg-[#C4DAD2] flex items-center justify-center rounded-lg overflow-hidden mb-4">
-                {tool.tool_photos.length > 0 ? (
-                  <Link to={`/tools/${tool._id}`}>
+              <Link to={`/tools/${tool._id}`}>
+                <div className="relative w-full h-64 bg-[#C4DAD2] flex items-center justify-center rounded-lg overflow-hidden mb-4">
+                  {tool.tool_photos.length > 0 ? (
                     <img
                       src={`http://localhost:8070/uploads/${tool.tool_photos[0]}`}
                       alt={tool.tool_title}
                       className="object-cover w-full h-full absolute top-0 left-0"
                       style={{ objectFit: "cover", aspectRatio: "16/9" }}
                     />
-                  </Link>
-                ) : (
-                  <p className="text-[#16423C] text-sm">No Image</p>
-                )}
-              </div>
+                  ) : (
+                    <p className="text-[#16423C] text-sm">No Image</p>
+                  )}
+                </div>
+              </Link>
               <div className="flex-1">
                 <h2 className="text-2xl font-semibold text-[#16423C]">
                   {tool.tool_title}
@@ -190,46 +190,48 @@ const Rent_home = () => {
                   {tool.tool_description}
                 </p>
               </div>
-              <Link
-                to={`/tools/${tool._id}/bookings`}
-                className="flex gap-2 bg-secondary rounded text-white p-2 ml-auto my-2"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                  stroke="currentColor"
-                  className="size-6"
+              <div className="flex ml-auto gap-4">
+                <Link
+                  to={`/tools/${tool._id}/bookings`}
+                  className="flex gap-2 bg-secondary rounded text-white p-2  my-2"
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M5.25 12.75l6 6m0 0l6-6m-6 6V3"
-                  />
-                </svg>
-                View Bookings
-              </Link>
-              <button
-                onClick={() => handleDelete(tool._id)}
-                className="flex gap-2 bg-red-500 rounded text-white p-2 ml-auto my-2"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                  stroke="currentColor"
-                  className="size-6"
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="size-6"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M5.25 12.75l6 6m0 0l6-6m-6 6V3"
+                    />
+                  </svg>
+                  View Bookings
+                </Link>
+                <button
+                  onClick={() => handleDelete(tool._id)}
+                  className="flex  bg-red-500 rounded text-white p-2  my-2"
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                </svg>
-                Delete
-              </button>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="size-6"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
+                  Delete
+                </button>
+              </div>
             </div>
           ))
         ) : (
