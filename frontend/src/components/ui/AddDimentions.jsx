@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import axios from "axios";
-import PlantNavBar from "../shared/PlantNavBar";
 import AdminHeader from "../shared/AdminHeader";
 
 function AddDimensions() {
@@ -34,7 +33,6 @@ function AddDimensions() {
 
   return (
     <div className="">
-      <PlantNavBar />
       <AdminHeader />
       <div className="flex justify-center items-center h-16">
         <div className="text-[#27302d] text-2xl font-bold">

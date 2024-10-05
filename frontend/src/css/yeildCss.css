@@ -40,11 +40,19 @@
   
   .yeild-AllCard-btn-box {
     display: flex;
-    gap: 5px;
+    gap: 20px;
   }
   .yeild-AllCard-add-btn {
     height: 35px;
     width: 120px;
+    border: none;
+    background-color: var(--dark-green);
+    border-radius: 5px;
+    padding: 0; /* Remove any default padding */
+  }
+  .yeild-AllCard-add-btn2 {
+    height: 35px;
+    width: 200px;
     border: none;
     background-color: var(--dark-green);
     border-radius: 5px;

@@ -1,11 +1,7 @@
 import React, { useEffect } from "react";
 import "../css/home.css";
-import { initializeSwiper } from "../js/home.js";
 import FarmersView from "../components/farmersView";
 const Home = () => {
-  useEffect(() => {
-    initializeSwiper(); // Call the function to initialize Swiper
-  }, []);
 
   return (
     <div>

@@ -1,7 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import AppNavbar from "../components/NavBar";
 import SearchBar from "../components/SearchBar";
 
 const Index_page = () => {
@@ -38,7 +37,6 @@ const Index_page = () => {
 
   return (
     <>
-      <AppNavbar />
       <div className=" mx-8 items-center my-8">
         <h1 className="text-4xl font-bold text-[#16423C] mb-4">
           Explore Tools

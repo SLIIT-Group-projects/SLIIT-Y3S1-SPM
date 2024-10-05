@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import AdminHeader from "./shared/AdminHeader";
 
 function AddBuyerCard() {
   const navigate = useNavigate();
@@ -14,8 +15,8 @@ function AddBuyerCard() {
   const [buying_rate, setRate] = useState("");
   const [buying_quantity, setQuantity] = useState("");
 
-  const auth = 'silunirupasinghe@gmail.com';
-  const secret = 'siluni';
+  const auth = "silunirupasinghe@gmail.com";
+  const secret = "siluni";
 
   // Array of possible card IDs
   const cardIdArray = ["C004", "C005", "C006", "C007", "C008"];
@@ -89,129 +90,135 @@ function AddBuyerCard() {
   };
 
   return (
-    <div className="yeild-addCard-form-section container">
-      <div className="text-center pti-text-h1 pti-text-dark pti-bolder">
-        Add Crop Post
-      </div>
-      <form onSubmit={sendData}>
-        <div className="yeild-addCard-form-box">
-          <div>
-            <div>
-              <div className="yeild-addCard-form-label">Card ID</div>
-              <div>
-                <input
-                  type="text"
-                  className="add-product-input form-control"
-                  value={buyer_card_ID}
-                  readOnly
-                />
-              </div>
-            </div>
-            <div>
-              <div className="yeild-addCard-form-label">Image</div>
-              <div>
-                <label htmlFor="uploadImage">
-                  <div className="uploadBox">
-                    <input
-                      type="file"
-                      className="add-product-upload add-product-input"
-                      id="img"
-                      onChange={handleUploadImage}
-                    />
-                  </div>
-                </label>
-              </div>
-            </div>
-            <div>
-              <div className="yeild-addCard-form-label">Title</div>
-              <div>
-                <input
-                  type="text"
-                  className="add-product-input form-control"
-                  onChange={(e) => {
-                    setName(e.target.value);
-                  }}
-                />
-              </div>
-            </div>
-            <div>
-              <div className="yeild-addCard-form-label">Description</div>
-              <div>
-                <input
-                  type="text"
-                  className="add-product-input form-control"
-                  onChange={(e) => {
-                    setDescription(e.target.value);
-                  }}
-                />
-              </div>
-            </div>
-            <div>
-              <div className="yeild-addCard-form-label">
-                Buying Quantity (Kg)
-              </div>
-              <div>
-                <input
-                  type="number"
-                  min="0"
-                  className="add-product-input form-control"
-                  onChange={(e) => {
-                    setQuantity(e.target.value);
-                  }}
-                />
-              </div>
-            </div>
-            <div>
-              <div className="yeild-addCard-form-label">
-                Buying Rate (per kilo)
-              </div>
-              <div>
-                <input
-                  type="number"
-                  min="0"
-                  step="0.01"
-                  className="add-product-input form-control"
-                  onChange={(e) => {
-                    setRate(e.target.value);
-                  }}
-                />
-              </div>
-            </div>
-            <div>
-              <div className="yeild-addCard-form-label">Buyer Email</div>
-              <div>
-                <input
-                  type="text"
-                  value={buyer_id}
-                  className="add-product-input form-control"
-                  readOnly
-                />
-              </div>
-            </div>
-            <div>
-              <div className="yeild-addCard-form-label">Buyer Name</div>
-              <div>
-                <input
-                  type="text"
-                  value={buyer_name}
-                  className="add-product-input form-control"
-                  readOnly
-                />
-              </div>
-            </div>
-            <div>
-              <button type="submit" className="yeild-addCard-form-btn pti-bolder pti-text-h3">
-                Add Card
-              </button>
-            </div>
-          </div>
-          <div>
-            <div className="yeild-addCard-form-img"></div>
-          </div>
+    <>
+    <AdminHeader/>
+      <div className="yeild-addCard-form-section container">
+        <div className="text-center pti-text-h1 pti-text-dark pti-bolder">
+          Add Crop Post
         </div>
-      </form>
-      <br />
-    </div>
+        <form onSubmit={sendData}>
+          <div className="yeild-addCard-form-box">
+            <div>
+              <div>
+                <div className="yeild-addCard-form-label">Card ID</div>
+                <div>
+                  <input
+                    type="text"
+                    className="add-product-input form-control"
+                    value={buyer_card_ID}
+                    readOnly
+                  />
+                </div>
+              </div>
+              <div>
+                <div className="yeild-addCard-form-label">Image</div>
+                <div>
+                  <label htmlFor="uploadImage">
+                    <div className="uploadBox">
+                      <input
+                        type="file"
+                        className="add-product-upload add-product-input"
+                        id="img"
+                        onChange={handleUploadImage}
+                      />
+                    </div>
+                  </label>
+                </div>
+              </div>
+              <div>
+                <div className="yeild-addCard-form-label">Title</div>
+                <div>
+                  <input
+                    type="text"
+                    className="add-product-input form-control"
+                    onChange={(e) => {
+                      setName(e.target.value);
+                    }}
+                  />
+                </div>
+              </div>
+              <div>
+                <div className="yeild-addCard-form-label">Description</div>
+                <div>
+                  <input
+                    type="text"
+                    className="add-product-input form-control"
+                    onChange={(e) => {
+                      setDescription(e.target.value);
+                    }}
+                  />
+                </div>
+              </div>
+              <div>
+                <div className="yeild-addCard-form-label">
+                  Buying Quantity (Kg)
+                </div>
+                <div>
+                  <input
+                    type="number"
+                    min="0"
+                    className="add-product-input form-control"
+                    onChange={(e) => {
+                      setQuantity(e.target.value);
+                    }}
+                  />
+                </div>
+              </div>
+              <div>
+                <div className="yeild-addCard-form-label">
+                  Buying Rate (per kilo)
+                </div>
+                <div>
+                  <input
+                    type="number"
+                    min="0"
+                    step="0.01"
+                    className="add-product-input form-control"
+                    onChange={(e) => {
+                      setRate(e.target.value);
+                    }}
+                  />
+                </div>
+              </div>
+              <div>
+                <div className="yeild-addCard-form-label">Buyer Email</div>
+                <div>
+                  <input
+                    type="text"
+                    value={buyer_id}
+                    className="add-product-input form-control"
+                    readOnly
+                  />
+                </div>
+              </div>
+              <div>
+                <div className="yeild-addCard-form-label">Buyer Name</div>
+                <div>
+                  <input
+                    type="text"
+                    value={buyer_name}
+                    className="add-product-input form-control"
+                    readOnly
+                  />
+                </div>
+              </div>
+              <div>
+                <button
+                  type="submit"
+                  className="yeild-addCard-form-btn pti-bolder pti-text-h3"
+                >
+                  Add Card
+                </button>
+              </div>
+            </div>
+            <div>
+              <div className="yeild-addCard-form-img"></div>
+            </div>
+          </div>
+        </form>
+        <br />
+      </div>
+    </>
   );
 }
 

@@ -1,7 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import AppNavbar from "../components/NavBar";
 import BookingWidget from "../components/BookingWidget";
 
 const Tool_view = () => {
@@ -68,8 +67,7 @@ const Tool_view = () => {
 
   return (
     <>
-      <AppNavbar />
-      <div className="mt-4 bg-background mx-8 px-8 py-8 rounded-2xl">
+      <div className="mt-4 bg-[#EFF4F2] mx-8 px-8 py-8 rounded-2xl">
         <h1 className="text-3xl font-bold">{tool.tool_title}</h1>
 
         {/* Custom Grid Container for Images */}
@@ -142,7 +140,7 @@ const Tool_view = () => {
                   tool.tool_perks.map((perk, index) => (
                     <button
                       key={index}
-                      className="bg-primary text-white rounded-full px-4 py-2  transition duration-200"
+                      className="bg-[#16423C] text-white rounded-full px-4 py-2  transition duration-200"
                     >
                       {perk}
                     </button>

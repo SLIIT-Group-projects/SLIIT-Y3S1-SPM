@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import AdminHeader from "../components/shared/AdminHeader";
 
 const Rent_bookings = () => {
   const { toolId } = useParams();
@@ -25,6 +26,8 @@ const Rent_bookings = () => {
   if (!bookings) return <p className="text-center">Loading bookings...</p>;
 
   return (
+    <>
+    <AdminHeader/>
     <div className="max-w-4xl mx-auto p-6">
       <div className="bg-background shadow-lg rounded-lg p-6 mb-6">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -38,21 +41,21 @@ const Rent_bookings = () => {
             className="w-full h-48 object-cover rounded-lg"
           />
           <div className="col-span-2">
-            <h2 className="text-3xl font-bold text-primary">
+            <h2 className="text-3xl font-bold text-[#16423C]">
               {tool.tool_title}
             </h2>
-            <p className="mt-2 text-secondary">{tool.tool_description}</p>
+            <p className="mt-2 text-[#6A9C89]">{tool.tool_description}</p>
             <p className="mt-4 text-lg font-semibold">
-              Price: <span className="text-primary">Rs. {tool.tool_price}</span>
+              Price: <span className="text-[#16423C]">Rs. {tool.tool_price}</span>
             </p>
-            <p className="mt-2 text-sm text-primary">
+            <p className="mt-2 text-sm text-[#16423C]">
               Max Rental Days: {tool.tool_maxDays}
             </p>
           </div>
         </div>
       </div>
 
-      <h3 className="mt-4 text-2xl font-semibold text-primary">Bookings:</h3>
+      <h3 className="mt-4 text-2xl font-semibold text-[#16423C]">Bookings:</h3>
       <ul className="mt-4 space-y-4">
         {bookings.map((booking) => (
           <li
@@ -60,13 +63,13 @@ const Rent_bookings = () => {
             className="bg-gray-100 p-4 rounded-lg shadow-md flex flex-col md:flex-row items-start justify-between"
           >
             <div className="flex-1">
-              <div className="font-semibold text-lg text-primary">
+              <div className="font-semibold text-lg text-[#16423C]">
                 {booking.tool.tool_title}
               </div>
-              <div className="text-primary mt-1 flex items-center">
+              <div className="text-[#16423C] mt-1 flex items-center">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-5 w-5 mr-1 text-secondary"
+                  className="h-5 w-5 mr-1 text-[#6A9C89]"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -83,15 +86,15 @@ const Rent_bookings = () => {
                   {new Date(booking.rentTo).toLocaleDateString()}
                 </span>
               </div>
-              <p className="text-lg font-semibold mt-2 text-secondary">
+              <p className="text-lg font-semibold mt-2 text-[#6A9C89]">
                 Price: Rs. {booking.rentPrice}
               </p>
             </div>
             <div className="mt-4 md:mt-0 md:ml-4">
-              <p className="text-lg font-semibold text-primary">
+              <p className="text-lg font-semibold text-[#16423C]">
                 Renter: {booking.rentName}
               </p>
-              <p className="text-lg font-semibold text-primary">
+              <p className="text-lg font-semibold text-[#16423C]">
                 Mobile: {booking.rentMobile}
               </p>
             </div>
@@ -99,6 +102,7 @@ const Rent_bookings = () => {
         ))}
       </ul>
     </div>
+    </>
   );
 };
 

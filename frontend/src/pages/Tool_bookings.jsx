@@ -2,7 +2,6 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { differenceInCalendarDays } from "date-fns";
 import { Link, useNavigate } from "react-router-dom";
-import AppNavbar from "../components/NavBar";
 
 const Tool_bookings = () => {
   const [bookings, setBookings] = useState([]);
@@ -31,7 +30,6 @@ const Tool_bookings = () => {
 
   return (
     <>
-      <AppNavbar />
       <h2 className="m-8 text-4xl font-bold text-gray-800">My Rentals</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mx-8 my-6">
         {bookings.length > 0 ? (

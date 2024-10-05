@@ -157,7 +157,7 @@ const BookingDetail = () => {
         Download Booking Details as PDF
       </button>
       <Link to={"/booking"}>
-        <button className="mt-6 bg-accent py-2 px-4 rounded-lg ml-4">
+        <button className="mt-6 bg-[#C4DAD2] py-2 px-4 rounded-lg ml-4">
           Rent more
         </button>
       </Link>

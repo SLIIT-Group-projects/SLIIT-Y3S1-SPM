@@ -21,14 +21,14 @@ function AdminHeader() {
             Manage Shops
           </button>
         </Link>
-        <Link to="/rent_create">
+        <Link to="/rent_admin_home">
           <button className="bg-[#6A9C89] text-white px-4 py-2 rounded hover:bg-[#558270]">
             Manage Tools
           </button>
         </Link>
-        <Link to="/view-orders">
+        <Link to="/yeildCard/">
           <button className="bg-[#6A9C89] text-white px-4 py-2 rounded hover:bg-[#558270]">
-            View Orders
+            Buyer Cards
           </button>
         </Link>
         <Link to="/analytics">

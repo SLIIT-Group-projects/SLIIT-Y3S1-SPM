@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import AppNavbar from "../components/NavBar";
 import ToolUploadButton from "../components/ToolUploadButton";
 import SearchBar from "../components/SearchBar"; // Import the SearchBar component
 import { jsPDF } from "jspdf";
 import "jspdf-autotable"; // Import the autotable module
+import AdminHeader from "../components/shared/AdminHeader";
 
 const Rent_home = () => {
   const [tools, setTools] = useState([]);
@@ -128,7 +128,7 @@ const Rent_home = () => {
 
   return (
     <>
-      <AppNavbar />
+    <AdminHeader/>
       <div className="flex ">
         <ToolUploadButton />
         <div className="ml-auto">
@@ -139,7 +139,7 @@ const Rent_home = () => {
           <div className="ml-auto">
             <button
               onClick={downloadPDF}
-              className="mr-4 flex gap-3 bg-secondary text-white p-3 rounded hover:bg- transition"
+              className="mr-4 flex gap-3 bg-[#6A9C89] text-white p-3 rounded hover:bg- transition"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -193,7 +193,7 @@ const Rent_home = () => {
               <div className="flex ml-auto gap-4">
                 <Link
                   to={`/tools/${tool._id}/bookings`}
-                  className="flex gap-2 bg-secondary rounded text-white p-2  my-2"
+                  className="flex gap-2 bg-[#6A9C89] rounded text-white p-2  my-2"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"

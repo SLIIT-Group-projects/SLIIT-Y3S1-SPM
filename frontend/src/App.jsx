@@ -1,8 +1,8 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter , Route, Routes } from "react-router-dom";
 import { useState } from "react";
 import "./index.css";
 import "flowbite";
-import Home from "./components/ui/Home";
+import AppNavbar from "./components/shared/PlantNavBar";
 import PlantCount from "./components/ui/PlantCount";
 import AddDimentions from "./components/ui/AddDimentions";
 import HistoryPlantCount from "./components/ui/HistoryPlantCount";
@@ -35,8 +35,8 @@ import AllBuyerCards from "./components/allBuyerCards";
 import UpdatebuyerCard from "./components/updatebuyerCard";
 import AllBuyerBuying from "./components/allBuyerBuying";
 
-import Navbar from "./components/Navbar";
-// import Home from "./components/home";
+// import Navbar from "./components/Navbar";
+import Home from "./components/home";
 import Footer from "./components/footer";
 
 import FarmersView from "./components/farmersView";
@@ -46,8 +46,10 @@ import AllFarmerSelling from "./components/allFarmerSelling";
 function App() {
   return (
     <>
-      <BrowserRouter>
+      <BrowserRouter >
+      <AppNavbar />
         <Routes>
+          
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
@@ -85,6 +87,7 @@ function App() {
           <Route path="/yeildCard/FarmersView/:id" exact element={<FarmerAddingForm />} />
           <Route path="/yeildCard/allFarmerSelling" exact element={<AllFarmerSelling />} />
         </Routes>
+        <Footer />
       </BrowserRouter>
     </>
   );

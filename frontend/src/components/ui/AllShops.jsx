@@ -1,7 +1,6 @@
 // src/components/AllPlantShops.jsx
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import PlantNavBar from '../shared/PlantNavBar';
 
 const AllShops = () => {
   const [shops, setShops] = useState([]);
@@ -35,7 +34,6 @@ const AllShops = () => {
   if (loading) {
     return (
       <div>
-        <PlantNavBar />
         <div className="flex justify-center items-center h-16">
           <div className="text-[#6A9C89] text-3xl font-bold">Loading...</div>
         </div>
@@ -45,7 +43,6 @@ const AllShops = () => {
 
   return (
     <div>
-      <PlantNavBar />
       <div className="flex justify-center items-center h-16">
         <div className="text-[#6A9C89] text-3xl font-bold">All Plant Shops</div>
       </div>

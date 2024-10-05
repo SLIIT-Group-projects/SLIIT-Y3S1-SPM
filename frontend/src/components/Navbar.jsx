@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const AppNavbar = () => {
+const dahamNavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -106,4 +106,4 @@ const AppNavbar = () => {
   );
 };
 
-export default AppNavbar;
+export default dahamNavBar;
