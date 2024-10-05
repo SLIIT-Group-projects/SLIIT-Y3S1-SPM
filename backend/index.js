@@ -4,6 +4,7 @@ const bodyParser= require("body-parser");
 const cors=require("cors");
 const dotenv=require("dotenv");
 require("dotenv").config();
+
 const plantRoutes = require("./src/routes/plants.route");
 const plantHistoryRoute = require("./src/routes/plantHistory.route");
 const signupRoute = require("./src/routes/signup");
@@ -45,3 +46,7 @@ app.use("/user", signupRoute)
 app.use("/auth", loginRouter)
 app.use("/api", userRoute)
 app.use("/plantShop", plantShopRoute)
+
+
+const yeildCardRouter = require("./routes/yeild_cards.js");
+app.use("/yeildCard", yeildCardRouter);

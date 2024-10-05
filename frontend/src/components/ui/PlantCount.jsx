@@ -1,7 +1,7 @@
 // src/components/PlantCount.js
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import {jwtDecode} from "jwt-decode"; // Correct default import
+import jwtDecode from "jwt-decode"; // Correct default import
 import PlantNavBar from "../shared/PlantNavBar";
 import draw1 from "../../assets/draw1.png";
 import draw2 from "../../assets/draw2.png";
