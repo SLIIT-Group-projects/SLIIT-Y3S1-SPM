@@ -3,6 +3,7 @@ const mongoose= require("mongoose");
 const bodyParser= require("body-parser");
 const cors=require("cors");
 const dotenv=require("dotenv");
+const { json } = require ('express');
 require("dotenv").config();
 const plantRoutes = require("./src/routes/plants.route");
 const plantHistoryRoute = require("./src/routes/plantHistory.route");
@@ -53,3 +54,5 @@ app.use(toolsRoutes);
 //vihara
 const route= require("./routes/FertilizerRoutes.js")
 app.use('/api', route);
+app.use(json());
+app.use('/uploads', express.static('uploads')); // to serve uploaded images
