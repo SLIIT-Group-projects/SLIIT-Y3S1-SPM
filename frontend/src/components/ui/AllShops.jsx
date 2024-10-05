@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import PlantNavBar from '../shared/PlantNavBar';
+import AdminHeader from '../shared/AdminHeader';
 
 const AllShops = () => {
   const [shops, setShops] = useState([]);
@@ -36,6 +37,7 @@ const AllShops = () => {
     return (
       <div>
         <PlantNavBar />
+  
         <div className="flex justify-center items-center h-16">
           <div className="text-[#6A9C89] text-3xl font-bold">Loading...</div>
         </div>
