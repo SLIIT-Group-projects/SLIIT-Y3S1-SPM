@@ -13,7 +13,7 @@ function UpdateProducts() {
     buyer_id: "",
     buyer_name: "",
     buying_rate: "",
-    buying_quantity: 0, // Ensure this starts as a number
+    buying_quantity: 0,
   });
   const [sellingQuantity, setSellingQuantity] = useState(0);
   const [farmerId, setFarmerId] = useState("");
@@ -22,9 +22,12 @@ function UpdateProducts() {
   useEffect(() => {
     const fetchProductData = async () => {
       try {
-        const response = await Axios.get(
-          `http://localhost:8070/yeildCard/get/${id}`
-        );
+        const token = localStorage.getItem("token"); // Get token from local storage
+        const response = await Axios.get(`http://localhost:8070/yeildCard/get/${id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`, // Add the token to the headers
+          },
+        });
         setYeild(response.data.yeild);
       } catch (error) {
         console.error("Error fetching product data:", error);
@@ -36,27 +39,32 @@ function UpdateProducts() {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    // Ensure buying_quantity remains a number
     setYeild((prev) => ({
       ...prev,
-      [name]: name === "buying_quantity" ? Number(value) || 0 : value, // Convert to number
+      [name]: name === "buying_quantity" ? Number(value) || 0 : value,
     }));
   };
 
   const handleSellingQuantityChange = (e) => {
     const value = Number(e.target.value);
-    setSellingQuantity(value || 0); // Convert to number
+    setSellingQuantity(value || 0);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (isNaN(yeild.buying_quantity) || isNaN(sellingQuantity)) {
       alert("Please ensure all quantities are valid numbers.");
-      return; // Prevent submission if values are invalid
+      return;
     }
     try {
+      const token = localStorage.getItem("token"); // Get token from local storage
+
       await Axios.put(`http://localhost:8070/yeildCard/farmer/update/${id}`, {
         selling_quantity: sellingQuantity,
+      }, {
+        headers: {
+          Authorization: `Bearer ${token}`, // Add the token to the headers
+        },
       });
 
       await Axios.post("http://localhost:8070/yeildCard/farmer/add", {
@@ -66,9 +74,13 @@ function UpdateProducts() {
         buyer_id: yeild.buyer_id,
         buyer_name: yeild.buyer_name,
         buying_rate: yeild.buying_rate,
-        selling_quantity: sellingQuantity, // Send the buying quantity as well
+        selling_quantity: sellingQuantity,
         farmer_id: farmerId,
         farmer_name: farmerName,
+      }, {
+        headers: {
+          Authorization: `Bearer ${token}`, // Add the token to the headers
+        },
       });
 
       alert("Product updated and added successfully");
@@ -123,7 +135,6 @@ function UpdateProducts() {
                   name="b_description"
                   value={yeild.b_description}
                   onChange={handleInputChange}
-
                   readOnly
                 />
               </div>

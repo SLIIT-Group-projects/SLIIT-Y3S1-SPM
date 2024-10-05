@@ -49,7 +49,9 @@ const AllBuyerCards = () => {
   useEffect(() => {
     const fetchBuyerCards = async () => {
       try {
-        const res = await axios.get("http://localhost:8070/yeildCard/");
+        const res = await axios.get("http://localhost:8070/yeildCard/h", {
+          
+        });
         setYeilds(res.data);
       } catch (err) {
         alert(err.message);
@@ -61,8 +63,12 @@ const AllBuyerCards = () => {
   // Handle product deletion
   const handleDelete = async (buyer_card_ID) => {
     try {
+
       await axios.delete(
-        `http://localhost:8070/yeildCard/delete/${buyer_card_ID}`
+        `http://localhost:8070/yeildCard/delete/${buyer_card_ID}`,
+        {
+         
+        }
       );
       setYeilds(yeilds.filter((yeild) => yeild._id !== buyer_card_ID));
       alert("yield deleted successfully");
@@ -99,26 +105,6 @@ const AllBuyerCards = () => {
 
   return (
     <div ref={ComponentsRef} className="yeild-AllCard mx-auto p-4">
-      {/* <div className="yeild-AllCard-search-box ">
-        <div className="yeild-AllCard-search-box2">
-          <form className="flex" onSubmit={handleSearch}>
-            <input
-              onChange={(e) => setSearchQuery(e.target.value)}
-              value={searchQuery}
-              className="yeild-AllCard-search-input border border-gray-300 p-3 rounded-l-md focus:outline-none focus:ring-2"
-              type="search"
-              placeholder="Search . . ."
-              aria-label="Search"
-            />
-            <button
-              className="yeild-AllCard-search-btn pti-bg-dark-green pti-text-light pti-bold text-white p-2 rounded-r-md"
-              type="submit"
-            >
-              Search
-            </button>
-          </form>
-        </div>
-      </div> */}
       <div className="pti-text-h1 pti-bold text-center pti-text-dark">Add Your Crops</div>
       <div className="yeild-AllCard-section2-box grid grid-cols-1 md:grid-cols-2">
         {noResult ? (

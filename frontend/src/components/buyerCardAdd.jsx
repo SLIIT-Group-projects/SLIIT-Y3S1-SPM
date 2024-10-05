@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 function AddBuyerCard() {
@@ -26,14 +25,12 @@ function AddBuyerCard() {
 
   const handleUploadImage = (e) => {
     const file = e.target.files[0];
-    const maxSize = 2 * 1024 * 1024; // 5 MB (adjust this value as needed)
+    const maxSize = 2 * 1024 * 1024; // 2 MB limit for image file
 
     if (file && file.size <= maxSize) {
       setImg(file);
     } else {
-      // Notify the user if the file exceeds the size limit
       alert("Please select an image file smaller than 2 MB.");
-      // Clear the input field to allow the user to select a new file
       e.target.value = null;
     }
   };
@@ -49,7 +46,7 @@ function AddBuyerCard() {
 
     const newBuyerCard = {
       buyer_card_ID,
-      image: imageBase64, // Include base64 image data in product data
+      image: imageBase64,
       b_title,
       b_description,
       buyer_id,
@@ -58,15 +55,22 @@ function AddBuyerCard() {
       buying_quantity: Number(buying_quantity),
     };
 
-    // Send product data to the server
+    // Get the token from localStorage
+    const token = localStorage.getItem("token");
+
+    // Send product data to the server with token in headers
     axios
-      .post("http://localhost:8070/yeildCard/add", newBuyerCard)
+      .post("http://localhost:8070/yeildCard/add", newBuyerCard, {
+        headers: {
+          Authorization: `Bearer ${token}`, // Attach token to the request header
+        },
+      })
       .then(() => {
         alert("Card Added");
         navigate("/yeildCard/");
       })
       .catch((err) => {
-        alert(err);
+        alert("Failed to add card. " + err.response?.data?.message || err.message);
       });
   };
 
@@ -84,9 +88,7 @@ function AddBuyerCard() {
                 <input
                   type="text"
                   className="add-product-input form-control"
-                  onChange={(e) => {
-                    setID(e.target.value);
-                  }}
+                  onChange={(e) => setID(e.target.value)}
                 />
               </div>
             </div>
@@ -111,9 +113,7 @@ function AddBuyerCard() {
                 <input
                   type="text"
                   className="add-product-input form-control"
-                  onChange={(e) => {
-                    setName(e.target.value);
-                  }}
+                  onChange={(e) => setName(e.target.value)}
                 />
               </div>
             </div>
@@ -123,9 +123,7 @@ function AddBuyerCard() {
                 <input
                   type="text"
                   className="add-product-input form-control"
-                  onChange={(e) => {
-                    setDescription(e.target.value);
-                  }}
+                  onChange={(e) => setDescription(e.target.value)}
                 />
               </div>
             </div>
@@ -138,9 +136,7 @@ function AddBuyerCard() {
                   type="number"
                   min="0"
                   className="add-product-input form-control"
-                  onChange={(e) => {
-                    setQuantity(e.target.value);
-                  }}
+                  onChange={(e) => setQuantity(e.target.value)}
                 />
               </div>
             </div>
@@ -154,9 +150,7 @@ function AddBuyerCard() {
                   min="0"
                   step="0.01"
                   className="add-product-input form-control"
-                  onChange={(e) => {
-                    setRate(e.target.value);
-                  }}
+                  onChange={(e) => setRate(e.target.value)}
                 />
               </div>
             </div>
@@ -165,11 +159,8 @@ function AddBuyerCard() {
               <div>
                 <input
                   type="text"
-                  min="0"
                   className="add-product-input form-control"
-                  onChange={(e) => {
-                    setBuyerId(e.target.value);
-                  }}
+                  onChange={(e) => setBuyerId(e.target.value)}
                 />
               </div>
             </div>
@@ -178,17 +169,16 @@ function AddBuyerCard() {
               <div>
                 <input
                   type="text"
-                  min="0"
-                  step="0.01"
                   className="add-product-input form-control"
-                  onChange={(e) => {
-                    setBuyerName(e.target.value);
-                  }}
+                  onChange={(e) => setBuyerName(e.target.value)}
                 />
               </div>
             </div>
             <div>
-              <button type="submit" className="yeild-addCard-form-btn pti-bolder pti-text-h3">
+              <button
+                type="submit"
+                className="yeild-addCard-form-btn pti-bolder pti-text-h3"
+              >
                 Add Card
               </button>
             </div>

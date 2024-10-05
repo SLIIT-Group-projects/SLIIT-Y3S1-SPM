@@ -1,92 +1,112 @@
 const router = require("express").Router();
-const Yeild = require("../models/yeild_card"); // Consistent spelling with the model
-const Yeild_farmer = require("../models/yeild_card_farmer"); // Consistent spelling with the model
+const YieldCard = require("../models/yeild_card"); // Make sure model is imported properly
+const { authenticationToken } = require("../src/utils/authMiddleware"); // Import the JWT authentication middleware
+const User = require('../src/models/user');
 
-// Buyer part
+// Middleware to apply authentication on all routes
+router.use(authenticationToken);
+
 // Add a new yield card
 router.route("/add").post((req, res) => {
-    const { buyer_card_ID, image, b_title, b_description, buyer_id, buyer_name, buying_rate, buying_quantity } = req.body;
+  const { image, b_title, b_description, buyer_name, buying_rate, buying_quantity } = req.body;
 
-    const newYeildCard = new Yeild({
-        buyer_card_ID,
-        image,
-        b_title,
-        b_description,
-        buyer_id,
-        buyer_name,
-        buying_rate,
-        buying_quantity
+  const newYeildCard = new YieldCard({
+    image,
+    b_title,
+    b_description,
+    buyer_id: req.user.id, // Get the buyer_id from the JWT user
+    buyer_name,
+    buying_rate,
+    buying_quantity,
+  });
+
+  newYeildCard.save()
+    .then(() => res.json("Yield Card Added...!!"))
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send({ status: "Error adding yield card", error: err.message });
     });
-
-    newYeildCard.save()
-        .then(() => res.json("Yield Card Added...!!"))
-        .catch((err) => {
-            console.log(err);
-            res.status(500).send({ status: "Error adding yield card", error: err.message });
-        });
 });
 
-// View all yield cards
+// Get all yield cards for the authenticated user
 router.route("/").get((req, res) => {
-    Yeild.find()
-        .then((yeilds) => res.json(yeilds))
-        .catch((err) => {
-            console.log(err);
-            res.status(500).send({ status: "Error fetching yield cards", error: err.message });
-        });
+  YieldCard.find({ buyer_id: req.user.id })  // Fetch only cards created by the authenticated user
+    .then((cards) => res.json(cards))
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send({ status: "Error fetching yield cards", error: err.message });
+    });
 });
 
 // Update a yield card
 router.route("/update/:id").put(async (req, res) => {
-    let yeildId = req.params.id;
-    const { image, b_title, b_description, buyer_id, buyer_name, buying_rate, buying_quantity } = req.body;
+  const yeildId = req.params.id;
+  const { image, b_title, b_description, buyer_name, buying_rate, buying_quantity } = req.body;
 
-    const updateYeildCard = {
-        image,
-        b_title,
-        b_description,
-        buyer_id,
-        buyer_name,
-        buying_rate,
-        buying_quantity
-    };
+  const updateYeildCard = {
+    image,
+    b_title,
+    b_description,
+    buyer_name,
+    buying_rate,
+    buying_quantity,
+  };
 
-    try {
-        const updatedYeild = await Yeild.findByIdAndUpdate(yeildId, updateYeildCard, { new: true });
-        res.status(200).send({ status: "Yield card updated", updatedYeild });
-    } catch (err) {
-        console.log(err);
-        res.status(500).send({ status: "Error with updating data", error: err.message });
+  try {
+    const updatedYeild = await YieldCard.findOneAndUpdate(
+      { _id: yeildId, buyer_id: req.user.id },  // Ensure the user owns the card being updated
+      updateYeildCard,
+      { new: true }
+    );
+
+    if (!updatedYeild) {
+      return res.status(404).send({ status: "Yield card not found or unauthorized" });
     }
+
+    res.status(200).send({ status: "Yield card updated", updatedYeild });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send({ status: "Error with updating data", error: err.message });
+  }
 });
 
 // Delete a yield card
 router.route("/delete/:id").delete(async (req, res) => {
-    let yeildId = req.params.id;
+  const yeildId = req.params.id;
 
-    try {
-        await Yeild.findByIdAndDelete(yeildId);
-        res.status(200).send({ status: "Yield card deleted" });
-    } catch (err) {
-        console.log(err.message);
-        res.status(500).send({ status: "Error with deleting yield card", error: err.message });
+  try {
+    const deletedYeild = await YieldCard.findOneAndDelete({
+      _id: yeildId,
+      buyer_id: req.user.id,  // Ensure the user owns the card being deleted
+    });
+
+    if (!deletedYeild) {
+      return res.status(404).send({ status: "Yield card not found or unauthorized" });
     }
+
+    res.status(200).send({ status: "Yield card deleted" });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send({ status: "Error with deleting yield card", error: err.message });
+  }
 });
 
-// Get one yield card by ID
+// Get one yield card by ID (only for authenticated user)
 router.route("/get/:id").get(async (req, res) => {
-    let yeildId = req.params.id;
+  const yeildId = req.params.id;
 
-    try {
-        const yeild = await Yeild.findById(yeildId);
-        if (!yeild) {
-            res.status(404).send({ status: "Yield card not found" });
-        } else {
-            res.status(200).send({ status: "Yield card fetched", yeild });
-        }
-    } catch (err) {
-        res.status(500).send({ status: "Error with getting yield card", error: err.message });
+  try {
+    const yeild = await YieldCard.findOne({ _id: yeildId, buyer_id: req.user.id });  // Ensure the user owns the card
+
+    if (!yeild) {
+      return res.status(404).send({ status: "Yield card not found or unauthorized" });
     }
+
+    res.status(200).send({ status: "Yield card fetched", yeild });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send({ status: "Error with getting yield card", error: err.message });
+  }
 });
 
 
@@ -101,7 +121,7 @@ router.route("/get/:id").get(async (req, res) => {
 //             res.status(500).send({ status: "Error fetching crop details", error: err.message });
 //         });
 // });
-router.route("/crop_selling").get(async (req, res) => {
+router.route("/crop_selling").get(authenticationToken, async (req, res) => {
     const buyerId = req.query.buyer_id;
 
     try {
@@ -117,7 +137,17 @@ router.route("/crop_selling").get(async (req, res) => {
     }
 });
 
-router.route("/crop_selling/get/:id").get(async (req, res) => {
+router.route("/h").get((req, res) => {
+    YieldCard.find()  // Fetch only cards created by the authenticated user
+      .then((cards) => res.json(cards))
+      .catch((err) => {
+        console.error(err);
+        res.status(500).send({ status: "Error fetching yield cards", error: err.message });
+      });
+  });
+
+// Other routes with token authentication...
+router.route("/crop_selling/get/:id").get(authenticationToken, async (req, res) => {
     let yeildId = req.params.id;
 
     try {
@@ -132,34 +162,13 @@ router.route("/crop_selling/get/:id").get(async (req, res) => {
     }
 });
 
-
-
-// Get all selling details for one buyer
-router.route("/crop_selling/get/:id").get(async (req, res) => {
-    let yeildId = req.params.id;
-
-    try {
-        const yeild = await Yeild_farmer.findById(yeildId);
-        if (!yeild) {
-            res.status(404).send({ status: "not found" });
-        } else {
-            res.status(200).send({ status: "Yield card fetched", yeild });
-        }
-    } catch (err) {
-        res.status(500).send({ status: "Error with getting yield card", error: err.message });
-    }
-});
-
-
-
-
-// Farmer route
-router.route("/farmer/update/:id").put(async (req, res) => {
+// Farmer update route
+router.route("/farmer/update/:id").put(authenticationToken, async (req, res) => {
     const yieldId = req.params.id;
-    const { selling_quantity } = req.body; // Adjusted to selling_quantity
+    const { selling_quantity } = req.body; // Selling quantity to update
 
     try {
-        const yieldCard = await Yeild.findById(yieldId);
+        const yieldCard = await YieldCard.findById(yieldId);
 
         if (!yieldCard) {
             return res.status(404).send({ status: "Yield card not found" });
@@ -170,16 +179,16 @@ router.route("/farmer/update/:id").put(async (req, res) => {
             return res.status(400).send({ status: "Invalid selling quantity" });
         }
 
-        // Calculate the new buying quantity
-        const newBuyingQuantity = yieldCard.buying_quantity - selling_quantity;
+        // Calculate the new selling quantity
+        const newSellingQuantity = yieldCard.buying_quantity - selling_quantity; // Assuming selling_quantity is the quantity being sold
 
         // Validate that the new quantity is not negative
-        if (newBuyingQuantity < 0) {
-            return res.status(400).send({ status: "Buying quantity cannot be negative" });
+        if (newSellingQuantity < 0) {
+            return res.status(400).send({ status: "Selling quantity cannot exceed available quantity" });
         }
 
-        // Update the buying quantity in the database
-        yieldCard.buying_quantity = newBuyingQuantity;
+        // Update the selling quantity in the database
+        yieldCard.buying_quantity = newSellingQuantity;
 
         // Save the updated yield card
         const updatedYieldCard = await yieldCard.save();
@@ -187,32 +196,46 @@ router.route("/farmer/update/:id").put(async (req, res) => {
         res.status(200).send({ status: "Yield card quantity updated", yield: updatedYieldCard });
     } catch (err) {
         console.error(err);
-        res.status(500).send({ status: "Error with updating quantity", error: err.message });
+        res.status(500).send({ status: "Error updating quantity", error: err.message });
     }
 });
 
+// Add a new yield card with farmer details
+router.route("/farmer/add").post(authenticationToken, async (req, res) => {
+    const { buyer_card_ID, b_title, b_description, buyer_id, buying_rate, selling_quantity, farmer_id } = req.body;
 
-// add card with farmer details
-router.route("/farmer/add").post((req, res) => {
-    const { buyer_card_ID, b_title, b_description, buyer_id, buyer_name, buying_rate, selling_quantity,farmer_id,farmer_name } = req.body;
+    try {
+        console.log("Request Body:", req.body); // Log the incoming request data
 
-    const newYeildCardFarmer = new Yeild_farmer({
-        buyer_card_ID,
-        b_title,
-        b_description,
-        buyer_id,
-        buyer_name,
-        buying_rate,
-        selling_quantity,
-        farmer_id,
-        farmer_name,
-    });
+        // const buyer = await User.findById(buyer_id);
+        // console.log("Buyer:", buyer); // Log buyer details
 
-    newYeildCardFarmer.save()
-        .then(() => res.json("Yield Added with farmer...!!"))
-        .catch((err) => {
-            console.log(err);
-            res.status(500).send({ status: "Error adding yield card with farmer", error: err.message });
+        // const farmer = await User.findById(farmer_id);
+        // console.log("Farmer:", farmer); // Log farmer details
+
+        // if (!buyer) {
+        //     return res.status(404).send({ status: "Buyer not found" });
+        // }
+
+        // if (!farmer) {
+        //     return res.status(404).send({ status: "Farmer not found" });
+        // }
+
+        const newYieldCardFarmer = new Yield_card_farmer({
+            buyer_card_ID,
+            b_title,
+            b_description,
+            buyer: buyer_id, 
+            buying_rate,
+            selling_quantity,
+            farmer: farmer_id, 
         });
+
+        await newYieldCardFarmer.save();
+        res.status(201).json({ status: "Yield added with farmer!", yield: newYieldCardFarmer });
+    } catch (err) {
+        console.log("Error occurred:", err); // Log the error details
+        res.status(500).send({ status: "Error adding yield card with farmer", error: err.message });
+    }
 });
 module.exports = router;

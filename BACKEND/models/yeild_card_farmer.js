@@ -1,46 +1,41 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const yeild_card_farmerSchema = new Schema({
-    buyer_card_ID :{
-        type : String,
-        required:true
-    },
-    b_title:{
-        type : String,
-        required:true
-    },
-    b_description :{
-        type : String,
-        required:true
-    },
-    buyer_id :{
-        type : String,
-        required:true
-    },
-    buyer_name:{
-        type : String,
-        required:true
-    },
-    buying_rate:{
-        type : Number,
-        required:true
-    },
-    selling_quantity :{
-        type : Number,
-        required:true
-    },
-    farmer_id :{
-        type : String,
-        required:true
-    },
-    farmer_name:{
-        type : String,
-        required:true
-    },
+// Assuming you have a single User model for both buyers and farmers
+const User = require('../src/models/user'); // Adjust the path accordingly
 
-})
+const yield_card_farmerSchema = new Schema({
+    buyer_card_ID: {
+        type: String,
+        
+    },
+    b_title: {
+        type: String,
+        required: true,
+    },
+    b_description: {
+        type: String,
+        required: true,
+    },
+    buyer: {
+        type: Schema.Types.ObjectId, // Reference to the User model
+        ref: 'User',
+        required: true,
+    },
+    farmer: {
+        type: Schema.Types.ObjectId, // Reference to the User model
+        ref: 'User',
+        required: true,
+    },
+    buying_rate: {
+        type: Number,
+        required: true,
+    },
+    selling_quantity: {
+        type: Number,
+        required: true,
+    },
+});
 
-
-const yeild_card_farmer = mongoose.model("yeild_card_farmer",yeild_card_farmerSchema);
-module.exports=yeild_card_farmer;
+const Yield_card_farmer = mongoose.model('Yield_card_farmer', yield_card_farmerSchema);
+module.exports = Yield_card_farmer;

@@ -45,27 +45,37 @@ const AllBuyerCards = () => {
   const [selectedImage, setSelectedImage] = useState("");
   const ComponentsRef = useRef();
 
+  // Token to be added to the API request (replace with the actual token)
+  const token = localStorage.getItem("token");// You should replace this with the actual token from context or localStorage
+
   // Fetch products from the API
   useEffect(() => {
     const fetchBuyerCards = async () => {
       try {
-        const res = await axios.get("http://localhost:8070/yeildCard/");
+        const res = await axios.get("http://localhost:8070/yeildCard/", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         setYeilds(res.data);
       } catch (err) {
+        console.log(err);
         alert(err.message);
       }
     };
     fetchBuyerCards();
-  }, []);
+  }, [token]);
 
   // Handle product deletion
   const handleDelete = async (buyer_card_ID) => {
     try {
-      await axios.delete(
-        `http://localhost:8070/yeildCard/delete/${buyer_card_ID}`
-      );
+      await axios.delete(`http://localhost:8070/yeildCard/delete/${buyer_card_ID}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       setYeilds(yeilds.filter((yeild) => yeild._id !== buyer_card_ID));
-      alert("yield deleted successfully");
+      alert("Yield deleted successfully");
     } catch (err) {
       console.error("Error deleting product:", err);
       alert("Error deleting yield");
@@ -127,8 +137,6 @@ const AllBuyerCards = () => {
               Add Yeilds
             </Link>
           </button>
-
-          
         </div>
       </div>
       <div className="yeild-AllCard-section2-box grid grid-cols-1 md:grid-cols-2">
