@@ -107,25 +107,25 @@ const Header = ({ cartItems, onRemove, totalCost, onUpdateQuantity }) => {
             className="text-[#ffffff] text-sm font-medium leading-normal"
             href="#"
           >
-            Shop All
+            Home
           </a>
           <a
             className="text-[#ffffff] text-sm font-medium leading-normal"
             href="#"
           >
-            Plants
+            Order Fertilizer
           </a>
           <a
             className="text-[#ffffff] text-sm font-medium leading-normal"
             href="#"
           >
-            Pots
+            Yield Distribution
           </a>
           <a
             className="text-[#ffffff] text-sm font-medium leading-normal"
             href="#"
           >
-            Soil
+            Land Optimization
           </a>
           <a
             className="text-[#ffffff] text-sm font-medium leading-normal"
