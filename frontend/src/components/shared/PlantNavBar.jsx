@@ -44,7 +44,7 @@ const AppNavbar = () => {
           {/* Logo Section */}
           <div className="flex-shrink-0 flex items-center">
             <Link to="/" className="text-[#E9EFEC] font-bold text-2xl">
-              FarmTec
+              FarmTech
             </Link>
           </div>
 
@@ -91,10 +91,22 @@ const AppNavbar = () => {
               Home
             </Link>
             <Link
-              to="/PlantCount"
+              to="/rent"
               className="text-[#C4DAD2] hover:text-white font-medium px-3 py-2 text-lg"
             >
-              Plant Count
+              Tool Renting
+            </Link>
+            <Link
+              to="/order"
+              className="text-[#C4DAD2] hover:text-white font-medium px-3 py-2 text-lg"
+            >
+              Fertilzer
+            </Link>
+            <Link
+              to="/yeildCard/"
+              className="text-[#C4DAD2] hover:text-white font-medium px-3 py-2 text-lg"
+            >
+              Crop
             </Link>
 
             {/* History Dropdown */}
