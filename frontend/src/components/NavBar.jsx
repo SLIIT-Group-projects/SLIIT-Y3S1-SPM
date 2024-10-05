@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 
 const AppNavbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -70,12 +69,6 @@ const AppNavbar = () => {
             >
               Buying_Details
             </a>
-            <Link
-              className="text-[#ffffff] text-sm font-medium leading-normal"
-              to="/order"
-            >
-              Order Fertilizer
-            </Link>
           </div>
         </div>
       </div>
