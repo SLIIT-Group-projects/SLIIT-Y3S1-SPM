@@ -23,16 +23,10 @@ const AppNavbar = () => {
   // Close dropdowns when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (
-        historyRef.current &&
-        !historyRef.current.contains(event.target)
-      ) {
+      if (historyRef.current && !historyRef.current.contains(event.target)) {
         setHistoryOpen(false);
       }
-      if (
-        profileRef.current &&
-        !profileRef.current.contains(event.target)
-      ) {
+      if (profileRef.current && !profileRef.current.contains(event.target)) {
         setProfileOpen(false);
       }
     };
@@ -111,12 +105,11 @@ const AppNavbar = () => {
                   className="text-[#C4DAD2] hover:text-white font-medium px-3 py-2 text-lg inline-flex items-center"
                 >
                   Land Optimization
-                    <path
-                      fillRule="evenodd"
-                      d="M5.23 7.21a.75.75 0 011.06.02L10 10.584l3.71-3.354a.75.75 0 111.04 1.08l-4.25 3.85a.75.75 0 01-1.04 0L5.25 8.29a.75.75 0 01-.02-1.08z"
-                      clipRule="evenodd"
-                    />
-         
+                  <path
+                    fillRule="evenodd"
+                    d="M5.23 7.21a.75.75 0 011.06.02L10 10.584l3.71-3.354a.75.75 0 111.04 1.08l-4.25 3.85a.75.75 0 01-1.04 0L5.25 8.29a.75.75 0 01-.02-1.08z"
+                    clipRule="evenodd"
+                  />
                 </button>
 
                 {/* Dropdown Menu */}
@@ -146,13 +139,13 @@ const AppNavbar = () => {
                       </Link>
                       {/* Add more history options here */}
                       <Link
-                        to="/HistoryOther"
+                        to="/AllShops"
                         className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                         role="menuitem"
                         onClick={() => setHistoryOpen(false)}
                       >
                         All shops
-                      </Link> 
+                      </Link>
                     </div>
                   </div>
                 )}
@@ -170,7 +163,6 @@ const AppNavbar = () => {
                   <img
                     className="w-10 h-10 rounded-full"
                     src="/path-to-default-avatar.png" // Replace with actual path or use a dynamic avatar
-                   
                   />
                 </button>
 
