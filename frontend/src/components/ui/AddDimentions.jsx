@@ -44,7 +44,7 @@ function AddDimensions() {
       <div className="my-10 mx-20">
         {/* Form Start */}
         <div>
-          <form onSubmit={handleSubmit} className="max-w-md mx-auto bg-white p-8 shadow-lg rounded-lg">
+          <form onSubmit={handleSubmit} className="max-w-md mx-auto bg-[#EFF4F2] p-8 shadow-lg rounded-lg">
             <div className="mb-5">
               <label htmlFor="plantName" className="block mb-2 text-sm font-medium text-[#27302d]">
                 Enter Plant Name

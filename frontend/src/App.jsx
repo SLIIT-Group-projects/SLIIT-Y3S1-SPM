@@ -37,7 +37,7 @@ function App() {
           <Route path="/AllShops" element={<AllShops />} />
 
 
-          {/* //daham */}
+          {/* //Sajitha */}
           <Route path="/rent" element={<Index_page />} />
           <Route path="/rent_admin_home" element={<Rent_home />} />
           <Route path="/rent_create" element={<ToolForm />} />

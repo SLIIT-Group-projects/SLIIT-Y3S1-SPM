@@ -111,19 +111,12 @@ const AppNavbar = () => {
                   className="text-[#C4DAD2] hover:text-white font-medium px-3 py-2 text-lg inline-flex items-center"
                 >
                   Land Optimization
-                  <svg
-                    className="ml-1 h-5 w-5"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                    aria-hidden="true"
-                  >
                     <path
                       fillRule="evenodd"
                       d="M5.23 7.21a.75.75 0 011.06.02L10 10.584l3.71-3.354a.75.75 0 111.04 1.08l-4.25 3.85a.75.75 0 01-1.04 0L5.25 8.29a.75.75 0 01-.02-1.08z"
                       clipRule="evenodd"
                     />
-                  </svg>
+         
                 </button>
 
                 {/* Dropdown Menu */}
@@ -177,7 +170,7 @@ const AppNavbar = () => {
                   <img
                     className="w-10 h-10 rounded-full"
                     src="/path-to-default-avatar.png" // Replace with actual path or use a dynamic avatar
-                    alt="Profile"
+                   
                   />
                 </button>
 
@@ -191,7 +184,7 @@ const AppNavbar = () => {
                       aria-labelledby="options-menu"
                     >
                       <Link
-                        to="/Profile" // Add a link to the user's profile if available
+                        to="/admin/addDimentions" // Add a link to the user's profile if available
                         className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                         role="menuitem"
                         onClick={() => setProfileOpen(false)}
