@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import {
   PiShoppingCartSimple,
   PiMinus,
@@ -109,12 +110,12 @@ const Header = ({ cartItems, onRemove, totalCost, onUpdateQuantity }) => {
           >
             Home
           </a>
-          <a
+          <Link
             className="text-[#ffffff] text-sm font-medium leading-normal"
-            href="#"
+            to="/order"
           >
             Order Fertilizer
-          </a>
+          </Link>
           <a
             className="text-[#ffffff] text-sm font-medium leading-normal"
             href="#"
@@ -126,12 +127,6 @@ const Header = ({ cartItems, onRemove, totalCost, onUpdateQuantity }) => {
             href="#"
           >
             Land Optimization
-          </a>
-          <a
-            className="text-[#ffffff] text-sm font-medium leading-normal"
-            href="#"
-          >
-            Fertilizer
           </a>
         </nav>
         <div className="flex gap-2">
