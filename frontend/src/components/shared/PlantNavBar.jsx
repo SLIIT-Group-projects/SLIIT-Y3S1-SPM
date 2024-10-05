@@ -1,11 +1,14 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect, useRef } from "react";
+import { useNavigate, Link } from "react-router-dom";
 
 const AppNavbar = () => {
   const token = localStorage.getItem("token");
   const [isOpen, setIsOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false); // State for profile dropdown
+  const [historyOpen, setHistoryOpen] = useState(false); // State for history dropdown
   const navigate = useNavigate();
+  const historyRef = useRef();
+  const profileRef = useRef();
 
   const handleLogout = () => {
     localStorage.removeItem("token"); // Clear the token from localStorage
@@ -14,18 +17,44 @@ const AppNavbar = () => {
   };
 
   const handleHistoryClick = () => {
-    navigate("/HistoryPlantCount"); // Navigate to the history page
+    navigate("/HistoryPlantCount"); // Navigate to the main history page
   };
+
+  // Close dropdowns when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        historyRef.current &&
+        !historyRef.current.contains(event.target)
+      ) {
+        setHistoryOpen(false);
+      }
+      if (
+        profileRef.current &&
+        !profileRef.current.contains(event.target)
+      ) {
+        setProfileOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
     <nav className="bg-[#16423C]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
+          {/* Logo Section */}
           <div className="flex-shrink-0 flex items-center">
-            <a href="/" className="text-[#E9EFEC] font-bold text-2xl">
+            <Link to="/" className="text-[#E9EFEC] font-bold text-2xl">
               FarmTec
-            </a>
+            </Link>
           </div>
+
+          {/* Mobile Menu Button */}
           <div className="flex items-center">
             <button
               onClick={() => setIsOpen(!isOpen)}
@@ -59,80 +88,141 @@ const AppNavbar = () => {
             </button>
           </div>
 
+          {/* Desktop Menu */}
           <div className="hidden sm:flex space-x-4 items-center">
-            <a
-              href="#home"
+            <Link
+              to="/"
               className="text-[#C4DAD2] hover:text-white font-medium px-3 py-2 text-lg"
             >
               Home
-            </a>
-            <a
-              href="/PlantCount"
+            </Link>
+            <Link
+              to="/PlantCount"
               className="text-[#C4DAD2] hover:text-white font-medium px-3 py-2 text-lg"
             >
               Plant Count
-            </a>
-            {/* Add History Button */}
-            {token && ( // Only show this button if the user is logged in
-              <button
-                onClick={handleHistoryClick}
-                className="text-[#C4DAD2] hover:text-white font-medium px-3 py-2 text-lg"
-              >
-                History
-              </button>
+            </Link>
+
+            {/* History Dropdown */}
+            {token && (
+              <div className="relative" ref={historyRef}>
+                <button
+                  onClick={() => setHistoryOpen(!historyOpen)}
+                  className="text-[#C4DAD2] hover:text-white font-medium px-3 py-2 text-lg inline-flex items-center"
+                >
+                  Land Optimization
+                  <svg
+                    className="ml-1 h-5 w-5"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M5.23 7.21a.75.75 0 011.06.02L10 10.584l3.71-3.354a.75.75 0 111.04 1.08l-4.25 3.85a.75.75 0 01-1.04 0L5.25 8.29a.75.75 0 01-.02-1.08z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </button>
+
+                {/* Dropdown Menu */}
+                {historyOpen && (
+                  <div className="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-10">
+                    <div
+                      className="py-1"
+                      role="menu"
+                      aria-orientation="vertical"
+                      aria-labelledby="history-menu"
+                    >
+                      <Link
+                        to="/PlantCount"
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                        role="menuitem"
+                        onClick={() => setHistoryOpen(false)}
+                      >
+                        Plant Count
+                      </Link>
+                      <Link
+                        to="/HistoryPlantCount"
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                        role="menuitem"
+                        onClick={() => setHistoryOpen(false)}
+                      >
+                        Plant Count History
+                      </Link>
+                      {/* Add more history options here */}
+                      <Link
+                        to="/HistoryOther"
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                        role="menuitem"
+                        onClick={() => setHistoryOpen(false)}
+                      >
+                        All shops
+                      </Link> 
+                    </div>
+                  </div>
+                )}
+              </div>
             )}
 
-            {/* Conditionally render based on token */}
+            {/* Profile Dropdown */}
             {token ? (
-              <>
-                {/* Profile icon */}
-                <div className="relative">
-                  <button
-                    onClick={() => setProfileOpen(!profileOpen)}
-                    className="relative z-10 w-10 h-10 bg-[#C4DAD2] text-white rounded-full focus:outline-none"
-                  >
-                    {/* Profile Image or Default Avatar */}
-                    <img
-                      className="w-10 h-10 rounded-full"
-                      src="/path-to-default-avatar.png"
-                      alt="Profile"
-                    />
-                  </button>
+              <div className="relative" ref={profileRef}>
+                <button
+                  onClick={() => setProfileOpen(!profileOpen)}
+                  className="relative z-10 w-10 h-10 bg-[#C4DAD2] text-white rounded-full focus:outline-none"
+                >
+                  {/* Profile Image or Default Avatar */}
+                  <img
+                    className="w-10 h-10 rounded-full"
+                    src="/path-to-default-avatar.png" // Replace with actual path or use a dynamic avatar
+                    alt="Profile"
+                  />
+                </button>
 
-                  {/* Dropdown Menu */}
-                  {profileOpen && (
-                    <div className="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
-                      <div
-                        className="py-1"
-                        role="menu"
-                        aria-orientation="vertical"
-                        aria-labelledby="options-menu"
+                {/* Dropdown Menu */}
+                {profileOpen && (
+                  <div className="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-10">
+                    <div
+                      className="py-1"
+                      role="menu"
+                      aria-orientation="vertical"
+                      aria-labelledby="options-menu"
+                    >
+                      <Link
+                        to="/Profile" // Add a link to the user's profile if available
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                        role="menuitem"
+                        onClick={() => setProfileOpen(false)}
                       >
-                        <button
-                          onClick={handleLogout}
-                          className="w-full text-left block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-                        >
-                          Log Out
-                        </button>
-                      </div>
+                        Admin Dashboard
+                      </Link>
+                      <button
+                        onClick={handleLogout}
+                        className="w-full text-left block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                        role="menuitem"
+                      >
+                        Log Out
+                      </button>
                     </div>
-                  )}
-                </div>
-              </>
+                  </div>
+                )}
+              </div>
             ) : (
               <>
-                <a
-                  href="/signup"
+                <Link
+                  to="/signup"
                   className="text-[#C4DAD2] hover:text-white font-medium px-3 py-2 text-lg"
                 >
                   SignUp
-                </a>
-                <a
-                  href="/login"
+                </Link>
+                <Link
+                  to="/login"
                   className="text-[#C4DAD2] hover:text-white font-medium px-3 py-2 text-lg"
                 >
                   LogIn
-                </a>
+                </Link>
               </>
             )}
           </div>
@@ -142,27 +232,74 @@ const AppNavbar = () => {
       {/* Mobile Menu */}
       {isOpen && (
         <div className="sm:hidden px-2 pt-2 pb-3 space-y-1">
-          <a
-            href="#home"
+          <Link
+            to="/"
             className="text-[#C4DAD2] hover:text-white block px-3 py-2 rounded-md text-base font-medium"
           >
             Home
-          </a>
-          <a
-            href="#tools"
+          </Link>
+          <Link
+            to="/PlantCount"
             className="text-[#C4DAD2] hover:text-white block px-3 py-2 rounded-md text-base font-medium"
           >
-            Tools
-          </a>
+            Plant Count
+          </Link>
 
-          {token ? (
-            <>
+          {/* History Dropdown in Mobile */}
+          {token && (
+            <div className="relative" ref={historyRef}>
               <button
-                onClick={handleHistoryClick}
-                className="text-[#C4DAD2] hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+                onClick={() => setHistoryOpen(!historyOpen)}
+                className="w-full text-left text-[#C4DAD2] hover:text-white block px-3 py-2 rounded-md text-base font-medium flex items-center justify-between"
               >
                 History
+                <svg
+                  className="h-5 w-5 ml-2"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M5.23 7.21a.75.75 0 011.06.02L10 10.584l3.71-3.354a.75.75 0 111.04 1.08l-4.25 3.85a.75.75 0 01-1.04 0L5.25 8.29a.75.75 0 01-.02-1.08z"
+                    clipRule="evenodd"
+                  />
+                </svg>
               </button>
+
+              {historyOpen && (
+                <div className="mt-1 space-y-1">
+                  <Link
+                    to="/HistoryPlantCount"
+                    className="text-[#C4DAD2] hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+                    onClick={() => setHistoryOpen(false)}
+                  >
+                    Plant Count History
+                  </Link>
+                  <Link
+                    to="/HistoryYieldCards"
+                    className="text-[#C4DAD2] hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+                    onClick={() => setHistoryOpen(false)}
+                  >
+                    Yield Card History
+                  </Link>
+                  {/* Add more history options here */}
+                  <Link
+                    to="/HistoryOther"
+                    className="text-[#C4DAD2] hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+                    onClick={() => setHistoryOpen(false)}
+                  >
+                    Other History
+                  </Link>
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* Conditionally render based on token */}
+          {token ? (
+            <>
               <button
                 onClick={handleLogout}
                 className="text-[#C4DAD2] hover:text-white block px-3 py-2 rounded-md text-base font-medium"
@@ -172,18 +309,18 @@ const AppNavbar = () => {
             </>
           ) : (
             <>
-              <a
-                href="/signup"
+              <Link
+                to="/signup"
                 className="text-[#C4DAD2] hover:text-white block px-3 py-2 rounded-md text-base font-medium"
               >
                 SignUp
-              </a>
-              <a
-                href="/login"
+              </Link>
+              <Link
+                to="/login"
                 className="text-[#C4DAD2] hover:text-white block px-3 py-2 rounded-md text-base font-medium"
               >
                 LogIn
-              </a>
+              </Link>
             </>
           )}
         </div>
