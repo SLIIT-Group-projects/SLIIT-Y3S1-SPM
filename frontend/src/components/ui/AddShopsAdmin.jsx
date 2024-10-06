@@ -53,7 +53,6 @@ const AdminAddPlantShop = () => {
 
   return (
     <div>
-      <PlantNavBar />
       <AdminHeader/>
       <div className="flex justify-center items-center h-16">
         <div className="text-[#16423C] text-3xl font-bold">

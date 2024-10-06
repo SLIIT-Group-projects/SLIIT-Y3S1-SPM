@@ -57,7 +57,7 @@ const PlantShopList = () => {
   return (
     <div>
      
-      <div className="flex justify-center items-center h-16">
+      <div className="flex justify-center items-center h-16 ">
         <div className="text-[#6A9C89] text-3xl font-bold">
           Shops Selling {plantName}
         </div>
@@ -65,7 +65,7 @@ const PlantShopList = () => {
 
       <div className="mx-20 mt-5">
         {shops.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
             {shops.map((shop) => (
               <div
                 key={shop._id}

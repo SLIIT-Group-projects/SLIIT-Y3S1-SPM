@@ -31,11 +31,7 @@ function AdminHeader() {
             Buyer Cards
           </button>
         </Link>
-        <Link to="/analytics">
-          <button className="bg-[#6A9C89] text-white px-4 py-2 rounded hover:bg-[#558270]">
-            Analytics
-          </button>
-        </Link>
+
         <Link to="/order">
           <button className="bg-[#6A9C89] text-white px-4 py-2 rounded hover:bg-[#558270]">
             Manage Fertilizers
