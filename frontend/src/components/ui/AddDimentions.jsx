@@ -59,12 +59,12 @@ function AddDimensions() {
             </div>
 
             <div className="mb-5">
-              <label htmlFor="requiredDimension" className="block mb-2 text-sm font-medium text-[#27302d]">
+              <label htmlFor="requiredDimension" className="block mb-2 text-sm font-medium text-[#27302d] ">
                 Enter Required Dimension
               </label>
               <input
-                type="text"
-                id="requiredDimension"
+                type="number"
+                id="requiredDimension" min="0" 
                 className="border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 focus:outline-none focus:ring-2 focus:ring-[#6A9C89]"
                 placeholder="Dimension in meters"
                 value={requiredDimension}
