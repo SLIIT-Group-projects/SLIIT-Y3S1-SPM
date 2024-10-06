@@ -15,8 +15,8 @@ function AddBuyerCard() {
   const [buying_rate, setRate] = useState("");
   const [buying_quantity, setQuantity] = useState("");
 
-  const auth = "silunirupasinghe@gmail.com";
-  const secret = "siluni";
+  const auth = "adminpriyantha@gmail.com";
+  const secret = "Priyantha Mahaulpathgama";
 
   // Array of possible card IDs
   const cardIdArray = ["C004", "C005", "C006", "C007", "C008"];
