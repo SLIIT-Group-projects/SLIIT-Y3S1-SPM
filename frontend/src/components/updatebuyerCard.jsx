@@ -51,6 +51,16 @@ function UpdateProducts() {
     });
   };
 
+  // Handle image change with size validation
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file && file.size > 2 * 1024 * 1024) { // Check if file size exceeds 2 MB
+      alert("Image size should be less than 2 MB");
+    } else {
+      setImg(file);
+    }
+  };
+
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -74,122 +84,127 @@ function UpdateProducts() {
         Update Crop Post
       </div>
       <form onSubmit={handleSubmit}>
-      <div className="yeild-addCard-form-box">
-        <div>
+        <div className="yeild-addCard-form-box">
           <div>
-            <div className="yeild-addCard-form-label">Card ID</div>
             <div>
-              <input
-                type="text"
-                className="add-product-input form-control"
-                name="buyer_card_ID"
-                value={yeild.buyer_card_ID}
-                onChange={handleInputChange}
-                readOnly
-              />
+              <div className="yeild-addCard-form-label">Card ID</div>
+              <div>
+                <input
+                  type="text"
+                  className="add-product-input form-control"
+                  name="buyer_card_ID"
+                  value={yeild.buyer_card_ID}
+                  onChange={handleInputChange}
+                  readOnly
+                />
+              </div>
+            </div>
+            <div>
+              <div className="yeild-addCard-form-label">Image</div>
+              <div>
+                <label htmlFor="uploadImage">
+                  <div className="uploadBox">
+                    <input
+                      type="file"
+                      className="add-product-upload add-product-input"
+                      onChange={handleImageChange}
+                    />
+                  </div>
+                </label>
+              </div>
+            </div>
+            <div>
+              <div className="yeild-addCard-form-label">Title</div>
+              <div>
+                <input
+                  type="text"
+                  name="b_title"
+                  className="add-product-input form-control"
+                  value={yeild.b_title}
+                  onChange={handleInputChange}
+                />
+              </div>
+            </div>
+            <div>
+              <div className="yeild-addCard-form-label">Description</div>
+              <div>
+                <input
+                  type="text"
+                  className="add-product-input form-control"
+                  name="b_description"
+                  value={yeild.b_description}
+                  onChange={handleInputChange}
+                />
+              </div>
+            </div>
+            <div>
+              <div className="yeild-addCard-form-label">
+                Buying Quantity (Kg)
+              </div>
+              <div>
+                <input
+                  type="number"
+                  min="0"
+                  className="add-product-input form-control"
+                  name="buying_quantity"
+                  value={yeild.buying_quantity}
+                  onChange={handleInputChange}
+                />
+              </div>
+            </div>
+            <div>
+              <div className="yeild-addCard-form-label">
+                Buying Rate (per kilo)
+              </div>
+              <div>
+                <input
+                  type="number"
+                  min="0"
+                  step="0.01"
+                  className="add-product-input form-control"
+                  name="buying_rate"
+                  value={yeild.buying_rate}
+                  onChange={handleInputChange}
+                />
+              </div>
+            </div>
+            <div>
+              <div className="yeild-addCard-form-label">Buyer Email</div>
+              <div>
+                <input
+                  type="text"
+                  className="add-product-input form-control"
+                  name="buyer_id"
+                  value={yeild.buyer_id}
+                  onChange={handleInputChange}
+                />
+              </div>
+            </div>
+            <div>
+              <div className="yeild-addCard-form-label">Buyer Name</div>
+              <div>
+                <input
+                  type="text"
+                  className="add-product-input form-control"
+                  name="buyer_name"
+                  value={yeild.buyer_name}
+                  onChange={handleInputChange}
+                />
+              </div>
+            </div>
+            <div>
+              <button
+                type="submit"
+                className="yeild-addCard-form-btn pti-bolder pti-text-h3"
+              >
+                update
+              </button>
             </div>
           </div>
           <div>
-            <div className="yeild-addCard-form-label">Image</div>
-            <div>
-              <label htmlFor="uploadImage">
-                <div className="uploadBox">
-                  <input
-                    type="file"
-                    className="add-product-upload add-product-input"
-                    onChange={(e) => setImg(e.target.files[0])}
-                  />
-                </div>
-              </label>
-            </div>
-          </div>
-          <div>
-            <div className="yeild-addCard-form-label">Title</div>
-            <div>
-              <input
-                type="text"
-                name="b_title"
-                className="add-product-input form-control"
-                value={yeild.b_title}
-                onChange={handleInputChange}
-              />
-            </div>
-          </div>
-          <div>
-            <div className="yeild-addCard-form-label">Description</div>
-            <div>
-              <input
-                type="text"
-                className="add-product-input form-control"
-                name="b_description"
-                value={yeild.b_description}
-                onChange={handleInputChange}
-              />
-            </div>
-          </div>
-          <div>
-            <div className="yeild-addCard-form-label">Buying Quantity (Kg)</div>
-            <div>
-              <input
-                type="number"
-                min="0"
-                className="add-product-input form-control"
-                name="buying_quantity"
-                value={yeild.buying_quantity}
-                onChange={handleInputChange}
-              />
-            </div>
-          </div>
-          <div>
-            <div className="yeild-addCard-form-label">
-              Buying Rate (per kilo)
-            </div>
-            <div>
-              <input
-                type="number"
-                min="0"
-                step="0.01"
-                className="add-product-input form-control"
-                name="buying_rate"
-                value={yeild.buying_rate}
-                onChange={handleInputChange}
-              />
-            </div>
-          </div>
-          <div>
-            <div className="yeild-addCard-form-label">Buyer Email</div>
-            <div>
-              <input
-                type="text"
-                className="add-product-input form-control"
-                name="buyer_id"
-                value={yeild.buyer_id}
-                onChange={handleInputChange}
-              />
-            </div>
-          </div>
-          <div>
-            <div className="yeild-addCard-form-label">Buyer Name</div>
-            <div>
-              <input
-                type="text"
-                className="add-product-input form-control"
-                name="buyer_name"
-                value={yeild.buyer_name}
-                onChange={handleInputChange}
-              />
-            </div>
-          </div>
-          <div>
-            <button type="submit" className="yeild-addCard-form-btn pti-bolder pti-text-h3">
-              update
-            </button>
+            <div className="yeild-updateCard-form-img"></div>
           </div>
         </div>
-        <div>
-          <div className="yeild-updateCard-form-img"></div>
-        </div>
-      </div>
       </form>
 
       <br />
