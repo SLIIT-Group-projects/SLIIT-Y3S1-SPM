@@ -35,8 +35,8 @@ function UpdateProducts() {
     };
     fetchProductData();
   }, [id]);
-  const auth = 'silunirupasinghe@gmail.com';
-  const secret = 'siluni';
+  const auth = 'samanperera@gmail.com';
+  const secret = 'Saman Perera';
   useEffect(() => {
     setFarmerId(auth);
   }, [auth]);
