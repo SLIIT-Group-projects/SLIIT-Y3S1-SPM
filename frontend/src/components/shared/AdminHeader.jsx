@@ -36,9 +36,9 @@ function AdminHeader() {
             Analytics
           </button>
         </Link>
-        <Link to="/settings">
+        <Link to="/order">
           <button className="bg-[#6A9C89] text-white px-4 py-2 rounded hover:bg-[#558270]">
-            Settings
+            Manage Fertilizers
           </button>
         </Link>
       </div>
