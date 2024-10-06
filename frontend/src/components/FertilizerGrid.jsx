@@ -1,7 +1,12 @@
 import FertilizerCard from "./FertilizerCard";
 import React from "react";
 
-const FertilizerGrid = ({ fertilizers, deleteFertilizer, handleAddToCart }) => {
+const FertilizerGrid = ({
+  fertilizers,
+  deleteFertilizer,
+  handleAddToCart,
+  userRole,
+}) => {
   return (
     <div className="px-10 py-4 grid gap-x-7 gap-y-6 grid-cols-[repeat(auto-fill,minmax(14rem,1fr))]">
       {fertilizers.map((fertilizer) => {
@@ -15,7 +20,7 @@ const FertilizerGrid = ({ fertilizers, deleteFertilizer, handleAddToCart }) => {
             plants={fertilizer.fer_plants}
             weight={fertilizer.fer_weight}
             image={imageUrl} // Pass only the URL
-            //userRole={userRole}
+            userRole={userRole}
             handleDelete={deleteFertilizer}
             handleAddToCart={handleAddToCart} // Pass handleAddToCart down
           />

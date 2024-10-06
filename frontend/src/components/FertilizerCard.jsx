@@ -8,7 +8,12 @@ import withReactContent from "sweetalert2-react-content";
 
 const MySwal = withReactContent(Swal);
 
-const FertilizerCard = ({ fertilizer, handleDelete, handleAddToCart }) => {
+const FertilizerCard = ({
+  fertilizer,
+  handleDelete,
+  handleAddToCart,
+  userRole,
+}) => {
   // Extract necessary properties
   const { fer_image, fer_name, fer_plants, fer_weight, fer_price, _id } =
     fertilizer;
@@ -24,9 +29,24 @@ const FertilizerCard = ({ fertilizer, handleDelete, handleAddToCart }) => {
 
   useEffect(() => {
     const fetchFertilizers = async () => {
+      //   try {
+      //     const res = await axios.get("http://localhost:8070/api/fertilizers");
+      //     setFertilizers(res.data);
+      //   } catch (error) {
+      //     console.error("Error fetching fertilizers:", error);
+      //   }
+      // };
+      const token = localStorage.getItem("authToken");
       try {
-        const res = await axios.get("http://localhost:8070/api/fertilizers");
-        setFertilizers(res.data);
+        const response = await axios.get(
+          "http://localhost:8070/api/fertilizers",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        setFertilizers(response.data);
       } catch (error) {
         console.error("Error fetching fertilizers:", error);
       }
@@ -82,22 +102,22 @@ const FertilizerCard = ({ fertilizer, handleDelete, handleAddToCart }) => {
         <PiShoppingCartSimple size={24} weight="bold" />
       </button>
       {/* Update & Delete Buttons */}
-      {/* {userRole === "admin" && ( */}
-      <div className="flex gap-3 mt-2">
-        <Link
-          to={`/update/${_id}`}
-          className="bg-blue-500 text-white text-sm px-3 py-1 rounded-md hover:bg-blue-600"
-        >
-          Update
-        </Link>
-        <button
-          onClick={confirmDelete}
-          className="bg-red-500 text-white text-sm px-3 py-1 rounded-md hover:bg-red-600"
-        >
-          Delete
-        </button>
-      </div>
-      {/* )} */}
+      {userRole === "admin" && (
+        <div className="flex gap-3 mt-2">
+          <Link
+            to={`/update/${_id}`}
+            className="bg-blue-500 text-white text-sm px-3 py-1 rounded-md hover:bg-blue-600"
+          >
+            Update
+          </Link>
+          <button
+            onClick={confirmDelete}
+            className="bg-red-500 text-white text-sm px-3 py-1 rounded-md hover:bg-red-600"
+          >
+            Delete
+          </button>
+        </div>
+      )}
     </div>
   );
 };

@@ -1,3 +1,5 @@
+import jwt_decode from "jwt-decode";
+
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Header from "../components/Header";
@@ -9,7 +11,7 @@ import { toast } from "react-hot-toast";
 
 const FertilizerOrderPage = () => {
   const [fertilizers, setFertilizers] = useState([]);
-  //const [userRole, setUserRole] = useState(null); // Track user role
+  const [userRole, setUserRole] = useState(null); // Track user role
   const [searchInput, setSearchInput] = useState("");
   const [cartItems, setCartItems] = useState([]); // State for the shopping cart
 
@@ -17,6 +19,14 @@ const FertilizerOrderPage = () => {
     setSearchInput(newSearchTerm);
   };
 
+  const token = localStorage.getItem("authToken"); // Retrieve the token
+  if (token) {
+    // Use the token in your API requests
+    fetchUserRole(token);
+  } else {
+    // Handle case where token isn't present (redirect to login or show error)
+    console.error("No token found, please login");
+  }
   const handleAddToCart = (fertilizer) => {
     setCartItems((prevItems) => {
       const existingItem = prevItems.find(
@@ -65,6 +75,13 @@ const FertilizerOrderPage = () => {
       }
     };
     fetchFertilizers();
+
+    // Fetch the user role from JWT token stored in localStorage or cookies
+    const token = localStorage.getItem("token");
+    if (token) {
+      const decodedToken = jwt_decode(token);
+      setUserRole(decodedToken.role); // Set the role from the token
+    }
     // Fetch user role from backend (this can be a session or token)
     // axios
     //   .get("http://localhost:8070/api/user-role", { withCredentials: true })
@@ -76,6 +93,18 @@ const FertilizerOrderPage = () => {
     //   });
   }, []);
 
+  const fetchUserRole = async (token) => {
+    try {
+      const response = await axios.get("http://localhost:8070/api/user-role", {
+        headers: {
+          Authorization: `Bearer ${token}`, // Send token in Authorization header
+        },
+      });
+      console.log("User role:", response.data);
+    } catch (error) {
+      console.error("Error fetching user role:", error);
+    }
+  };
   // Filter based on searchInput
   const filteredData = fertilizers.filter((item) => {
     // Search across fields you deem relevant
@@ -124,15 +153,15 @@ const FertilizerOrderPage = () => {
           <SearchBar onSearchChange={handleSearchChange} />
         </div>
         <div className="flex justify-end items-center mr-8">
-          {/* {userRole === "admin" && ( */}
-          <Link
-            to="/add-fer"
-            type="button"
-            className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 object-right-top absolute"
-          >
-            Create Fertilizer
-          </Link>
-          {/* )} */}
+          {userRole === "admin" && (
+            <Link
+              to="/add-fer"
+              type="button"
+              className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 object-right-top absolute"
+            >
+              Create Fertilizer
+            </Link>
+          )}
         </div>
       </div>
       {filteredData.length > 0 ? (
