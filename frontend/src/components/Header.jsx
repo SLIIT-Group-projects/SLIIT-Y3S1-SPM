@@ -15,9 +15,14 @@ import jsPDF from "jspdf";
 // Header component
 const Header = ({ cartItems, onRemove, totalCost, onUpdateQuantity }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isRentDropdownOpen, setIsRentDropdownOpen] = useState(false);
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
+  };
+
+  const toggleRentDropdown = () => {
+    setIsRentDropdownOpen(!isRentDropdownOpen);
   };
 
   const generatePDF = async () => {
@@ -104,29 +109,44 @@ const Header = ({ cartItems, onRemove, totalCost, onUpdateQuantity }) => {
       </div>
       <div className="flex flex-1 justify-end gap-8">
         <nav className="flex items-center gap-9">
-          <a
-            className="text-[#ffffff] text-sm font-medium leading-normal"
-            href="#"
-          >
-            Home
-          </a>
           <Link
             className="text-[#ffffff] text-sm font-medium leading-normal"
             to="/order"
           >
             Order Fertilizer
           </Link>
-          <Link
-            className="text-[#ffffff] text-sm font-medium leading-normal"
-            to="/rent"
-          >
-            Rent Equipment
-          </Link>
+          {/* Rent Equipment with Dropdown */}
+          <div className="relative">
+            <button
+              className="text-[#ffffff] text-sm font-medium leading-normal"
+              onClick={toggleRentDropdown}
+            >
+              Tool Renting
+            </button>
+            {isRentDropdownOpen && (
+              <div className="absolute left-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10">
+                <Link
+                  to="/rent"
+                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200"
+                  onClick={() => setIsRentDropdownOpen(false)}
+                >
+                  Rent Tools
+                </Link>
+                <Link
+                  to="/booking"
+                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200"
+                  onClick={() => setIsRentDropdownOpen(false)}
+                >
+                  My Rentals
+                </Link>
+              </div>
+            )}
+          </div>
           <a
             className="text-[#ffffff] text-sm font-medium leading-normal"
             href="#"
           >
-            Yield Distribution
+            Crop
           </a>
           <Link
             className="text-[#ffffff] text-sm font-medium leading-normal"
