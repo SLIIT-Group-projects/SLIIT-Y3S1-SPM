@@ -67,7 +67,7 @@ const FertilizerOrderPage = () => {
     fetchFertilizers();
     // Fetch user role from backend (this can be a session or token)
     // axios
-    //   .get("http://localhost:5000/api/user-role", { withCredentials: true })
+    //   .get("http://localhost:8070/api/user-role", { withCredentials: true })
     //   .then((response) => {
     //     setUserRole(response.data.role); // e.g., "admin" or "customer"
     //   })
