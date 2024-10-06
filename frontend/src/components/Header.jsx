@@ -104,17 +104,13 @@ const Header = ({ cartItems, onRemove, totalCost, onUpdateQuantity }) => {
           <FontAwesomeIcon icon={faSeedling} size="2x" />
         </div>
         <h2 className="text-[#ffffff] text-lg font-bold leading-tight tracking-[-0.015em] px-5">
-          Farm Tech
+          <Link to="/" className="text-[#ffffff]">
+            Farm Tech
+          </Link>
         </h2>
       </div>
       <div className="flex flex-1 justify-end gap-8">
         <nav className="flex items-center gap-9">
-          <Link
-            className="text-[#ffffff] text-sm font-medium leading-normal"
-            to="/order"
-          >
-            Order Fertilizer
-          </Link>
           {/* Rent Equipment with Dropdown */}
           <div className="relative">
             <button
@@ -142,6 +138,13 @@ const Header = ({ cartItems, onRemove, totalCost, onUpdateQuantity }) => {
               </div>
             )}
           </div>
+          <Link
+            className="text-[#ffffff] text-sm font-medium leading-normal"
+            to="/order"
+          >
+            Fertilizer
+          </Link>
+
           <a
             className="text-[#ffffff] text-sm font-medium leading-normal"
             href="#"
