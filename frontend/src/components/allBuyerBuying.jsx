@@ -17,7 +17,7 @@ const CropSellingTable = () => {
       try {
         const response = await axios.get(
           "http://localhost:8070/yeildCard/crop_selling/",
-          { params: { buyer_id: "silunirupasinghe@gmail.com" } }
+          { params: { buyer_id: "adminpriyantha@gmail.com" } }
         );
         setCropData(response.data);
       } catch (err) {
