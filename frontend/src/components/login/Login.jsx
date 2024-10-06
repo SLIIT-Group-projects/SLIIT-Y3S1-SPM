@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import PlantNavBar from "../shared/PlantNavBar";
 import { useNavigate } from "react-router-dom";
 
 function Login() {
@@ -57,11 +56,10 @@ function Login() {
 
   return (
     <>
-      <PlantNavBar />
-      <div className="flex justify-center items-center min-h-screen bg-gradient-to-b from-green-200 via-green-300 to-green-400">
+      <div className="flex justify-center items-center min-h-screen bg-gradient-to-b">
         <form
           onSubmit={handleSubmit}
-          className="bg-white p-8 rounded-lg shadow-md w-full max-w-md"
+          className="bg-[#C4DAD2] p-8 rounded-lg shadow-md w-full max-w-md"
         >
           <h3 className="text-2xl font-bold mb-6 text-green-700">Login</h3>
 
@@ -98,7 +96,7 @@ function Login() {
           <div className="mb-6">
             <button
               type="submit"
-              className="w-full bg-green-600 text-white font-bold py-3 rounded-lg hover:bg-green-700 transition duration-300"
+              className="w-full bg-[#16423C]  text-white font-bold py-3 rounded-lg hover:bg-green-700 transition duration-300"
             >
               LogIn
             </button>

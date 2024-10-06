@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import PlantNavBar from "../shared/PlantNavBar";
+import AdminHeader from "../shared/AdminHeader";
 
 const AdminAddPlantShop = () => {
   const [shopData, setShopData] = useState({
@@ -53,14 +54,15 @@ const AdminAddPlantShop = () => {
   return (
     <div>
       <PlantNavBar />
+      <AdminHeader/>
       <div className="flex justify-center items-center h-16">
-        <div className="text-[#6A9C89] text-3xl font-bold">
+        <div className="text-[#16423C] text-3xl font-bold">
           Add New Plant Shop
         </div>
       </div>
 
       <div className="mx-auto w-full max-w-lg mt-5">
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-4 max-auto mx-auto bg-[#EFF4F2] p-8 shadow-lg rounded-lg">
           <div>
             <label className="block text-gray-700">Shop Name</label>
             <input

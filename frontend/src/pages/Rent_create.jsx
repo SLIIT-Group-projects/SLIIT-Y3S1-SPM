@@ -3,7 +3,7 @@ import { Link, Navigate, useParams } from "react-router-dom";
 import axios from "axios";
 import PhotosUploder from "../components/PhotosUploder";
 import ToolPerks from "../components/ToolPerks";
-
+import AdminHeader from "../components/shared/AdminHeader";
 const ToolForm = () => {
   const { id } = useParams();
   const [title, setTitle] = useState("");
@@ -70,7 +70,10 @@ const ToolForm = () => {
   }
 
   return (
+    <>
+    <AdminHeader/>
     <div className="min-h-screen flex items-center justify-center p-4">
+      
       <div className="w-full max-w-3xl bg-[#E9EFEC] p-12 rounded-lg shadow-lg">
         <h2 className="text-[#16423C] text-3xl font-bold mb-8">
           {id ? "Edit Tool" : "Add New Tool"}
@@ -150,6 +153,7 @@ const ToolForm = () => {
         </form>
       </div>
     </div>
+    </>
   );
 };
 

@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import jwtDecode from "jwt-decode"; // Correct default import
-import PlantNavBar from "../shared/PlantNavBar";
 import draw1 from "../../assets/draw1.png";
 import draw2 from "../../assets/draw2.png";
 import draw3 from "../../assets/draw3.png";
@@ -157,30 +156,64 @@ function PlantCount() {
       alert("Please select a plant first.");
       return;
     }
-    navigate(`/plantShopList/${selectedPlant.plantName}`); 
+    navigate(`/plantShopList/${encodeURIComponent(selectedPlant.plantName)}`); 
   };
 
   return (
     <div>
-      <PlantNavBar />
+      
+
       <div className="flex justify-center items-center h-16">
         <div className="text-[#6A9C89] text-3xl font-bold">
           CALCULATE PLANT COUNT
         </div>
       </div>
 
-      <div className="flex justify-between">
-        <div>
-          <form onSubmit={calculateArea} className="w-full mx-auto ml-20">
+      {/* Flex Container for Slider and Form */}
+      <div className="flex flex-col md:flex-row justify-between mx-20 my-10 space-y-10 md:space-y-0 md:space-x-10">
+        
+        {/* Slider Section (Left) */}
+        <div className="md:w-1/2">
+          <div className="relative w-full h-80 overflow-hidden rounded-lg shadow-lg">
+            <img
+              src={slides[currentSlide]}
+              className="block w-full h-full object-cover"
+              alt={`Slide ${currentSlide + 1}`}
+            />
+
+            {/* Previous Button */}
+            <button
+              type="button"
+              className="absolute top-1/2 left-4 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full hover:bg-opacity-75 transition-opacity duration-300"
+              onClick={goToPrevSlide}
+            >
+              &#9664;
+            </button>
+
+            {/* Next Button */}
+            <button
+              type="button"
+              className="absolute top-1/2 right-4 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full hover:bg-opacity-75 transition-opacity duration-300"
+              onClick={goToNextSlide}
+            >
+              &#9654;
+            </button>
+          </div>
+        </div>
+
+        {/* Form Section (Right) */}
+        <div className="md:w-1/2">
+          <form onSubmit={calculateArea} className="bg-[#EFF4F2] p-8 rounded-lg shadow-md">
+            {/* Width Input */}
             <div className="mb-5">
-              <label htmlFor="width" className="block mb-2 text-sm font-medium">
+              <label htmlFor="width" className="block mb-2 text-sm font-medium text-gray-700">
                 Enter the width (m)
               </label>
               <input
                 type="number" // Changed to number for validation
                 step="0.01"
                 id="width"
-                className="border text-gray-900 text-sm rounded-lg block w-full p-2.5"
+                className="border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 focus:outline-none focus:ring-2 focus:ring-[#6A9C89]"
                 placeholder="Width"
                 value={width}
                 onChange={(e) => setWidth(e.target.value)}
@@ -188,18 +221,16 @@ function PlantCount() {
               />
             </div>
 
+            {/* Length Input */}
             <div className="mb-5">
-              <label
-                htmlFor="length"
-                className="block mb-2 text-sm font-medium text-gray-900"
-              >
+              <label htmlFor="length" className="block mb-2 text-sm font-medium text-gray-700">
                 Enter the length (m)
               </label>
               <input
                 type="number" // Changed to number for validation
                 step="0.01"
                 id="length"
-                className="border text-gray-900 text-sm rounded-lg block w-full p-2.5"
+                className="border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 focus:outline-none focus:ring-2 focus:ring-[#6A9C89]"
                 placeholder="Length"
                 value={length}
                 onChange={(e) => setLength(e.target.value)}
@@ -207,15 +238,13 @@ function PlantCount() {
               />
             </div>
 
+            {/* Plant Selection */}
             <div className="mb-5">
-              <label
-                htmlFor="plantSelect"
-                className="block mb-2 text-sm font-medium"
-              >
+              <label htmlFor="plantSelect" className="block mb-2 text-sm font-medium text-gray-700">
                 Choose the plant
               </label>
               <select
-                className="border text-sm rounded-lg block w-full p-2.5"
+                className="border border-gray-300 text-sm rounded-lg block w-full p-2.5 focus:outline-none focus:ring-2 focus:ring-[#6A9C89]"
                 id="plantSelect"
                 onChange={handlePlantSelection}
                 value={selectedPlant ? selectedPlant._id : ""}
@@ -230,78 +259,46 @@ function PlantCount() {
               </select>
             </div>
 
+            {/* Submit Button */}
             <button
               type="submit"
-              className="text-white bg-[#6A9C89] hover:bg-green-800 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+              className="w-full bg-[#6A9C89] text-white py-2 px-4 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none font-medium text-sm transition-colors duration-300"
             >
               Submit
             </button>
           </form>
 
+          {/* Area Display */}
           {area && (
-            <div className="mt-5 p-4 bg-[#C4DAD2] text-black rounded ml-20">
+            <div className="mt-5 p-4 bg-[#C4DAD2] text-black rounded">
               The area of the land is: {area} square meters
             </div>
           )}
+
+          {/* Plant Count Display */}
           {plantCount !== null && (
-            <div
-              className="alert alert-info mt-3 ml-20 bg-blue-100 border border-blue-400 text-blue-700 px-4 py-3 rounded relative"
-              role="alert"
-            >
-              <strong className="font-bold">Info:</strong>
-              <span className="block sm:inline">
-                You can plant approximately {plantCount}{" "}
-                {selectedPlant?.plantName}(s) in the given area.
-              </span>
+            <div className="mt-3 p-4 bg-blue-100 text-blue-700 rounded">
+              <strong>Info:</strong> You can plant approximately {plantCount} {selectedPlant?.plantName}(s) in the given area.
             </div>
           )}
 
+          {/* Save to History Button */}
           <button
-            className="text-white bg-[#6A9C89] hover:bg-green-800 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 mt-5 ml-20"
+            className="w-full bg-[#6A9C89] text-white py-2 px-4 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none font-medium text-sm transition-colors duration-300 mt-5"
             onClick={saveToHistory}
           >
             Save to History
           </button>
 
-          {/* Add View Shops Button */}
+          {/* View Shops Button */}
           {plantCount !== null && (
             <button
-              className="text-white bg-blue-500 hover:bg-blue-700 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 mt-3 ml-20"
+              className="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-700 focus:ring-4 focus:outline-none font-medium text-sm transition-colors duration-300 mt-3"
               onClick={handleViewShops}
             >
               View Shops with {selectedPlant?.plantName}
             </button>
           )}
-        </div>
-
-        <div className="w-1/2 mr-20">
-          <div className="relative w-full h-56 overflow-hidden rounded-lg md:h-96">
-            <img
-              src={slides[currentSlide]}
-              className="block w-full h-full object-cover"
-              alt={`Slide ${currentSlide + 1}`}
-            />
-
-            <button
-              type="button"
-              className="absolute top-0 left-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group"
-              onClick={goToPrevSlide}
-            >
-              <span className="inline-flex items-center justify-center w-8 h-8 text-white bg-black rounded-full opacity-60 hover:opacity-100">
-                &#9664;
-              </span>
-            </button>
-
-            <button
-              type="button"
-              className="absolute top-0 right-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group"
-              onClick={goToNextSlide}
-            >
-              <span className="inline-flex items-center justify-center w-8 h-8 text-white bg-black rounded-full opacity-60 hover:opacity-100">
-                &#9654;
-              </span>
-            </button>
-          </div>
         </div>
       </div>
     </div>

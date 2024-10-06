@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import PlantNavBar from "../shared/PlantNavBar";
 import axios from "axios";
 
 function HistoryPlantCount() {
@@ -33,7 +32,6 @@ function HistoryPlantCount() {
 
   return (
     <div>
-      <PlantNavBar />
       <div className="flex justify-center items-center h-16">
         <div className="text-[#6A9C89] text-3xl font-bold">
           PLANT COUNT HISTORY
@@ -44,7 +42,7 @@ function HistoryPlantCount() {
           plantHistories.map((history, i) => (
             <div
               key={i}
-              className="bg-[#C4DAD2] rounded-lg shadow-md p-6 hover:bg-white hover:text-black transition-colors duration-300"
+              className="bg-[#EFF4F2] rounded-lg shadow-md p-6 hover:bg-slate-300 hover:text-black transition-colors duration-300"
             >
               <h3 className="text-lg font-bold mb-2">{history.plantName}</h3>
               <p className="text-sm">

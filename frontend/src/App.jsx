@@ -1,8 +1,8 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter , Route, Routes } from "react-router-dom";
 import { useState } from "react";
 import "./index.css";
 import "flowbite";
-import Home from "./components/ui/Home";
+import AppNavbar from "./components/shared/PlantNavBar";
 import PlantCount from "./components/ui/PlantCount";
 import AddDimentions from "./components/ui/AddDimentions";
 import HistoryPlantCount from "./components/ui/HistoryPlantCount";
@@ -21,11 +21,35 @@ import Tool_booking from "./pages/Tool_booking";
 import Rent_bookings from "./pages/Rent_bookings";
 import AllShops from "./components/ui/AllShops";
 
+// vihara
+import FertilizerOrderPage from "./pages/FertilizerOrderPage";
+import DeleteFertilizerPage from "./pages/DeleteFertilizerPage";
+import AdminFertilizerPage from "./pages/AdminFertilizerPage";
+import UpdateFertilizerPage from "./pages/UpdateFertilizerPage";
+import AdminFertilizer from "./pages/AdminFertilizer";
+import CreateFertilizer from "./pages/CreateFertilizer";
+
+// daham
+import BuyerCardAdd from "./components/buyerCardAdd";
+import AllBuyerCards from "./components/allBuyerCards";
+import UpdatebuyerCard from "./components/updatebuyerCard";
+import AllBuyerBuying from "./components/allBuyerBuying";
+
+// import Navbar from "./components/Navbar";
+import Home from "./components/home";
+import Footer from "./components/footer";
+
+import FarmersView from "./components/farmersView";
+import FarmerAddingForm from "./components/farmerAddingForm";
+import AllFarmerSelling from "./components/allFarmerSelling";
+
 function App() {
   return (
     <>
-      <BrowserRouter>
+      <BrowserRouter >
+      <AppNavbar />
         <Routes>
+          
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
@@ -36,8 +60,7 @@ function App() {
           <Route path="/plantShopList/:plantName" element={<PlantShopList />} />
           <Route path="/AllShops" element={<AllShops />} />
 
-
-          {/* //daham */}
+          {/* //Sajitha */}
           <Route path="/rent" element={<Index_page />} />
           <Route path="/rent_admin_home" element={<Rent_home />} />
           <Route path="/rent_create" element={<ToolForm />} />
@@ -46,7 +69,25 @@ function App() {
           <Route path="/booking" element={<Tool_bookings />} />
           <Route path="/booking/:id" element={<Tool_booking />} />
           <Route path="/tools/:toolId/bookings" element={<Rent_bookings />} />
+
+          {/* //Vihara */}
+          <Route path="/order" element={<FertilizerOrderPage />} />
+          <Route path="/adminfertilizer" element={<AdminFertilizer />} />
+          <Route path="/delete/:id" element={<DeleteFertilizerPage />} />
+          <Route path="/adminfer" element={<AdminFertilizerPage />} />
+          <Route path="/update/:id" element={<UpdateFertilizerPage />} />
+          <Route path="/add-fer" element={<CreateFertilizer />} />
+
+          {/* daham */}
+          <Route path="/yeildCard/add" exact element={<BuyerCardAdd />} />
+          <Route path="/yeildCard/" exact element={<AllBuyerCards />} />
+          <Route path="/yeildCard/:id" exact element={<UpdatebuyerCard />} />
+          <Route path="/yeildCard/allBuyerBuying" exact element={<AllBuyerBuying />} />
+          <Route path="/yeildCard/FarmersView" exact element={<FarmersView />} />
+          <Route path="/yeildCard/FarmersView/:id" exact element={<FarmerAddingForm />} />
+          <Route path="/yeildCard/allFarmerSelling" exact element={<AllFarmerSelling />} />
         </Routes>
+        <Footer />
       </BrowserRouter>
     </>
   );

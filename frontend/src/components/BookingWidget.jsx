@@ -99,7 +99,7 @@ const BookingWidget = ({ tool }) => {
 
       <button
         onClick={rentTool}
-        className="w-full flex gap-4 justify-center bg-primary text-white p-4 rounded-2xl text-xl mr-3 mt-4"
+        className="w-full flex gap-4 justify-center  text-white p-4 rounded-2xl text-xl mr-3 mt-4"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"

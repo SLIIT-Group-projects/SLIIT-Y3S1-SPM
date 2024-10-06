@@ -1,7 +1,7 @@
 // src/components/PlantShopList.jsx
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom'; // Import useParams
+import { useParams } from 'react-router-dom';
 import PlantNavBar from '../shared/PlantNavBar';
 
 const PlantShopList = () => {
@@ -56,7 +56,7 @@ const PlantShopList = () => {
 
   return (
     <div>
-      <PlantNavBar />
+     
       <div className="flex justify-center items-center h-16">
         <div className="text-[#6A9C89] text-3xl font-bold">
           Shops Selling {plantName}
@@ -65,11 +65,11 @@ const PlantShopList = () => {
 
       <div className="mx-20 mt-5">
         {shops.length > 0 ? (
-          <div className="grid grid-cols-1 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {shops.map((shop) => (
               <div
                 key={shop._id}
-                className="flex flex-col md:flex-row border rounded-lg p-4 shadow-md"
+                className="flex flex-col md:flex-row border rounded-lg p-4 shadow-md bg-[#EDF4F2]" // Light green background
               >
                 {/* Image on the left */}
                 <img
@@ -94,7 +94,7 @@ const PlantShopList = () => {
                   </div>
                   <div className="mt-2">
                     <strong>Plants Available:</strong>
-                    <ul className="list-disc list-inside mt-1">
+                    <ul className="mt-1 space-y-1"> {/* Removed bullets, added spacing */}
                       {shop.plants.map((plant, index) => (
                         <li key={index} className="text-gray-600">
                           {plant}
@@ -115,3 +115,4 @@ const PlantShopList = () => {
 };
 
 export default PlantShopList;
+  

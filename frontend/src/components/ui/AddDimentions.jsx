@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import axios from "axios";
-import PlantNavBar from "../shared/PlantNavBar";
 import AdminHeader from "../shared/AdminHeader";
 
 function AddDimensions() {
@@ -34,7 +33,6 @@ function AddDimensions() {
 
   return (
     <div className="">
-      <PlantNavBar />
       <AdminHeader />
       <div className="flex justify-center items-center h-16">
         <div className="text-[#27302d] text-2xl font-bold">
@@ -44,7 +42,7 @@ function AddDimensions() {
       <div className="my-10 mx-20">
         {/* Form Start */}
         <div>
-          <form onSubmit={handleSubmit} className="max-w-md mx-auto bg-white p-8 shadow-lg rounded-lg">
+          <form onSubmit={handleSubmit} className="max-w-md mx-auto bg-[#EFF4F2] p-8 shadow-lg rounded-lg">
             <div className="mb-5">
               <label htmlFor="plantName" className="block mb-2 text-sm font-medium text-[#27302d]">
                 Enter Plant Name
