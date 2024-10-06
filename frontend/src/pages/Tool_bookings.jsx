@@ -40,7 +40,7 @@ const Tool_bookings = () => {
             >
               {/* Tool Image */}
               <Link to={`/booking/${booking._id}`} className="block">
-                <img
+                {/* <img
                   src={
                     booking.tool.tool_photos.length > 0
                       ? `http://localhost:8070/uploads/${booking.tool.tool_photos[0]}`
@@ -48,7 +48,7 @@ const Tool_bookings = () => {
                   }
                   alt={booking.tool.tool_title}
                   className="w-full h-48 object-cover"
-                />
+                /> */}
               </Link>
 
               {/* Booking Information */}
