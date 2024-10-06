@@ -19,7 +19,7 @@ function AddBuyerCard() {
   const secret = "Priyantha Mahaulpathgama";
 
   // Array of possible card IDs
-  const cardIdArray = ["C004", "C005", "C006", "C007", "C008"];
+  const cardIdArray = ["C010", "C011", "C012", "C013", "C013"];
 
   // Function to get a random card ID from the array
   const getRandomCardId = () => {
