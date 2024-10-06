@@ -56,7 +56,7 @@ const PlantShopList = () => {
 
   return (
     <div>
-      <PlantNavBar />
+     
       <div className="flex justify-center items-center h-16">
         <div className="text-[#6A9C89] text-3xl font-bold">
           Shops Selling {plantName}
