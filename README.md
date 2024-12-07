@@ -82,8 +82,7 @@ Make sure you have the following installed:
 3. Configure environment variables:
    - Create a .env file in the root directory and add the following:
    ```env
-   MONGO_URI=your-mongodb-uri  
-   CLERK_API_KEY=your-clerk-api-key
+   MONGO_URI=your-mongodb-uri 
    
 5. Start the development server:
    ```bash
